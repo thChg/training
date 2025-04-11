@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid hsl(0, 0%, 70%);
+}
+.title {
+    font-weight: bold;
+    font-size: 1.4em;
+    padding: 7px 15px;
+}
+.utilities {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.searchBarContainer {
+    padding: 5px 0px;
+    position: relative;
+}
+.searchBar {
+    border-radius: 50px;
+    padding: 10px;
+    padding-right: 30px;
+}
+.btnContainer {
+    display: flex;
+    align-items: center;
+}
+.btn {
+    background-color: hsl(204, 72%, 50%);
+    color: white;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+}
+.icon {
+    width: 15px;
+    height: 15px;
+    font-weight: bolder;
+    stroke-width: 0.5px;
+}
+.searchIcon {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+}

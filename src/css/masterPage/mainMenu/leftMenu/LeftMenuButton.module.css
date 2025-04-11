@@ -1,0 +1,10 @@
+.container {
+    padding: 10px;
+}
+.container:hover {
+    background-color: hsl(204, 72%, 40%);
+}
+.container_active {
+    padding: 10px;
+    background-color: hsl(204, 72%, 40%);
+}
