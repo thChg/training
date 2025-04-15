@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import EmployeeContext from "./EmployeeContext";
 import { CreateReloadHanlder } from "../functions/Reload";
 import { CreateComputeFilterCount } from "../functions/ComputeFilterCount";
-import { CreateSetCurrentFilter } from "../functions/SetCurrentFilter";
+import { CreateSetSearchResult } from "../functions/SetSearchResult";
+import { CreateHandleCurrentFilter } from "../functions/HandleCurrentFilter";
 
 export class EmployeeProvider extends Component {
   constructor(props) {
@@ -11,18 +12,20 @@ export class EmployeeProvider extends Component {
     this.state = {
       reloadKey: 0,
       filterCount: {},
-      currentFilter: "All",
+      searchResult: [],
     };
 
     this.handleReload = CreateReloadHanlder(this);
     this.computeFilterCount = CreateComputeFilterCount(this);
-    this.setCurrentFilter = CreateSetCurrentFilter(this);
+    this.setSearchResult = CreateSetSearchResult(this);
+    this.handleCurrentFilter = CreateHandleCurrentFilter(this);
 
     this.state = {
       ...this.state,
       handleReload: this.handleReload,
       computeFilterCount: this.computeFilterCount,
-      setCurrentFilter: this.setCurrentFilter,
+      setSearchResult: this.setSearchResult,
+      handleCurrentFilter: this.handleCurrentFilter,
     };
   }
 

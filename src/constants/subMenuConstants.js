@@ -1,15 +1,15 @@
 export const SUB_MENU = [
   {
     page: "Employee",
-    items: ["Employee List", "Add Employee", "Remove Employee", "Update Info","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List","Employee List"]
+    items: ["Employee List", "Intern List"]
   },
   {
     page: "Product",
-    items: ["Product Catalog", "Add Product", "Edit Product", "Delete Product"]
+    items: ["Product Catalog"]
   },
   {
     page: "Sales",
-    items: ["Sales Report", "New Order", "Pending Orders", "Returns"]
+    items: ["Sales Report", "Orders"]
   },
   {
     page: "Inventory",
@@ -21,11 +21,7 @@ export const SUB_MENU = [
   },
   {
     page: "Support",
-    items: ["Customer Tickets", "Live Chat", "FAQ Management"]
-  },
-  {
-    page: "Settings",
-    items: ["User Management", "System Configuration", "Access Control"]
+    items: ["Customer Tickets"]
   },
   {
     page: "Reports",

@@ -5,6 +5,5 @@ export const MENU_LIST = [
   "Inventory",
   "Accounting",
   "Support",
-  "Settings",
   "Reports",
 ];

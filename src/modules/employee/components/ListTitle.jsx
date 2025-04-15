@@ -6,21 +6,46 @@ import { FaPlus } from "react-icons/fa";
 import EmployeeContext from "./EmployeeContext";
 import classes from "../../../css/modules/components/ListTitle.module.css";
 import { PiMagnifyingGlass } from "react-icons/pi";
+import { connect } from "react-redux";
+import { mapDispatchToProps, mapStateToProps } from "../containers/EmployeeMap";
 
 export class ListTitle extends Component {
-    static contextType = EmployeeContext;
+  static contextType = EmployeeContext;
+
+  constructor(props) {
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    const employees = this.props.employees || [];
+    const result = searchTerm
+      ? employees.filter((employee) =>
+          employee.name.toLowerCase().includes(searchTerm)
+        )
+      : employees;
+  
+    this.context.setSearchResult(result);
+  }
 
   render() {
     const { title } = this.props;
-    const {handleReload} = this.context;
+    const { handleReload } = this.context;
 
     return (
       <div className={classes.container}>
         <div className={classes.title}>{title}</div>
         <div className={classes.utilities}>
           <div className={classes.searchBarContainer}>
-            <input type="text" className={classes.searchBar} />
-            <PiMagnifyingGlass className={classes.searchIcon}></PiMagnifyingGlass>
+            <input
+              type="text"
+              className={classes.searchBar}
+              onChange={this.handleSearch}
+            />
+            <PiMagnifyingGlass
+              className={classes.searchIcon}
+            ></PiMagnifyingGlass>
           </div>
           <button className={classes.btn} onClick={handleReload}>
             <TfiReload className={classes.icon}></TfiReload>
@@ -40,4 +65,4 @@ export class ListTitle extends Component {
   }
 }
 
-export default ListTitle;
+export default connect(mapStateToProps, mapDispatchToProps)(ListTitle);

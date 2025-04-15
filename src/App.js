@@ -6,6 +6,8 @@ import SubMenu from "./masterPage/subMenu/SubMenu";
 import PageProvider from "./masterPage/utils/PageProvider";
 import { Route, Routes } from "react-router-dom";
 import AppRouter from "./modules/AppRouter";
+import { Provider } from "react-redux";
+import { store } from "./modules/rootReducer";
 
 export class App extends Component {
   constructor(props) {
@@ -19,9 +21,11 @@ export class App extends Component {
           <MainMenu />
           <SubMenu />
         </PageProvider>
-        <div className={classes.routes}>
-          <AppRouter/>
-        </div>
+        <Provider store={store}>
+          <div className={classes.routes}>
+            <AppRouter />
+          </div>
+        </Provider>
       </div>
     );
   }
