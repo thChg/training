@@ -9,12 +9,9 @@ export class AppRouter extends Component {
 
   render() {
     return (
-      <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/employee/list" />} />
-          <Route path="employee/list" element={<EmployeeList />}></Route>
+          <Route path="employee-list" element={<EmployeeList />}></Route>
         </Routes>
-      </Router>
     );
   }
 }

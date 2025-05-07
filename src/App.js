@@ -6,29 +6,39 @@ import SubMenu from "./masterPage/subMenu/SubMenu";
 import PageProvider from "./masterPage/utils/PageProvider";
 import { Route, Routes } from "react-router-dom";
 import AppRouter from "./modules/AppRouter";
-import { Provider } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { store } from "./modules/rootReducer";
+import Authentication from "./masterPage/auth/Authentication";
+import {
+  mapDispatchToProps,
+  mapStateToProps,
+} from "./masterPage/auth/AuthenticationMap";
+import axios from "./masterPage/utils/AxiosInstance";
 
 export class App extends Component {
   constructor(props) {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
   render() {
-    return (
+    return this.props.user ? (
       <div className={classes.container}>
         <PageProvider>
           <MainMenu />
           <SubMenu />
         </PageProvider>
-        <Provider store={store}>
-          <div className={classes.routes}>
-            <AppRouter />
-          </div>
-        </Provider>
+        <div className={classes.routes}>
+          <AppRouter />
+        </div>
       </div>
+    ) : (
+      <Authentication />
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
