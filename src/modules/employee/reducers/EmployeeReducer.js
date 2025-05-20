@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../../masterPage/utils/AxiosInstance";
 import {
   FETCH_EMPLOYEE_FAILURE,
   FETCH_EMPLOYEE_START,
@@ -38,7 +38,7 @@ export default function employeeReducer(state = initialState, actions) {
       return state;
   }
 }
-  
+
 export function fetchEmployee() {
   return async (dispatch) => {
     dispatch(fetchEmployeeRequest());
@@ -48,5 +48,5 @@ export function fetchEmployee() {
     } catch (error) {
       dispatch(fetchEmployeeFailure(error.message));
     }
-  }
+  };
 }

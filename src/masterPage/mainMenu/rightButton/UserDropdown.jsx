@@ -13,6 +13,11 @@ const UserDropdown = React.forwardRef(
           <p className={classes.userRole}>
             <i>Role:</i> {user.role}
           </p>
+          {user.apartment && (
+            <p className={classes.userRole}>
+              <i>Apartment:</i> {user.apartment}
+            </p>
+          )}
         </div>
         <button className={classes.userLogoutButton} onClick={onLogout}>
           Logout

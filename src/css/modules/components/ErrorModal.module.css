@@ -1,0 +1,46 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modalBox {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 384px; /* 96 in Tailwind */
+  max-width: 100%;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 20px;
+  color: #4b5563; /* gray-600 */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  color: #111827; /* gray-900 */
+}
+
+.modalTitle {
+  color: #dc2626; /* red-600 */
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.modal-message {
+  color: #374151; /* gray-700 */
+  font-size: 14px;
+}

@@ -41,12 +41,12 @@ export class ListSearchResult extends Component {
             <th>isRemote</th>
             <th>isManager</th>
             <th>hasOnboarded</th>
-            <th>isFulltime</th>
+            <th>isFullTime</th>
           </tr>
         </thead>
         <tbody>
           {this.context.searchResult.map((employee) => (
-            <tr key={employee.id}>
+            <tr key={employee.id} >
               <td>{employee._id}</td>
               <td>{employee.name}</td>
               <td>{employee.department}</td>
@@ -55,7 +55,7 @@ export class ListSearchResult extends Component {
               <td>{employee.isRemote ? "true" : "false"}</td>
               <td>{employee.isManager ? "true" : "false"}</td>
               <td>{employee.hasOnboarded ? "true" : "false"}</td>
-              <td>{employee.isFulltime ? "true" : "false"}</td>
+              <td>{employee.isFullTime ? "true" : "false"}</td>
             </tr>
           ))}
         </tbody>
