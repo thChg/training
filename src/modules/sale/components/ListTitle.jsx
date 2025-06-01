@@ -30,7 +30,7 @@ export class ListTitle extends Component {
   }
 
   onCreate() {
-    this.props.fetchCreatePermission();
+    // this.props.fetchCreatePermission();
   }
 
   render() {

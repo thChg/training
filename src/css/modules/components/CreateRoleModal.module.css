@@ -15,15 +15,15 @@
   background-color: #ffffff;
   padding: 2rem;
   border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
+  width: 500px;
+  max-width: 95%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal h2 {
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   text-align: center;
   color: #333;
 }
@@ -35,9 +35,7 @@ label {
   color: #444;
 }
 
-input[type="text"],
-input[type="password"],
-select {
+input[type="text"] {
   width: 100%;
   padding: 0.6rem;
   margin-top: 0.3rem;
@@ -52,6 +50,32 @@ input:disabled {
   color: #888;
 }
 
+.checkboxGroup {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.checkboxGroup p {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.checkboxGroup label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: normal;
+  color: #333;
+}
+
+.checkboxGroup input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.1);
+}
+
 .modalButtons {
   display: flex;
   justify-content: space-between;
@@ -59,9 +83,7 @@ input:disabled {
 }
 
 .cancelBtn,
-.editBtn,
-.saveBtn,
-.deleteBtn {
+.createBtn {
   flex: 1;
   padding: 0.6rem 1rem;
   font-size: 1rem;
@@ -77,18 +99,8 @@ input:disabled {
   color: #333;
 }
 
-.editBtn {
+.createBtn {
   background-color: #2f80ed;
-  color: #fff;
-}
-
-.saveBtn {
-  background-color: #27ae60;
-  color: #fff;
-}
-
-.deleteBtn {
-  background-color: #e74c3c;
   color: #fff;
 }
 
@@ -96,16 +108,8 @@ input:disabled {
   background-color: #b3b3b3;
 }
 
-.editBtn:hover {
+.createBtn:hover {
   background-color: #1c6dd0;
-}
-
-.saveBtn:hover {
-  background-color: #219150;
-}
-
-.deleteBtn:hover {
-  background-color: #c0392b;
 }
 
 @keyframes fadeIn {

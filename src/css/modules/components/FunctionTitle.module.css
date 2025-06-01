@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid hsl(0, 0%, 70%);
+}
+
+.titleName {
+  font-weight: bold;
+  font-size: 1.4em;
+  padding: 7px 15px;
+}
+
+.titleActions {
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.titleActions button {
+  background-color: hsl(204, 72%, 50%);
+  color: white;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 5px;
+}
+
+.titleActions button:hover {
+  background-color: #0056b3;
+}

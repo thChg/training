@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import classes from "../../../css/modules/components/CreateUserModal.module.css";
-import UserContext from "./UserContext";
+import { UserManagementContext } from "./UserManagementProvider";
 import { connect } from "react-redux";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "../containers/CreateUserModalMap";
+} from "../containers/UserManagementMap";
 
 export class CreateUserModal extends Component {
-  static contextType = UserContext;
-
+  static contextType = UserManagementContext;
   constructor(props) {
     super(props);
 
@@ -39,31 +38,37 @@ export class CreateUserModal extends Component {
     this.setState({ apartment: event.target.value });
   }
   handleSubmit = async () => {
-    const { username, role, apartment } = this.state;
-    const { setCreateUserModalVisible } = this.context;
+    const { username, password, role, apartment } = this.state;
+    const { onCreateFinish } = this.context;
     if (!username || !role) {
       alert("Please fill in all required fields.");
       return;
     }
     const userData = {
-      username: this.state.username,
-      password: this.state.password,
-      role: this.state.role,
-      apartment: this.state.apartment || undefined,
+      username: username,
+      password: password,
+      role: role,
+      apartment: apartment || undefined,
     };
-    await this.props.fetchCreateUser(userData);
-    setCreateUserModalVisible();
+    await this.props.createUser(userData);
+    this.setState({
+      username: "",
+      password: "",
+      role: "",
+      apartment: "",
+    });
+    onCreateFinish();
   };
 
   async componentDidMount() {
-    await this.context.fetchRoleList();
+    await this.props.fetchRoleList();
   }
 
   render() {
-    const { CreateUserModalVisible, setCreateUserModalVisible, roleList } =
-      this.context;
+    const { createModalVisible, onCreate, onCreateFinish } = this.context;
+    const { roleList } = this.props;
 
-    if (!CreateUserModalVisible) {
+    if (!createModalVisible) {
       return null;
     }
 
@@ -110,10 +115,7 @@ export class CreateUserModal extends Component {
           </label>
 
           <div className={classes.modalButtons}>
-            <button
-              onClick={setCreateUserModalVisible}
-              className={classes.cancelBtn}
-            >
+            <button onClick={onCreateFinish} className={classes.cancelBtn}>
               Cancel
             </button>
             <button onClick={this.handleSubmit} className={classes.createBtn}>

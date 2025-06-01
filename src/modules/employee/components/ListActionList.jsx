@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import classes from "../../../css/modules/components/ListActionList.module.css";
 import { FILTER_LIST } from "../constants/ListActionList";
-import { EMPLOYEE_LIST } from "../constants/ListDummyData";
-import EmployeeContext from "./EmployeeContext";
-import { connect } from "react-redux";
-import { mapDispatchToProps, mapStateToProps } from "../containers/EmployeeMap";
+import { EmployeeListContext } from "./EmployeeListProvider";
 
 export class ListActionList extends Component {
-  static contextType = EmployeeContext;
+  static contextType = EmployeeListContext;
   constructor(props) {
     super(props);
 
@@ -16,15 +13,13 @@ export class ListActionList extends Component {
   }
 
   componentDidMount() {
-    this.context.computeFilterCount(EMPLOYEE_LIST, FILTER_LIST);
+    this.context.computeFilterCount(this.props.data, FILTER_LIST);
   }
 
   handleClick(event) {
     event.preventDefault();
     const { handleCurrentFilter } = this.context;
-    console.log(event.target.firstChild.data);
-    console.log(this.props.employees);
-    handleCurrentFilter(event.target.firstChild.data, this.props.employees);
+    handleCurrentFilter(event.target.firstChild.data, this.props.data);
   }
 
   render() {
@@ -45,4 +40,4 @@ export class ListActionList extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListActionList);
+export default ListActionList;

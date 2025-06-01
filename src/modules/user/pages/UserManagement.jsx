@@ -1,33 +1,45 @@
 import React, { Component } from "react";
-import UserProvider from "../components/UserProvider";
-import ListTitle from "../components/ListTitle";
-import {
-  mapDispatchToProps,
-  mapStateToProps,
-} from "../containers/UserManagementMap";
-import { connect } from "react-redux";
-import ListSearchResult from "../components/ListSearchResult";
+
 import CreateUserModal from "../components/CreateUserModal";
 import UserInfoModal from "../components/UserInfoModal";
+import { UserManagementContext } from "../components/UserManagementProvider";
+import ListTitle from "../../../masterPage/components/ListTitle";
+import ListSearchResult from "../../../masterPage/components/ListSearchResult";
 
 export class UserManagement extends Component {
+  static contextType = UserManagementContext;
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   render() {
-    
+    const {
+      onCreate,
+      title,
+      selectedUserId,
+      setSelectedUserId,
+      searchResult,
+      onSearch,
+      columns,
+      loading,
+      permissions,
+      menu
+    } = this.context;
     return (
-      <UserProvider>
-        <ListTitle title="User Management" />
-        <ListSearchResult />
+      <div>
+        <ListTitle title={title} onCreate={onCreate} onSearch={onSearch} permissions={permissions} menu={menu}/>
+
+        <ListSearchResult
+          columns={columns}
+          data={searchResult}
+          onSelect={setSelectedUserId}
+          loading={loading}
+        />
         <CreateUserModal />
-        {/* {this.props.selectedUserId && <UserInfoModal />} */}
-      </UserProvider>
+        {selectedUserId && <UserInfoModal />}
+      </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManagement);
+export default UserManagement;

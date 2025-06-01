@@ -2,16 +2,12 @@ import {
   FETCH_USER_LIST_FAILURE,
   FETCH_USER_LIST_START,
   FETCH_USER_LIST_SUCCESS,
-} from "../actions/FetchUserListAction";
-import {
-  SET_SELECTED_USER_ID,
-} from "../actions/SelectedUserIdAction";
+} from "../actions/UserManagementAction";
 
 const initialState = {
   loading: false,
   error: null,
   userList: [],
-  selectedUserId: null,
 };
 
 const UserManagementReducer = (state = initialState, action) => {
@@ -33,11 +29,6 @@ const UserManagementReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
-      };
-    case SET_SELECTED_USER_ID:
-      return {
-        ...state,
-        selectedUserId: action.payload,
       };
     default:
       return state;
