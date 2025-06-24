@@ -3,8 +3,12 @@ import axios from "../../../masterPage/utils/AxiosInstance";
 export const FETCH_USER_LIST_START = "FETCH_USER_LIST_START";
 export const FETCH_USER_LIST_SUCCESS = "FETCH_USER_LIST_SUCCESS";
 export const FETCH_USER_LIST_FAILURE = "FETCH_USER_LIST_FAILURE";
-export const DELETE_USER = "DELETE_USER";
-export const UPDATE_USER = "UPDATE_USER";
+export const IMPORT_USER_FROM_FILE_FAILURE = "IMPORT_USER_FROM_FILE_FAILURE";
+export const CREATE_USER_FAILURE = "CREATE_USER_FAILURE";
+export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+export const DELETE_USER_FAILURE = "DELETE_USER_FAILURE";
+export const DELETE_MANY_USERS_FAILURE = "DELETE_MANY_USERS_FAILURE";
+
 
 function fetchUserListStart() {
   return {
@@ -18,18 +22,48 @@ function fetchUserListSuccess(data) {
     payload: data,
   };
 }
+
 function fetchUserListFailure(error) {
   return {
     type: FETCH_USER_LIST_FAILURE,
     payload: error,
   };
 }
+function createUserFailure(error) {
+  return {
+    type: CREATE_USER_FAILURE,
+    payload: error,
+  };
+}
+function updateUserFailure(error) {
+  return {
+    type: UPDATE_USER_FAILURE,
+    payload: error,
+  };
+}
+function deleteUserFailure(error) {
+  return { type: DELETE_USER_FAILURE, payload: error };
+}
+function importUserFromFileFailure(error) {
+  return {
+    type: IMPORT_USER_FROM_FILE_FAILURE,
+    payload: error,
+  };
+}
+function deleteManyUsersFailure(error) {
+  return {
+    type: DELETE_MANY_USERS_FAILURE,
+    payload: error,
+  };
+}
 
-export function fetchUserList() {
+export function fetchUserList(page, limit) {
   return async function (dispatch) {
     dispatch(fetchUserListStart());
     try {
-      const response = await axios.get("/user/list");
+      const response = await axios.get(
+        `/user/list?page=${page}&limit=${limit}`
+      );
       dispatch(fetchUserListSuccess(response.data));
     } catch (error) {
       console.error("Error fetching user list:", error);
@@ -38,38 +72,66 @@ export function fetchUserList() {
   };
 }
 
-export function createUser(userData) {
+export function createUser(userData, page, limit) {
   return async function (dispatch) {
     try {
+      console.log(userData);
       await axios.post("/auth/register", userData);
-      dispatch(fetchUserList());
+      dispatch(fetchUserList(page, limit));
     } catch (error) {
-      console.error("Error creating user:", error);
-      // You can optionally show a toast or alert here instead of dispatching an error action
+      console.error("Error creating user: ", error);
+      dispatch(createUserFailure(error));
     }
   };
 }
 
-export function updateUser(userId, userData) {
+export function updateUser(userId, userData, page, limit) {
   return async function (dispatch) {
     try {
       await axios.put(`/user/update/${userId}`, userData);
-      dispatch(fetchUserList());
+      dispatch(fetchUserList(page, limit));
     } catch (error) {
       console.error("Error updating user:", error);
+      dispatch(updateUserFailure(error));
     }
-  }
+  };
 }
 
-export function deleteUser(userId) {
+export function deleteUser(userId, page, limit) {
   return async function (dispatch) {
     try {
       await axios.delete(`/user/delete/${userId}`);
-      dispatch(fetchUserList());
+      dispatch(fetchUserList(page, limit));
     } catch (error) {
       console.error("Error deleting user:", error);
-      // You can optionally show a toast or alert here instead of dispatching an error action
+      dispatch(deleteUserFailure(error));
     }
-  }
+  };
+}
+
+export function importUserFromFile(file, page, limit) {
+  return async function (dispatch) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      await axios.post("/auth/import", formData);
+      dispatch(fetchUserList(page, limit));
+    } catch (error) {
+      console.error("Error importing users from file:", error);
+      dispatch(importUserFromFileFailure(error));
+    }
+  };
+}
+
+export function deleteManyUsers(users, page, limit) {
+  return async function (dispatch) {
+    try {
+      await axios.post(`/user/delete-many`, { users });
+      dispatch(fetchUserList(page, limit));
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteManyUsersFailure(error));
+    }
+  };
 }
 

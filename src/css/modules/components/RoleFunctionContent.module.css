@@ -1,8 +1,16 @@
-.checkbox {
+.checkboxContainer {
   text-align: center;
 }
 
-input[type="checkbox"] {
+.accessAndPermissions {
+  width: calc(100% - 20px);
+}
+
+.table {
+  width: 100%;
+}
+
+.checkbox {
   transform: scale(1.2);
   cursor: pointer;
 }

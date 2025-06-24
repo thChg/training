@@ -3,6 +3,7 @@ import ListTitle from "../../../masterPage/components/ListTitle";
 import { RoleManagementContext } from "../components/RoleManagementProvider";
 import CreateRoleModal from "../components/CreateRoleModal";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
+import Footer from "../../../masterPage/components/Footer";
 
 export class RoleManagement extends Component {
   static contextType = RoleManagementContext;
@@ -21,9 +22,17 @@ export class RoleManagement extends Component {
       searchResult,
       onSelect,
       permissions,
-      menu
+      menu,
+      recordLength,
+      currentPage,
+      recordPerPage,
+      setCurrentPage,
+      setRecordPerPage,
+      selectedRecords,
+      setSelectedRecords,
+      handleDeleteRecords,
+      removeFromSelectedRecords
     } = this.context;
-
     return (
       <div>
         <ListTitle
@@ -37,7 +46,21 @@ export class RoleManagement extends Component {
           columns={columns}
           data={searchResult}
           onSelect={onSelect}
-          mapState
+          recordPerPage={recordPerPage}
+          currentPage={currentPage}
+          selectedRecords={selectedRecords}
+          onSelectRecord={setSelectedRecords}
+        />
+        <Footer
+          recordLength={recordLength}
+          recordPerPage={recordPerPage}
+          currentPage={currentPage}
+          onSelectPage={setCurrentPage}
+          onSelectRecordPerPage={setRecordPerPage}
+          permissions={permissions}
+          selectedRecords={selectedRecords}
+          onDeleteRecords={handleDeleteRecords}
+          onDeselectAll={removeFromSelectedRecords}
         />
         <CreateRoleModal />
       </div>

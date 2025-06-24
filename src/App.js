@@ -4,12 +4,12 @@ import MainMenu from "./masterPage/mainMenu/MainMenu";
 import SubMenu from "./masterPage/subMenu/SubMenu";
 import PageProvider from "./masterPage/utils/PageProvider";
 import AppRouter from "./modules/AppRouter";
-import { connect, Provider } from "react-redux";
+import { connect } from "react-redux";
 import Authentication from "./masterPage/auth/Authentication";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "./masterPage/auth/AuthenticationMap";
+} from "./masterPage/containers/MasterMap";
 
 export class App extends Component {
   constructor(props) {

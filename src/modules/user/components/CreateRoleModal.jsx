@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "../containers/UserManagementMap";
+} from "../containers/RoleManagementMap";
 import { RoleManagementContext } from "./RoleManagementProvider";
 
 export class CreateRoleModal extends Component {
@@ -17,12 +17,6 @@ export class CreateRoleModal extends Component {
     };
     this.setRole = this.setRole.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.accessList.length <= 0) {
-      this.props.fetchAccessList();
-    }
   }
 
   setRole(event) {
@@ -59,12 +53,13 @@ export class CreateRoleModal extends Component {
       <div className={classes.modalBackdrop}>
         <div className={classes.modal}>
           <h2>Create New Role</h2>
-          <label>
+          <label className={classes.roleLabel}>
             Role Name:
             <input
               type="text"
               value={this.state.role}
               onChange={this.setRole}
+              className={classes.input}
             />
           </label>
 

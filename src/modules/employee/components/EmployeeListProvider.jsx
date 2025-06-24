@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { CreateReloadHanlder } from "../functions/Reload";
 import { CreateComputeFilterCount } from "../functions/ComputeFilterCount";
 import { CreateSetSearchResult } from "../functions/SetSearchResult";
 import { connect } from "react-redux";
@@ -32,7 +31,6 @@ export class EmployeeListProvider extends Component {
       permissions: this.props.permissions || [],
     };
 
-    this.handleReload = CreateReloadHanlder(this);
     this.computeFilterCount = CreateComputeFilterCount(this);
     this.setSearchResult = CreateSetSearchResult(this);
 
@@ -64,7 +62,6 @@ export class EmployeeListProvider extends Component {
         createdAt: moment(element.createdAt).format("YYYY-MM-DD HH:mm"),
       })),
     });
-    this.handleReload();
   }
 
   componentDidMount() {

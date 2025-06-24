@@ -3,9 +3,16 @@
   flex-direction: column;
   gap: 20px;
   position: absolute;
-  top: 39px;
-  height: calc(100% - 39px);
-  padding: 20px 10px;
-  overflow-y: scroll;
-  border-right: 1px solid black;
+  top: 45px;
+  left: 5px;
+  height: calc(100% - 49px);
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.item {
+  text-decoration: none;
+  color: #1c6dd0;
+  font-weight: 600;
+  padding-left: 4px;
 }

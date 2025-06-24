@@ -29,10 +29,6 @@ class UserInfoModal extends Component {
   }
 
   componentDidMount() {
-    if (this.props.roleList.length <= 0) {
-      this.props.fetchRoleList();
-    }
-
     const userID = this.context.selectedUserId;
     const { username, role, apartment } = this.props.userList.find(
       (user) => user._id === userID
@@ -65,20 +61,26 @@ class UserInfoModal extends Component {
 
   handleSave() {
     const { username, role, apartment } = this.state;
-    const { selectedUserId } = this.context;
+    const { selectedUserId, currentPage, recordPerPage } = this.context;
+    const { updateUser } = this.props;
 
     const updatingUser = {
       username,
       role: role._id,
       apartment,
     };
-    this.props.updateUser(selectedUserId, updatingUser);
+    updateUser(selectedUserId, updatingUser, currentPage, recordPerPage);
     this.setState({ isEditing: false });
   }
 
-  handleDelete = () => {
-    this.props.deleteUser(this.context.selectedUserId);
-    this.context.setSelectedUserId(null);
+  handleDelete() {
+    const { selectedUserId, setSelectedUserId, currentPage, recordPerPage, removeFromSelectedRecords } =
+      this.context;
+    const { deleteUser } = this.props;
+    
+    deleteUser(selectedUserId, currentPage, recordPerPage);
+    removeFromSelectedRecords(selectedUserId);
+    setSelectedUserId(null);
   };
 
   render() {
@@ -93,6 +95,7 @@ class UserInfoModal extends Component {
           <label>
             Username:
             <input
+              className={classes.infoInput}
               type="text"
               name="username"
               value={username}
@@ -104,6 +107,7 @@ class UserInfoModal extends Component {
           <label>
             Role:
             <select
+              className={classes.infoSelect}
               name="role"
               value={role.role}
               disabled={!isEditing}
@@ -125,6 +129,7 @@ class UserInfoModal extends Component {
               value={apartment}
               disabled={!isEditing}
               onChange={this.handleChange}
+              className={classes.infoInput}
             />
           </label>
 

@@ -1,8 +1,15 @@
+import { PAGLOCK } from "sequelize/lib/table-hints";
+import { loginSuccess } from "../../../masterPage/auth/AuthenticationAction";
 import axios from "../../../masterPage/utils/AxiosInstance";
+import { fetchUserList } from "./UserManagementAction";
 
 export const FETCH_ROLE_LIST_START = "FETCH_ROLE_LIST_START";
 export const FETCH_ROLE_LIST_SUCCESS = "FETCH_ROLE_LIST_SUCCESS";
 export const FETCH_ROLE_LIST_FAILURE = "FETCH_ROLE_LIST_FAILURE";
+export const CREATE_ROLE_FAILURE = "CREATE_ROLE_FAILURE";
+export const UPDATE_ROLE_FAILURE = "UPDATE_ROLE_FAILURE";
+export const DELETE_ROLE_FAILURE = "DELETE_ROLE_FAILURE";
+export const DELETE_MANY_ROLES_FAILURE = "DELETE_MANY_ROLES_FAILURE";
 
 function fetchRoleListStart() {
   return {
@@ -21,12 +28,38 @@ function fetchRoleListFailure(error) {
     payload: error,
   };
 }
+function createRoleFailure(error) {
+  return {
+    type: CREATE_ROLE_FAILURE,
+    payload: error,
+  };
+}
+function updateRoleFailure(error) {
+  return {
+    type: UPDATE_ROLE_FAILURE,
+    payload: error,
+  };
+}
+function deleteRoleFailure(error) {
+  return {
+    type: DELETE_ROLE_FAILURE,
+    payload: error,
+  };
+}
+function deleteManyRolesFailure(error) {
+  return {
+    type: DELETE_MANY_ROLES_FAILURE,
+    payload: error,
+  };
+}
 
-export function fetchRoleList() {
+export function fetchRoleList(page, limit) {
   return async (dispatch) => {
     dispatch(fetchRoleListStart());
     try {
-      const response = await axios.get("/user/permission/role-list");
+      const response = await axios.get(
+        `/user/permission/role-list?page${page}&limit=${limit}`
+      );
       const data = response.data;
       dispatch(fetchRoleListSuccess(data));
     } catch (error) {
@@ -41,7 +74,8 @@ export function createRole(roleData) {
       await axios.post("/user/permission/create-role", roleData);
       dispatch(fetchRoleList());
     } catch (error) {
-      throw new Error(error.message);
+      console.error(error);
+      dispatch(createRoleFailure());
     }
   };
 }
@@ -51,8 +85,11 @@ export function updateRole(roleId, roleData) {
     try {
       await axios.put(`/user/permission/update-role/${roleId}`, roleData);
       dispatch(fetchRoleList());
+      const response = await axios.get("http://localhost:5050/user/me");
+      dispatch(loginSuccess(response.data));
     } catch (error) {
-      throw new Error(error.message);
+      console.error(error);
+      dispatch(updateRoleFailure());
     }
   };
 }
@@ -63,7 +100,20 @@ export function deleteRole(roleId) {
       await axios.delete(`/user/permission/delete-role/${roleId}`);
       dispatch(fetchRoleList());
     } catch (error) {
-      throw new Error(error.message);
+      console.error(error);
+      dispatch(deleteRoleFailure());
+    }
+  };
+}
+
+export function deleteManyRoles(roles, page, limit) {
+  return async function (dispatch) {
+    try {
+      await axios.post("/user/permission/delete-many-role", { roles });
+      dispatch(fetchRoleList(page, limit));
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteManyRolesFailure(error));
     }
   };
 }

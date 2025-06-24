@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "../containers/UserManagementMap";
+} from "../containers/RoleManagementMap";
 import { withNavigation } from "../functions/withNavigation";
 
 export const RoleInfoContext = React.createContext();
@@ -17,6 +17,7 @@ export class RoleInfoProvider extends Component {
       access: [],
       permissions: [],
       isEditing: false,
+      accessList: props.accessList,
     };
 
     this.handleEditToggle = this.handleEditToggle.bind(this, this);

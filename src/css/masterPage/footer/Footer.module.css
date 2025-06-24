@@ -1,0 +1,133 @@
+.container {
+  background-color: #f8f8f8;
+  border-top: 1px solid #e0e0e0;
+  position: absolute;
+  bottom: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 100%;
+  padding: 15px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftContainer {
+  font-size: 0.8rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pagination {
+  position: relative;
+  display: flex;
+  background-color: #fff;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+}
+
+.pagination > button {
+  padding: 5px 8px;
+  border: none;
+  border-right: 1px solid #dcdcdc;
+  cursor: pointer;
+}
+
+.pagination > button:hover {
+  background-color: #f0f0f0;
+}
+.pagination .inactive {
+  background-color: #fff;
+}
+
+.pagination .dot {
+  padding: 0px;
+  height: 100%;
+  flex: 1;
+  border-right: 1px solid #dcdcdc;
+}
+.pagination input {
+  width: 40px;
+  height: auto;
+  font-size: 0.9rem;
+  border: none;
+  background: transparent;
+  text-align: center;
+  padding: 5px 8px;
+}
+
+.pagination input:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .active {
+  background-color: #f4f4f4;
+}
+
+.pagination .recordPerPage {
+  font-size: 0.8rem;
+  padding: 6px 7px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.pagination .recordPerPage:hover {
+  background-color: #f0f0f0;
+}
+
+.dropDown {
+  position: absolute;
+  top: -134px;
+  right: -1px;
+  display: flex;
+  flex-direction: column;
+  width: 152px;
+  border: 1px solid #dcdcdc;
+  border-bottom: none;
+}
+
+.actionDropDown > button, .dropDown > button {
+  padding: 5px 8px;
+  border: none;
+  background-color: #fff;
+  border-bottom: 1px solid #dcdcdc;
+  cursor: pointer;
+}
+
+.actionDropDown > button:hover, .dropDown > button:hover {
+  background-color: #f0f0f0;
+}
+
+.disabled {
+    display: none;
+}
+
+.actionContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.actions {
+  border: 1px solid #e1e5e6;
+  background-color: white;
+  width: 150px;
+  padding: 6px 7px;
+  border-radius: 3px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.actionDropDown {
+  position: absolute;
+  border: 1px solid #dcdcdc;
+  width: 150px;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+}

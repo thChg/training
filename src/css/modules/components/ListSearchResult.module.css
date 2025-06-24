@@ -1,17 +1,58 @@
+.scrollContainer {
+  position: relative;
+  max-height: calc(100vh - 175px); /* Set your desired height */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
 .container {
-  width: 100%;
+  width: calc(100% - 20px);
   border-collapse: collapse;
-  border: 1px solid black;
+  height: 600px;
+  overflow: scroll;
+}
+
+.container thead tr {
+  position: sticky;
+  top: 0px;
+  background-color: #f9f8fc;
 }
 
 table {
+  margin: 10px;
+  border-radius: 5px;
+}
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f9f8fc;
+  font-weight: bold;
+}
+
+tbody {
   width: 100%;
-  border-collapse: collapse;
+  height: 500px;
+  overflow-y: scroll;
 }
-td,th {
-  border: 1px solid black;
-  padding: 8px
-}
+
 tbody tr:nth-child(odd) {
-  background-color: #e6e6e6;
+  background-color: #fafafa;
+}
+
+.OD {
+  width: 60px;
+  text-align: center;
+  cursor: default;
+}
+
+.checkboxContainer {
+  text-align: center;
+  width: 60px;
+}
+.checkbox {
+  cursor: pointer;
 }

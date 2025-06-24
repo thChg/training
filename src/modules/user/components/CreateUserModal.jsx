@@ -22,6 +22,7 @@ export class CreateUserModal extends Component {
     this.setPassword = this.setPassword.bind(this);
     this.setRole = this.setRole.bind(this);
     this.setApartment = this.setApartment.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -37,9 +38,10 @@ export class CreateUserModal extends Component {
   setApartment(event) {
     this.setState({ apartment: event.target.value });
   }
-  handleSubmit = async () => {
+  async handleCreate() {
     const { username, password, role, apartment } = this.state;
-    const { onCreateFinish } = this.context;
+    const { onCreateFinish, currentPage, recordPerPage } = this.context;
+
     if (!username || !role) {
       alert("Please fill in all required fields.");
       return;
@@ -50,7 +52,7 @@ export class CreateUserModal extends Component {
       role: role,
       apartment: apartment || undefined,
     };
-    await this.props.createUser(userData);
+    await this.props.createUser(userData, currentPage, recordPerPage);
     this.setState({
       username: "",
       password: "",
@@ -58,14 +60,20 @@ export class CreateUserModal extends Component {
       apartment: "",
     });
     onCreateFinish();
-  };
+  }
 
-  async componentDidMount() {
-    await this.props.fetchRoleList();
+  handleSubmit(event) {
+    const {currentPage, recordPerPage } = this.context;
+    event.preventDefault();
+    const file = event.target.querySelector('input[type="file"]').files[0];
+
+    this.props.importUserFromFile(file, currentPage, recordPerPage);
+    event.target.reset();
+    this.context.onCreateFinish();
   }
 
   render() {
-    const { createModalVisible, onCreate, onCreateFinish } = this.context;
+    const { createModalVisible, onCreateFinish } = this.context;
     const { roleList } = this.props;
 
     if (!createModalVisible) {
@@ -76,6 +84,15 @@ export class CreateUserModal extends Component {
       <div className={classes.modalBackdrop}>
         <div className={classes.modal}>
           <h2>Create New User</h2>
+          <div>
+            <label>Import from xlsx file:</label>
+            <form className={classes.fileUpload} onSubmit={this.handleSubmit}>
+              <input type="file" accept=".xlsx,.xls" />
+              <button className={classes.submitBtn} type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
           <label>
             Username:
             <input
@@ -92,7 +109,6 @@ export class CreateUserModal extends Component {
               onChange={this.setPassword}
             />
           </label>
-
           <label>
             Role:
             <select value={this.state.role} onChange={this.setRole}>
@@ -104,7 +120,6 @@ export class CreateUserModal extends Component {
               ))}
             </select>
           </label>
-
           <label>
             Apartment (optional):
             <input
@@ -118,7 +133,7 @@ export class CreateUserModal extends Component {
             <button onClick={onCreateFinish} className={classes.cancelBtn}>
               Cancel
             </button>
-            <button onClick={this.handleSubmit} className={classes.createBtn}>
+            <button onClick={this.handleCreate} className={classes.createBtn}>
               Create
             </button>
           </div>

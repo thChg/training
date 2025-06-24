@@ -8,38 +8,50 @@ import { formatDate } from "../../../masterPage/utils/TimeFormat";
 
 export const UserManagementContext = React.createContext();
 
-export class UserManagemnetProvider extends Component {
+export class UserManagementProvider extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       title: "User Management",
-      menu: "users",
       columns: ["username", "role", "apartment", "createdAt"],
       searchResult: [],
       createModalVisible: false,
       selectedUserId: null,
       loading: this.props.loading || false,
-      permissions: this.props.permissions || [],
+      permissions: this.props.permissions.reduce((accumulator, permission) => {
+        if (permission.includes("users")) {
+          return [...accumulator, permission.split(":")[1].slice(0, -1)];
+        }
+        return accumulator;
+      }, []),
+      recordLength: this.props.recordLength || 0,
+      recordPerPage: 10,
+      currentPage: 1,
+      selectedRecords: [],
     };
 
     this.onSearch = this.onSearch.bind(this);
     this.onCreate = this.onCreate.bind(this);
     this.onCreateFinish = this.onCreateFinish.bind(this);
     this.setSelectedUserId = this.setSelectedUserId.bind(this);
+    this.setCurrentPage = this.setCurrentPage.bind(this);
+    this.setRecordPerPage = this.setRecordPerPage.bind(this);
+    this.setSelectedRecords = this.setSelectedRecords.bind(this);
+    this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
+    this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
   }
 
   async componentDidMount() {
-    if (this.props.userList.length <= 0) {
-      await this.props.fetchUserList();
+    const { fetchUserList, fetchRoleList, userList, roleList } = this.props;
+    const { currentPage, recordsPerPage } = this.state;
+    if (userList.length <= 0) {
+      await fetchUserList(currentPage, recordsPerPage);
     }
-    if (this.props.roleList.length <= 0) {
-      await this.props.fetchRoleList();
+    if (roleList.length <= 0) {
+      await fetchRoleList();
     }
-    if (this.props.accessList.length <= 0) {
-      await this.props.fetchAccessList();
-    }
-    
+
     this.setState({
       searchResult: this.props.userList.map((element) => ({
         _id: element._id,
@@ -48,6 +60,7 @@ export class UserManagemnetProvider extends Component {
         apartment: element.apartment,
         createdAt: formatDate(element.createdAt),
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -97,6 +110,69 @@ export class UserManagemnetProvider extends Component {
     this.setState({ selectedUserId: userId });
   }
 
+  setCurrentPage(page) {
+    this.setState({ currentPage: page });
+    this.props.fetchUserList(page, this.state.recordPerPage);
+  }
+
+  setRecordPerPage(recordPerPage) {
+    this.setState({ recordPerPage, currentPage: 1 });
+    this.props.fetchUserList(1, recordPerPage);
+  }
+
+  setSelectedRecords(record, isChecked, isHeader) {
+    const { selectedRecords, searchResult } = this.state;
+    const currentPageIds = searchResult.map((element) => element._id);
+    if (isHeader == "true") {
+      if (isChecked) {
+        const res = selectedRecords.filter(
+          (record) => !currentPageIds.includes(record)
+        );
+        console.log(res);
+        this.setState({ selectedRecords: res });
+      } else {
+        const res = selectedRecords.concat(currentPageIds);
+        const set = new Set(res);
+        const uniqueArray = [...set];
+
+        this.setState({ selectedRecords: uniqueArray });
+      }
+    } else {
+      this.setState((prevState) => {
+        if (prevState.selectedRecords.includes(record)) {
+          return {
+            selectedRecords: prevState.selectedRecords.filter(
+              (element) => element !== record
+            ),
+          };
+        }
+        return {
+          selectedRecords: [...prevState.selectedRecords, record],
+        };
+      });
+    }
+  }
+
+  removeFromSelectedRecords(record, isDeselect) {
+    if (isDeselect) {
+      this.setState({ selectedRecords: [] });
+    } else {
+      this.setState((prevState) => {
+        return {
+          selectedRecords: prevState.selectedRecords.filter(
+            (element) => element !== record
+          ),
+        };
+      });
+    }
+  }
+
+  handleDeleteRecords() {
+    const { selectedRecords, currentPage, recordPerPage } = this.state;
+    this.props.deleteManyUsers(selectedRecords, currentPage, recordPerPage);
+    this.setState({ selectedRecords: [] });
+  }
+
   render() {
     return (
       <UserManagementContext.Provider
@@ -106,6 +182,11 @@ export class UserManagemnetProvider extends Component {
           onCreate: this.onCreate,
           onCreateFinish: this.onCreateFinish,
           setSelectedUserId: this.setSelectedUserId,
+          setCurrentPage: this.setCurrentPage,
+          setRecordPerPage: this.setRecordPerPage,
+          setSelectedRecords: this.setSelectedRecords,
+          handleDeleteRecords: this.handleDeleteRecords,
+          removeFromSelectedRecords: this.removeFromSelectedRecords,
         }}
       >
         {this.props.children}
@@ -117,4 +198,4 @@ export class UserManagemnetProvider extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserManagemnetProvider);
+)(UserManagementProvider);

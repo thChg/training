@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "../containers/UserManagementMap";
+} from "../containers/RoleManagementMap";
 import { withNavigation } from "../functions/withNavigation";
 import { RoleInfoContext } from "../components/RoleInfoProvider";
 import FunctionTitle from "../components/FunctionTitle";
@@ -28,8 +28,8 @@ export class RoleInfo extends Component {
       handlePermissionsChange,
       handleSave,
       handleDelete,
+      accessList,
     } = this.context;
-    console.log(permissions);
     const title =
       role.charAt(0).toUpperCase() +
       role.slice(1) +
@@ -49,6 +49,7 @@ export class RoleInfo extends Component {
           roleAccess={access}
           onAccessChange={handleAccessChange}
           onPermissionsChange={handlePermissionsChange}
+          accessList={accessList}
         />
       </div>
     );

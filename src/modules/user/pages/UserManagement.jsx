@@ -5,6 +5,7 @@ import UserInfoModal from "../components/UserInfoModal";
 import { UserManagementContext } from "../components/UserManagementProvider";
 import ListTitle from "../../../masterPage/components/ListTitle";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
+import Footer from "../../../masterPage/components/Footer";
 
 export class UserManagement extends Component {
   static contextType = UserManagementContext;
@@ -23,17 +24,46 @@ export class UserManagement extends Component {
       columns,
       loading,
       permissions,
-      menu
+      setRecordPerPage,
+      setCurrentPage,
+      currentPage,
+      recordPerPage,
+      recordLength,
+      setSelectedRecords,
+      selectedRecords,
+      handleDeleteRecords,
+      removeFromSelectedRecords
     } = this.context;
     return (
       <div>
-        <ListTitle title={title} onCreate={onCreate} onSearch={onSearch} permissions={permissions} menu={menu}/>
+        <ListTitle
+          title={title}
+          onCreate={onCreate}
+          onSearch={onSearch}
+          permissions={permissions}
+        />
 
         <ListSearchResult
           columns={columns}
           data={searchResult}
           onSelect={setSelectedUserId}
           loading={loading}
+          recordPerPage={recordPerPage}
+          currentPage={currentPage}
+          onSelectRecord={setSelectedRecords}
+          selectedRecords={selectedRecords}
+        />
+        <Footer
+          onSelectRecordPerPage={setRecordPerPage}
+          onSelectPage={setCurrentPage}
+          currentPage={currentPage}
+          recordPerPage={recordPerPage}
+          recordLength={recordLength}
+          selectedRecords={selectedRecords}
+          permissions={permissions}
+          onDeleteRecords={handleDeleteRecords}
+          onDeselectAll={removeFromSelectedRecords}
+          
         />
         <CreateUserModal />
         {selectedUserId && <UserInfoModal />}

@@ -5,7 +5,6 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/UserManagementMap";
-import { isEqual } from "lodash";
 
 const PERMISSIONS = ["view", "create", "edit", "delete", "print"];
 
@@ -34,7 +33,7 @@ export class RoleFunctionContent extends Component {
     const { accessList, isEditing, roleAccess, rolePermissions } = this.props;
     return (
       <div className={classes.accessAndPermissions}>
-        <table>
+        <table className={classes.table}>
           <thead>
             <tr>
               <th>Page</th>
@@ -51,7 +50,7 @@ export class RoleFunctionContent extends Component {
               return (
                 <tr key={page._id}>
                   <td>{page.menu}</td>
-                  <td className={classes.checkbox}>
+                  <td className={classes.checkboxContainer}>
                     <input
                       type="checkbox"
                       value={page._id}
@@ -63,13 +62,16 @@ export class RoleFunctionContent extends Component {
                   {PERMISSIONS.map((permission) => {
                     const value = `[${page.menu}:${permission}]`.toLowerCase();
                     return (
-                      <td className={classes.checkbox}>
+                      <td className={classes.checkboxContainer}>
                         <input
                           type="checkbox"
                           value={value}
-                          disabled={!isEditing || !roleAccess.includes(page._id)}
+                          disabled={
+                            !isEditing || !roleAccess.includes(page._id)
+                          }
                           checked={rolePermissions.includes(value)}
                           onChange={this.handlePermissionsChange}
+                          className={classes.checkbox}
                         />
                       </td>
                     );

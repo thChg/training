@@ -1,16 +1,16 @@
 .container {
-
+  position: relative;
+  margin-top: 2px;
 }
 .searchInput {
-    padding: 10px 20px;
-    border: 1px solid rgb(146, 146, 146);
-    border-radius: 5px;
-    padding-right: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 40px 10px 10px;
 }
 .icon {
-    position: absolute;
-    right: 18px;
-    width: 20px;
-    height: 20px;
-    top: 27px;
+  position: absolute;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  top: 10px;
 }

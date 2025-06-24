@@ -3,15 +3,13 @@ import {
   deleteUser,
   fetchUserList,
   updateUser,
+  importUserFromFile,
+  deleteManyUsers,
 } from "../actions/UserManagementAction";
 import {
-  createRole,
-  deleteRole,
   fetchRoleList,
-  updateRole,
+  deleteManyRoles,
 } from "../actions/RoleManagementAction";
-import { fetchAccessList } from "../actions/AccessManagementAction";
-import { setSelectedRole } from "../actions/RoleInfoAction";
 
 export function mapStateToProps(state) {
   return {
@@ -20,9 +18,6 @@ export function mapStateToProps(state) {
       : [],
     roleList: state.RoleManagementReducer
       ? state.RoleManagementReducer.roleList
-      : [],
-    accessList: state.AccessManagementReducer
-      ? state.AccessManagementReducer.accessList
       : [],
     loading: state.UserManagementReducer
       ? state.UserManagementReducer.loading
@@ -33,22 +28,25 @@ export function mapStateToProps(state) {
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
       : null,
-    selectedRoleId: state.RoleInfoReducer
-      ? state.RoleInfoReducer.selectedRoleId
-      : null,
+    recordLength: state.UserManagementReducer
+      ? state.UserManagementReducer.recordLength
+      : 0,
   };
 }
 export function mapDispatchToProps(dispatch) {
   return {
-    fetchUserList: () => dispatch(fetchUserList()),
+    fetchUserList: (page, limit) => dispatch(fetchUserList(page, limit)),
     fetchRoleList: () => dispatch(fetchRoleList()),
-    fetchAccessList: () => dispatch(fetchAccessList()),
-    setSelectedRole: (roleId) => dispatch(setSelectedRole(roleId)),
-    deleteUser: (userId) => dispatch(deleteUser(userId)),
-    createUser: (userData) => dispatch(createUser(userData)),
-    updateUser: (userId, userData) => dispatch(updateUser(userId, userData)),
-    createRole: (roleData) => dispatch(createRole(roleData)),
-    updateRole: (roleId, roleData) => dispatch(updateRole(roleId, roleData)),
-    deleteRole: (roleId) => dispatch(deleteRole(roleId)),
+    deleteUser: (userId, page, limit) =>
+      dispatch(deleteUser(userId, page, limit)),
+    createUser: (userData, page, limit) =>
+      dispatch(createUser(userData, page, limit)),
+    updateUser: (userId, userData, page, limit) =>
+      dispatch(updateUser(userId, userData, page, limit)),
+    importUserFromFile: (file, page, limit) =>
+      dispatch(importUserFromFile(file, page, limit)),
+    deleteManyUsers: (users, page, limit) => {
+      dispatch(deleteManyUsers(users, page, limit));
+    },
   };
 }

@@ -20,7 +20,7 @@ export class ListTitle extends Component {
   }
 
   render() {
-    const { title, menu, permissions } = this.props;
+    const { title, permissions } = this.props;
     return (
       <div className={classes.container}>
         <div className={classes.title}>{title}</div>
@@ -35,14 +35,19 @@ export class ListTitle extends Component {
               className={classes.searchIcon}
             ></PiMagnifyingGlass>
           </div>
-          {permissions.includes(`[${menu}:create]`) && (
+          {permissions.includes(`create`) && (
             <button className={classes.btn} onClick={this.handleCreate}>
               <FaPlus className={classes.icon}></FaPlus>
             </button>
           )}
-          <button className={classes.btn}>
-            <HiDocument className={classes.icon} strokeWidth={2.5}></HiDocument>
-          </button>
+          {permissions.includes(`print`) && (
+            <button className={classes.btn}>
+              <HiDocument
+                className={classes.icon}
+                strokeWidth={2.5}
+              ></HiDocument>
+            </button>
+          )}
         </div>
       </div>
     );

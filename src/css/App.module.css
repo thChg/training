@@ -4,9 +4,12 @@
 }
 .routes {
     position: absolute;
-    top: 39px;
-    left: 237px;
-    width: calc(100% - 237px);
+    top: 45px;
+    left: 222px;
+    margin-bottom: 10px;
+    width: calc(100% - 228px);
     height: calc(100% - 39px);
-    padding-right: 10px;
+    height: 94vh;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

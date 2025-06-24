@@ -32,22 +32,20 @@ export class SubMenu extends Component {
       <div className={classes.container}>
         <SearchBar onChange={this.handleInputChange} />
 
-{this.props.access
-  .find((page) => page.menu === currentPage)
-  ?.subMenu
-  .filter((subPage) =>
-    subPage.toLowerCase().includes(this.state.query.toLowerCase())
-  )
-  .map((item) => (
-    <Link
-      className={classes.item}
-      key={item}
-      to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-    >
-      {item}
-    </Link>
-  ))}
-
+        {this.props.access
+          .find((page) => page.menu === currentPage)
+          ?.subMenu.filter((subPage) =>
+            subPage.toLowerCase().includes(this.state.query.toLowerCase())
+          )
+          .map((item) => (
+            <Link
+              className={classes.item}
+              key={item}
+              to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {item}
+            </Link>
+          ))}
       </div>
     );
   }
