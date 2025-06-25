@@ -6,7 +6,7 @@ import {
   mapStateToProps,
 } from "../containers/UserManagementMap";
 
-const PERMISSIONS = ["view", "create", "edit", "delete", "print"];
+const PERMISSIONS = ["view", "create", "edit", "delete", "print", "export"];
 
 export class RoleFunctionContent extends Component {
   constructor(props) {
@@ -43,6 +43,7 @@ export class RoleFunctionContent extends Component {
               <th>Edit</th>
               <th>Delete</th>
               <th>Print</th>
+              <th>Export</th>
             </tr>
           </thead>
           <tbody>

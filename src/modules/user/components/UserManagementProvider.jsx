@@ -5,6 +5,7 @@ import {
   mapStateToProps,
 } from "../containers/UserManagementMap";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
+import { exportUserToExcel } from "../functions/exportUserToExcel";
 
 export const UserManagementContext = React.createContext();
 
@@ -40,6 +41,8 @@ export class UserManagementProvider extends Component {
     this.setSelectedRecords = this.setSelectedRecords.bind(this);
     this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
     this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
+    this.printSelectedRecords = this.printSelectedRecords.bind(this);
+    this.exportToExcel = this.exportToExcel.bind(this);
   }
 
   async componentDidMount() {
@@ -128,7 +131,7 @@ export class UserManagementProvider extends Component {
         const res = selectedRecords.filter(
           (record) => !currentPageIds.includes(record)
         );
-        console.log(res);
+
         this.setState({ selectedRecords: res });
       } else {
         const res = selectedRecords.concat(currentPageIds);
@@ -167,6 +170,23 @@ export class UserManagementProvider extends Component {
     }
   }
 
+  async exportToExcel() {
+    const { selectedRecords } = this.state;
+    const data = await this.props.fetchSelectedUserData(selectedRecords);
+    console.log(data);
+    const filtered = data.map((user) => ({
+      username: user.username,
+      role: user.role.role,
+      apartment: user.apartment,
+    }));
+    await exportUserToExcel(filtered);
+  }
+
+  printSelectedRecords() {
+    const { selectedRecords } = this.state;
+    this.props.printRecords(selectedRecords);
+  }
+
   handleDeleteRecords() {
     const { selectedRecords, currentPage, recordPerPage } = this.state;
     this.props.deleteManyUsers(selectedRecords, currentPage, recordPerPage);
@@ -187,6 +207,8 @@ export class UserManagementProvider extends Component {
           setSelectedRecords: this.setSelectedRecords,
           handleDeleteRecords: this.handleDeleteRecords,
           removeFromSelectedRecords: this.removeFromSelectedRecords,
+          printSelectedRecords: this.printSelectedRecords,
+          exportToExcel: this.exportToExcel,
         }}
       >
         {this.props.children}

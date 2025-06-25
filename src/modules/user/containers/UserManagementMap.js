@@ -5,11 +5,10 @@ import {
   updateUser,
   importUserFromFile,
   deleteManyUsers,
+  printRecords,
+  fetchSelectedRecordData,
 } from "../actions/UserManagementAction";
-import {
-  fetchRoleList,
-  deleteManyRoles,
-} from "../actions/RoleManagementAction";
+import { fetchRoleList } from "../actions/RoleManagementAction";
 
 export function mapStateToProps(state) {
   return {
@@ -48,5 +47,7 @@ export function mapDispatchToProps(dispatch) {
     deleteManyUsers: (users, page, limit) => {
       dispatch(deleteManyUsers(users, page, limit));
     },
+    printRecords: (records) => dispatch(printRecords(records)),
+    fetchSelectedUserData: (users) => dispatch(fetchSelectedRecordData(users)),
   };
 }

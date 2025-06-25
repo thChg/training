@@ -41,6 +41,7 @@ export class RoleManagement extends Component {
           onSearch={onSearch}
           permissions={permissions}
           menu={menu}
+          selectedRecords={selectedRecords}
         />
         <ListSearchResult
           columns={columns}

@@ -1,6 +1,7 @@
 import {
   CREATE_USER_FAILURE,
   DELETE_USER_FAILURE,
+  FETCH_SELECTED_RECORD_DATA_FAILURE,
   FETCH_USER_LIST_FAILURE,
   FETCH_USER_LIST_START,
   FETCH_USER_LIST_SUCCESS,
@@ -60,6 +61,12 @@ const UserManagementReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case FETCH_SELECTED_RECORD_DATA_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
     default:
       return state;
   }

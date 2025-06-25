@@ -8,19 +8,15 @@ export class ListTitle extends Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
   }
 
   handleSearch(event) {
     this.props.onSearch(event.target.value);
   }
 
-  handleCreate() {
-    this.props.onCreate();
-  }
-
   render() {
-    const { title, permissions } = this.props;
+    const { title, permissions, selectedRecords, onCreate, exportToExcel } =
+      this.props;
     return (
       <div className={classes.container}>
         <div className={classes.title}>{title}</div>
@@ -36,12 +32,17 @@ export class ListTitle extends Component {
             ></PiMagnifyingGlass>
           </div>
           {permissions.includes(`create`) && (
-            <button className={classes.btn} onClick={this.handleCreate}>
+            <button className={classes.btn} onClick={onCreate}>
               <FaPlus className={classes.icon}></FaPlus>
             </button>
           )}
-          {permissions.includes(`print`) && (
-            <button className={classes.btn}>
+          {permissions.includes(`export`) && (
+            <button
+              className={
+                selectedRecords.length === 0 ? classes.disabled : classes.btn
+              }
+              onClick={exportToExcel}
+            >
               <HiDocument
                 className={classes.icon}
                 strokeWidth={2.5}

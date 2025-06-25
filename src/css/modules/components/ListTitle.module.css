@@ -56,3 +56,10 @@
   top: 16px;
   right: 10px;
 }
+.disabled {
+  background-color: hsl(203, 56%, 76%);
+  color: white;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+}

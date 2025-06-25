@@ -130,12 +130,13 @@ export class Footer extends Component {
 
   handleActionClick(event) {
     const action = event.target.value;
-    console.log(action);
+    
     switch (action) {
       case "DESELECT":
         this.props.onDeselectAll(null, true);
         break;
       case "PRINT":
+        this.props.onPrint();
         break;
       case "DELETE":
         this.props.onDeleteRecords();

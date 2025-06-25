@@ -32,7 +32,9 @@ export class UserManagement extends Component {
       setSelectedRecords,
       selectedRecords,
       handleDeleteRecords,
-      removeFromSelectedRecords
+      removeFromSelectedRecords,
+      printSelectedRecords,
+      exportToExcel
     } = this.context;
     return (
       <div>
@@ -41,6 +43,8 @@ export class UserManagement extends Component {
           onCreate={onCreate}
           onSearch={onSearch}
           permissions={permissions}
+          exportToExcel={exportToExcel}
+          selectedRecords={selectedRecords}
         />
 
         <ListSearchResult
@@ -63,6 +67,7 @@ export class UserManagement extends Component {
           permissions={permissions}
           onDeleteRecords={handleDeleteRecords}
           onDeselectAll={removeFromSelectedRecords}
+          onPrint={printSelectedRecords}
           
         />
         <CreateUserModal />
