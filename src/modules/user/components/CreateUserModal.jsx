@@ -63,12 +63,14 @@ export class CreateUserModal extends Component {
   }
 
   handleSubmit(event) {
-    const {currentPage, recordPerPage } = this.context;
+    const { currentPage, recordPerPage } = this.context;
     event.preventDefault();
     const file = event.target.querySelector('input[type="file"]').files[0];
-
+    if (!file) {
+      alert("Specify a .xlsx file");
+      return;
+    }
     this.props.importUserFromFile(file, currentPage, recordPerPage);
-    event.target.reset();
     this.context.onCreateFinish();
   }
 

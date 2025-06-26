@@ -56,7 +56,7 @@ export class UserManagementProvider extends Component {
     }
 
     this.setState({
-      searchResult: this.props.userList.map((element) => ({
+      searchResult: userList.map((element) => ({
         _id: element._id,
         username: element.username,
         role: element.role.role,

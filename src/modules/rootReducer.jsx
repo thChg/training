@@ -7,6 +7,7 @@ import UserManagementReducer from "./user/reducers/UserManagementReducer";
 import RoleManagementReducer from "./user/reducers/RoleManagementReducer";
 import AccessManagementReducer from "./user/reducers/AccessManagementReducer";
 import { RoleInfoReducer } from "./user/reducers/RoleInfoReducer";
+import CustomerReducer from "./people/reducers/CustomerReducer";
 
 const rootReducer = combineReducers({
   employeeReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   RoleManagementReducer,
   AccessManagementReducer,
   RoleInfoReducer,
+  CustomerReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

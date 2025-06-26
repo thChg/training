@@ -14,6 +14,8 @@ import RoleManagementProvider from "./user/components/RoleManagementProvider";
 import RoleInfo from "./user/pages/RoleInfo";
 import RoleInfoProvider from "./user/components/RoleInfoProvider";
 import EmployeeListProvider from "./employee/components/EmployeeListProvider";
+import CustomerProvider from "./people/components/CustomerProvider";
+import Customer from "./people/pages/Customer";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -54,6 +56,14 @@ export class AppRouter extends Component {
             <RoleInfoProvider>
               <RoleInfo />
             </RoleInfoProvider>
+          }
+        />
+        <Route
+          path="customers"
+          element={
+            <CustomerProvider>
+              <Customer />
+            </CustomerProvider>
           }
         />
       </Routes>

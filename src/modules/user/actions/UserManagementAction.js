@@ -1,4 +1,5 @@
 import axios from "../../../masterPage/utils/AxiosInstance";
+import { handlePDF } from "../../../masterPage/utils/HandlePDF";
 
 export const FETCH_USER_LIST_START = "FETCH_USER_LIST_START";
 export const FETCH_USER_LIST_SUCCESS = "FETCH_USER_LIST_SUCCESS";
@@ -9,7 +10,8 @@ export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 export const DELETE_USER_FAILURE = "DELETE_USER_FAILURE";
 export const DELETE_MANY_USERS_FAILURE = "DELETE_MANY_USERS_FAILURE";
 export const PRINT_RECORDS_FAILURE = "PRINT_RECORDS_FAILURE";
-export const FETCH_SELECTED_RECORD_DATA_FAILURE = "FETCH_SELECTED_RECORD_DATA_FAILURE";
+export const FETCH_SELECTED_RECORD_DATA_FAILURE =
+  "FETCH_SELECTED_RECORD_DATA_FAILURE";
 
 function fetchUserListStart() {
   return {
@@ -67,7 +69,7 @@ function fetchSelectedRecordDataFailure(error) {
   return {
     type: FETCH_SELECTED_RECORD_DATA_FAILURE,
     payload: error,
-  }
+  };
 }
 
 export function fetchUserList(page, limit) {
@@ -151,12 +153,7 @@ export function deleteManyUsers(users, page, limit) {
 export function printRecords(records) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("/user/print", records, {
-        responseType: "blob",
-      });
-      const blob = new Blob([response.data], { type: "application/pdf" });
-      const fileURL = URL.createObjectURL(blob);
-      window.open(fileURL);
+      await handlePDF("/user/print", records);
     } catch (error) {
       console.error(error);
       dispatch(printRecordsFailure(error));
@@ -171,7 +168,7 @@ export function fetchSelectedRecordData(records) {
       return response.data;
     } catch (error) {
       console.error(error);
-      dispatch(fetchSelectedRecordDataFailure(error))
+      dispatch(fetchSelectedRecordDataFailure(error));
     }
   };
 }
