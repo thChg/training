@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { mapDispatchToProp, mapStateToProps } from "../containers/EmployeeMap.js";
+import {
+  mapDispatchToProp,
+  mapStateToProps,
+} from "../containers/EmployeeMap.js";
 import { exportEmployeeToExcel } from "../functions/exportEmployeeToExcel.js";
 
 export const EmployeeContext = React.createContext();
@@ -89,6 +92,7 @@ export class EmployeeProvider extends Component {
 
   async exportToExcel() {
     const { selectedRecords } = this.state;
+    if (selectedRecords.length === 0) return;
     const data = await this.props.fetchRecordData(selectedRecords);
 
     await exportEmployeeToExcel(data);

@@ -102,8 +102,9 @@ export class VendorProvider extends Component {
 
   async exportToExcel() {
     const { selectedRecords } = this.state;
+    if (selectedRecords.length === 0) return;
     const data = await this.props.fetchRecordData(selectedRecords);
-    
+
     await exportVendorToExcel(data);
   }
 

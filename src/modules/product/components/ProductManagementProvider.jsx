@@ -98,6 +98,7 @@ class ProductManagementProvider extends Component {
 
   async exportToExcel() {
     const { selectedRecords } = this.state;
+    if (selectedRecords.length === 0) return;
     const data = await this.props.fetchProductData(selectedRecords);
 
     await exportProductToExcel(data);
