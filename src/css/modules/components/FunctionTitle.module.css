@@ -1,19 +1,21 @@
 .container {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid hsl(0, 0%, 70%);
+  border-bottom: 1px solid hsl(0, 0%, 70%);
+  background-color: #f8f8f8;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 .titleName {
-  font-weight: bold;
-  font-size: 1.4em;
+  font-weight: 650;
+  font-size: 1.3em;
   padding: 7px 15px;
 }
 
 .titleActions {
-  padding: 10px 10px;
+  padding: 7px 10px;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -26,6 +28,7 @@
   padding: 10px 12px;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .titleActions button:hover {

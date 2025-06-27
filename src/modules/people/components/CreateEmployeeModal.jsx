@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import classes from "../../../css/modules/components/CreateModal.module.css";
-import { CustomerContext } from "./CustomerProvider";
 import { connect } from "react-redux";
-import { mapDispatchToProp, mapStateToProps } from "../containers/CustomerMap";
+import { mapDispatchToProp, mapStateToProps } from "../containers/EmployeeMap";
+import { EmployeeContext } from "./EmployeeProvider";
 
-export class CreateCustomerModal extends Component {
-  static contextType = CustomerContext;
+export class CreateEmployeeModal extends Component {
+  static contextType = EmployeeContext;
   constructor(props) {
     super(props);
 
@@ -13,8 +13,8 @@ export class CreateCustomerModal extends Component {
       fullname: "",
       password: "",
       email: "",
-      company: "",
       phone: "",
+      apartment: "",
     };
 
     this.onCreate = this.onCreate.bind(this);
@@ -23,16 +23,20 @@ export class CreateCustomerModal extends Component {
   }
 
   onCreate() {
-    const { fullname, password, email, company, phone } = this.state;
+    const { fullname, password, email, apartment, phone } = this.state;
     const { currentPage, recordPerPage, toggleCreateModalVisible } =
       this.context;
 
-    if ((fullname === "" || password === "", email === "" || phone === "")) {
+    if (
+      (fullname === "" || password === "",
+      apartment === "",
+      email === "" || phone === "")
+    ) {
       alert("Fill in all neccessary fields!");
       return;
     }
-    this.props.createCustomer(
-      { fullname, password, email, company, phone },
+    this.props.createRecord(
+      { fullname, password, email, apartment, phone },
       currentPage,
       recordPerPage
     );
@@ -48,12 +52,12 @@ export class CreateCustomerModal extends Component {
           return { fullname: value };
         case "password":
           return { password: value };
-        case "company":
-          return { company: value };
         case "email":
           return { email: value };
         case "phone":
           return { phone: value };
+        case "apartment":
+          return { apartment: value };
       }
     });
   }
@@ -64,10 +68,10 @@ export class CreateCustomerModal extends Component {
       this.context;
     const file = event.target.querySelector('input[type="file"]').files[0];
     if (!file) {
-        alert("Specify a .xlsx file");
-        return;
+      alert("Specify a .xlsx file");
+      return;
     }
-    this.props.importCustomerFromFile(file, currentPage, recordPerPage);
+    this.props.importRecordFromFile(file, currentPage, recordPerPage);
     toggleCreateModalVisible();
   }
 
@@ -76,7 +80,7 @@ export class CreateCustomerModal extends Component {
     return (
       <div className={classes.modalBackdrop}>
         <div className={classes.modal}>
-          <div className={classes.title}>Add a new Customer</div>
+          <div className={classes.title}>Add a new Employee</div>
           <div className={classes.body}>
             <div>
               <label>Import from xlsx file:</label>
@@ -88,7 +92,7 @@ export class CreateCustomerModal extends Component {
               </form>
             </div>
             <label>
-              Full name:
+              Fullname:
               <input
                 type="text"
                 onChange={this.handleInputChange}
@@ -103,21 +107,13 @@ export class CreateCustomerModal extends Component {
                 name="password"
               />
             </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                onChange={this.handleInputChange}
-                name="email"
-              />
-            </label>
             <div style={{ display: "flex", gap: "15px" }}>
-              <label style={{ flex: 1 }}>
-                Company (optional):
+              <label style={{ flex: 1.4 }}>
+                Email:
                 <input
-                  type="text"
+                  type="email"
                   onChange={this.handleInputChange}
-                  name="company"
+                  name="email"
                 />
               </label>
               <label style={{ flex: 1 }}>
@@ -129,6 +125,14 @@ export class CreateCustomerModal extends Component {
                 />
               </label>
             </div>
+            <label style={{ flex: 1.4 }}>
+              Apartment:
+              <input
+                type="text"
+                onChange={this.handleInputChange}
+                name="apartment"
+              />
+            </label>
             <div className={classes.modalButtons}>
               <button
                 className={classes.cancelBtn}
@@ -147,4 +151,4 @@ export class CreateCustomerModal extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(CreateCustomerModal);
+export default connect(mapStateToProps, mapDispatchToProp)(CreateEmployeeModal);

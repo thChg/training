@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { mapDispatchToProp, mapStateToProps } from "../containers/CustomerMap";
+import { mapStateToProps, mapDispatchToProp } from "../containers/VendorMap";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
-import exceljs from "exceljs";
-import { exportCustomerToExcel } from "../functions/exportCustomerToExcel";
+import { exportVendorToExcel } from "../functions/exportVendorToExcel.js";
 
-export const CustomerContext = React.createContext();
+export const VendorContext = React.createContext();
 
-export class CustomerProvider extends Component {
+export class VendorProvider extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "Customer Management",
-      columns: ["fullname", "email", "company", "phone"],
+      title: "Vendor Management",
+      columns: ["name", "email", "address", "phone", "taxId"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -27,6 +26,7 @@ export class CustomerProvider extends Component {
       recordPerPage: 10,
       currentPage: 1,
       createModalVisible: false,
+      selectedRecordId: null,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -36,38 +36,39 @@ export class CustomerProvider extends Component {
     this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
     this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
     this.printSelectedRecords = this.printSelectedRecords.bind(this);
-    this.setSelectedCustomerId = this.setSelectedCustomerId.bind(this);
+    this.setSelectedRecordId = this.setSelectedRecordId.bind(this);
     this.setSelectedRecords = this.setSelectedRecords.bind(this);
     this.toggleCreateModalVisible = this.toggleCreateModalVisible.bind(this);
   }
 
   async componentDidMount() {
-    const { customerList, fetchCustomerList } = this.props;
+    const { recordList, fetchRecordList } = this.props;
     const { currentPage, recordPerPage } = this.state;
-    if (customerList.length <= 0) {
-      await fetchCustomerList(currentPage, recordPerPage);
+    if (recordList.length <= 0) {
+      await fetchRecordList(currentPage, recordPerPage);
     }
-
     this.setState({
-      searchResult: customerList.map((customer) => ({
-        _id: customer._id,
-        fullname: customer.fullname,
-        email: customer.email,
-        company: customer.company,
-        phone: customer.phone,
+      searchResult: recordList.map((record) => ({
+        _id: record._id,
+        name: record.name,
+        email: record.email,
+        address: record.address,
+        phone: record.phone,
+        taxId: record.taxId,
       })),
     });
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.customerList !== this.props.customerList) {
+    if (prevProps.recordList !== this.props.recordList) {
       this.setState({
-        searchResult: this.props.customerList.map((customer) => ({
-          _id: customer._id,
-          fullname: customer.fullname,
-          email: customer.email,
-          company: customer.company,
-          phone: customer.phone,
+        searchResult: this.props.recordList.map((record) => ({
+          _id: record._id,
+          name: record.name,
+          email: record.email,
+          address: record.address,
+          phone: record.phone,
+          taxId: record.taxId,
         })),
       });
     }
@@ -80,43 +81,44 @@ export class CustomerProvider extends Component {
   }
 
   handleSearch(searchTerm) {
-    const customerList = this.props.customerList;
+    const recordList = this.props.recordList;
 
     const result = searchTerm
-      ? customerList.filter((customer) =>
-          customer.fullname.toLowerCase().includes(searchTerm)
+      ? recordList.filter((record) =>
+          record.name.toLowerCase().includes(searchTerm)
         )
-      : customerList;
+      : recordList;
     this.setState({
-      searchResult: result.map((element) => ({
-        _id: element._id,
-        fullname: element.fullname,
-        email: element.email,
-        company: element.company,
-        phone: element.phone,
+      searchResult: result.map((record) => ({
+        _id: record._id,
+        name: record.name,
+        email: record.email,
+        address: record.address,
+        phone: record.phone,
+        taxId: record.taxId,
       })),
     });
   }
 
   async exportToExcel() {
     const { selectedRecords } = this.state;
-    const data = await this.props.fetchCustomerData(selectedRecords);
-
-    await exportCustomerToExcel(data);
+    const data = await this.props.fetchRecordData(selectedRecords);
+    
+    await exportVendorToExcel(data);
   }
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchCustomerList(1, recordPerPage);
+    this.props.fetchRecordList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchCustomerList(page, this.state.recordPerPage);
+    this.props.fetchRecordList(page, this.state.recordPerPage);
   }
 
   handleDeleteRecords() {
     const { selectedRecords, currentPage, recordPerPage } = this.state;
-    this.props.deleteManyCustomer(selectedRecords, currentPage, recordPerPage);
+    this.props.deleteManyRecord(selectedRecords, currentPage, recordPerPage);
     this.setState({ selectedRecords: [] });
   }
 
@@ -172,13 +174,13 @@ export class CustomerProvider extends Component {
     }
   }
 
-  setSelectedCustomerId(customerId) {
-    this.setState({ selectedCustomerId: customerId });
+  setSelectedRecordId(recordId) {
+    this.setState({ selectedRecordId: recordId });
   }
 
   render() {
     return (
-      <CustomerContext.Provider
+      <VendorContext.Provider
         value={{
           ...this.state,
           handleSearch: this.handleSearch,
@@ -188,15 +190,15 @@ export class CustomerProvider extends Component {
           handleDeleteRecords: this.handleDeleteRecords,
           removeFromSelectedRecords: this.removeFromSelectedRecords,
           printSelectedRecords: this.printSelectedRecords,
-          setSelectedCustomerId: this.setSelectedCustomerId,
+          setSelectedRecordId: this.setSelectedRecordId,
           setSelectedRecords: this.setSelectedRecords,
           toggleCreateModalVisible: this.toggleCreateModalVisible,
         }}
       >
         {this.props.children}
-      </CustomerContext.Provider>
+      </VendorContext.Provider>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(CustomerProvider);
+export default connect(mapStateToProps, mapDispatchToProp)(VendorProvider);

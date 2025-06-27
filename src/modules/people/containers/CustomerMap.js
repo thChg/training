@@ -18,7 +18,7 @@ export function mapStateToProps(state) {
     loading: state.CustomerReducer ? state.CustomerReducer.loading : false,
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
-      : undefined,
+      : [],
   };
 }
 

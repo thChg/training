@@ -1,42 +1,42 @@
 import {
-  CREATE_CUSTOMER_FAILURE,
-  DELETE_MANY_CUSTOMER_FAILURE,
-  FETCH_CUSTOMER_DATA_FAILURE,
-  FETCH_CUSTOMER_LIST_FAILURE,
-  FETCH_CUSTOMER_LIST_START,
-  FETCH_CUSTOMER_LIST_SUCCESS,
-  IMPORT_CUSTOMER_FROM_FILE_FAILURE,
+  FETCH_VENDOR_LIST_START,
+  FETCH_VENDOR_LIST_FAILURE,
+  FETCH_VENDOR_LIST_SUCCESS,
+  FETCH_VENDOR_DATA_FAILURE,
+  CREATE_VENDOR_FAILURE,
+  IMPORT_VENDOR_FROM_FILE_FAILURE,
+  DELETE_MANY_VENDOR_FAILURE,
   PRINT_RECORDS_FAILURE,
-} from "../actions/CustomerAction";
+} from "../actions/VendorAction";
 
 const initialState = {
   loading: false,
   error: null,
-  customerList: [],
+  vendorList: [],
   recordLength: 0,
 };
 
-const CustomerReducer = (state = initialState, action) => {
+const VendorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CUSTOMER_LIST_START:
+    case FETCH_VENDOR_LIST_START:
       return {
         ...state,
         loading: true,
       };
-    case FETCH_CUSTOMER_LIST_SUCCESS:
+    case FETCH_VENDOR_LIST_SUCCESS:
       return {
         ...state,
         loading: false,
-        customerList: action.payload.customers,
-        recordLength: action.payload.totalCustomers,
+        vendorList: action.payload.vendors,
+        recordLength: action.payload.totalVendors,
       };
-    case FETCH_CUSTOMER_LIST_FAILURE:
+    case FETCH_VENDOR_LIST_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_MANY_CUSTOMER_FAILURE:
+    case DELETE_MANY_VENDOR_FAILURE:
       return {
         ...state,
         loading: false,
@@ -48,19 +48,19 @@ const CustomerReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
-    case CREATE_CUSTOMER_FAILURE:
+    case CREATE_VENDOR_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case IMPORT_CUSTOMER_FROM_FILE_FAILURE:
+    case IMPORT_VENDOR_FROM_FILE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case FETCH_CUSTOMER_DATA_FAILURE:
+    case FETCH_VENDOR_DATA_FAILURE:
       return {
         ...state,
         loading: false,
@@ -71,4 +71,4 @@ const CustomerReducer = (state = initialState, action) => {
   }
 };
 
-export default CustomerReducer;
+export default VendorReducer;

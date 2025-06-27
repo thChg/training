@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import classes from "../../../css/modules/components/CreateModal.module.css";
-import { CustomerContext } from "./CustomerProvider";
 import { connect } from "react-redux";
-import { mapDispatchToProp, mapStateToProps } from "../containers/CustomerMap";
+import { mapDispatchToProp, mapStateToProps } from "../containers/VendorMap";
+import { VendorContext } from "./VendorProvider";
 
-export class CreateCustomerModal extends Component {
-  static contextType = CustomerContext;
+export class CreateVendorModal extends Component {
+  static contextType = VendorContext;
   constructor(props) {
     super(props);
 
     this.state = {
-      fullname: "",
+      name: "",
       password: "",
       email: "",
-      company: "",
+      address: "",
+      taxId: "",
       phone: "",
     };
 
@@ -23,16 +24,21 @@ export class CreateCustomerModal extends Component {
   }
 
   onCreate() {
-    const { fullname, password, email, company, phone } = this.state;
+    const { name, password, email, address, taxId, phone } = this.state;
     const { currentPage, recordPerPage, toggleCreateModalVisible } =
       this.context;
 
-    if ((fullname === "" || password === "", email === "" || phone === "")) {
+    if (
+      (name === "" || password === "",
+      address === "",
+      taxId === "",
+      email === "" || phone === "")
+    ) {
       alert("Fill in all neccessary fields!");
       return;
     }
-    this.props.createCustomer(
-      { fullname, password, email, company, phone },
+    this.props.createRecord(
+      { name, password, email, address, taxId, phone },
       currentPage,
       recordPerPage
     );
@@ -44,16 +50,18 @@ export class CreateCustomerModal extends Component {
     const { value, name } = event.target;
     this.setState(() => {
       switch (name) {
-        case "fullname":
-          return { fullname: value };
+        case "name":
+          return { name: value };
         case "password":
           return { password: value };
-        case "company":
-          return { company: value };
+        case "address":
+          return { address: value };
         case "email":
           return { email: value };
         case "phone":
           return { phone: value };
+        case "taxId":
+          return { taxId: value };
       }
     });
   }
@@ -64,10 +72,10 @@ export class CreateCustomerModal extends Component {
       this.context;
     const file = event.target.querySelector('input[type="file"]').files[0];
     if (!file) {
-        alert("Specify a .xlsx file");
-        return;
+      alert("Specify a .xlsx file");
+      return;
     }
-    this.props.importCustomerFromFile(file, currentPage, recordPerPage);
+    this.props.importRecordFromFile(file, currentPage, recordPerPage);
     toggleCreateModalVisible();
   }
 
@@ -76,7 +84,7 @@ export class CreateCustomerModal extends Component {
     return (
       <div className={classes.modalBackdrop}>
         <div className={classes.modal}>
-          <div className={classes.title}>Add a new Customer</div>
+          <div className={classes.title}>Add a new Vendor</div>
           <div className={classes.body}>
             <div>
               <label>Import from xlsx file:</label>
@@ -88,11 +96,11 @@ export class CreateCustomerModal extends Component {
               </form>
             </div>
             <label>
-              Full name:
+              Name:
               <input
                 type="text"
                 onChange={this.handleInputChange}
-                name="fullname"
+                name="name"
               />
             </label>
             <label>
@@ -103,21 +111,13 @@ export class CreateCustomerModal extends Component {
                 name="password"
               />
             </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                onChange={this.handleInputChange}
-                name="email"
-              />
-            </label>
             <div style={{ display: "flex", gap: "15px" }}>
-              <label style={{ flex: 1 }}>
-                Company (optional):
+              <label style={{flex:1.4}}>
+                Email:
                 <input
-                  type="text"
+                  type="email"
                   onChange={this.handleInputChange}
-                  name="company"
+                  name="email"
                 />
               </label>
               <label style={{ flex: 1 }}>
@@ -126,6 +126,24 @@ export class CreateCustomerModal extends Component {
                   type="text"
                   onChange={this.handleInputChange}
                   name="phone"
+                />
+              </label>
+            </div>
+            <div style={{ display: "flex", gap: "15px" }}>
+              <label style={{ flex: 1.4 }}>
+                Address:
+                <input
+                  type="text"
+                  onChange={this.handleInputChange}
+                  name="address"
+                />
+              </label>
+              <label style={{ flex: 1 }}>
+                Tax ID:
+                <input
+                  type="text"
+                  onChange={this.handleInputChange}
+                  name="taxId"
                 />
               </label>
             </div>
@@ -147,4 +165,4 @@ export class CreateCustomerModal extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(CreateCustomerModal);
+export default connect(mapStateToProps, mapDispatchToProp)(CreateVendorModal);
