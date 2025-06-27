@@ -47,16 +47,6 @@ export class CustomerProvider extends Component {
     if (customerList.length <= 0) {
       await fetchCustomerList(currentPage, recordPerPage);
     }
-
-    this.setState({
-      searchResult: customerList.map((customer) => ({
-        _id: customer._id,
-        fullname: customer.fullname,
-        email: customer.email,
-        company: customer.company,
-        phone: customer.phone,
-      })),
-    });
   }
 
   componentDidUpdate(prevProps) {

@@ -18,6 +18,8 @@ import VendorProvider from "./people/components/VendorProvider";
 import Vendor from "./people/pages/Vendor";
 import EmployeeProvider from "./people/components/EmployeeProvider";
 import Employee from "./people/pages/Employee";
+import ProductManagementProvider from "./product/components/ProductManagementProvider";
+import ProductManagement from "./product/pages/ProductManagement";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -74,6 +76,14 @@ export class AppRouter extends Component {
             <EmployeeProvider>
               <Employee />
             </EmployeeProvider>
+          }
+        />
+        <Route
+          path="product-management"
+          element={
+            <ProductManagementProvider>
+              <ProductManagement />
+            </ProductManagementProvider>
           }
         />
       </Routes>

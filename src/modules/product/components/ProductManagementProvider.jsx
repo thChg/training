@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { mapDispatchToProp, mapStateToProps } from "../containers/EmployeeMap.js";
-import { exportEmployeeToExcel } from "../functions/exportEmployeeToExcel.js";
+import { exportProductToExcel } from "../functions/exportProductToExcel";
+import {
+  mapDispatchToProps,
+  mapStateToProps,
+} from "../containers/ProductManagementMap";
 
-export const EmployeeContext = React.createContext();
+export const ProductManagementContext = React.createContext();
 
-export class EmployeeProvider extends Component {
+class ProductManagementProvider extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "Employee Management",
-      columns: ["fullname", "email", "phone", "apartment"],
+      title: "Product Management",
+      columns: ["name", "category", "description"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
-        if (permission.includes("people")) {
+        if (permission.includes("product")) {
           return [...accumulator, permission.split(":")[1].slice(0, -1)];
         }
         return accumulator;
@@ -25,7 +28,6 @@ export class EmployeeProvider extends Component {
       recordPerPage: 10,
       currentPage: 1,
       createModalVisible: false,
-      selectedRecordId: null,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -35,28 +37,36 @@ export class EmployeeProvider extends Component {
     this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
     this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
     this.printSelectedRecords = this.printSelectedRecords.bind(this);
-    this.setSelectedRecordId = this.setSelectedRecordId.bind(this);
+    this.setSelectedProductId = this.setSelectedProductId.bind(this);
     this.setSelectedRecords = this.setSelectedRecords.bind(this);
     this.toggleCreateModalVisible = this.toggleCreateModalVisible.bind(this);
   }
 
   async componentDidMount() {
-    const { recordList, fetchRecordList } = this.props;
+    const { productList, fetchProductList } = this.props;
     const { currentPage, recordPerPage } = this.state;
-    if (recordList.length <= 0) {
-      await fetchRecordList(currentPage, recordPerPage);
+
+    if (productList.length <= 0) {
+      await fetchProductList(currentPage, recordPerPage);
     }
+    this.setState({
+      searchResult: this.props.productList.map((product) => ({
+        _id: product._id,
+        name: product.name,
+        category: product.category,
+        description: product.description,
+      })),
+    });
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.recordList !== this.props.recordList) {
+    if (prevProps.productList !== this.props.productList) {
       this.setState({
-        searchResult: this.props.recordList.map((record) => ({
-          _id: record._id,
-          fullname: record.fullname,
-          email: record.email,
-          phone: record.phone,
-          apartment: record.apartment,
+        searchResult: this.props.productList.map((product) => ({
+          _id: product._id,
+          name: product.name,
+          category: product.category,
+          description: product.description,
         })),
       });
     }
@@ -69,43 +79,42 @@ export class EmployeeProvider extends Component {
   }
 
   handleSearch(searchTerm) {
-    const recordList = this.props.recordList;
+    const productList = this.props.productList;
 
     const result = searchTerm
-      ? recordList.filter((record) =>
-          record.fullname.toLowerCase().includes(searchTerm)
+      ? productList.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm)
         )
-      : recordList;
+      : productList;
     this.setState({
-      searchResult: result.map((record) => ({
-        _id: record._id,
-        fullname: record.fullname,
-        email: record.email,
-        phone: record.phone,
-        apartment: record.apartment,
+      searchResult: result.map((product) => ({
+        _id: product._id,
+        name: product.name,
+        category: product.category,
+        description: product.description,
       })),
     });
   }
 
   async exportToExcel() {
     const { selectedRecords } = this.state;
-    const data = await this.props.fetchRecordData(selectedRecords);
+    const data = await this.props.fetchProductData(selectedRecords);
 
-    await exportEmployeeToExcel(data);
+    await exportProductToExcel(data);
   }
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchRecordList(1, recordPerPage);
+    this.props.fetchProductList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchRecordList(page, this.state.recordPerPage);
+    this.props.fetchProductList(page, this.state.recordPerPage);
   }
 
   handleDeleteRecords() {
     const { selectedRecords, currentPage, recordPerPage } = this.state;
-    this.props.deleteManyRecord(selectedRecords, currentPage, recordPerPage);
+    this.props.deleteManyProduct(selectedRecords, currentPage, recordPerPage);
     this.setState({ selectedRecords: [] });
   }
 
@@ -161,13 +170,13 @@ export class EmployeeProvider extends Component {
     }
   }
 
-  setSelectedRecordId(recordId) {
-    this.setState({ selectedRecordId: recordId });
+  setSelectedProductId(productId) {
+    this.setState({ selectedProductId: productId });
   }
 
   render() {
     return (
-      <EmployeeContext.Provider
+      <ProductManagementContext.Provider
         value={{
           ...this.state,
           handleSearch: this.handleSearch,
@@ -177,15 +186,18 @@ export class EmployeeProvider extends Component {
           handleDeleteRecords: this.handleDeleteRecords,
           removeFromSelectedRecords: this.removeFromSelectedRecords,
           printSelectedRecords: this.printSelectedRecords,
-          setSelectedRecordId: this.setSelectedRecordId,
+          setSelectedProductId: this.setSelectedProductId,
           setSelectedRecords: this.setSelectedRecords,
           toggleCreateModalVisible: this.toggleCreateModalVisible,
         }}
       >
         {this.props.children}
-      </EmployeeContext.Provider>
+      </ProductManagementContext.Provider>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(EmployeeProvider);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductManagementProvider);
