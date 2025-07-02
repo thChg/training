@@ -6,7 +6,15 @@ import {
   mapStateToProps,
 } from "../containers/UserManagementMap";
 
-const PERMISSIONS = ["view", "create", "edit", "delete", "print", "export"];
+const PERMISSIONS = [
+  "view",
+  "create",
+  "edit",
+  "delete",
+  "print",
+  "export",
+  "approve",
+];
 
 export class RoleFunctionContent extends Component {
   constructor(props) {
@@ -19,6 +27,13 @@ export class RoleFunctionContent extends Component {
       this,
       this
     );
+    this.renderHeader = this.renderHeader.bind(this);
+  }
+
+  renderHeader() {
+    return PERMISSIONS.map((permission) => (
+      <th>{permission.charAt(0).toUpperCase() + permission.slice(1)}</th>
+    ));
   }
 
   handleAccessChange(self, event) {
@@ -35,16 +50,9 @@ export class RoleFunctionContent extends Component {
       <div className={classes.accessAndPermissions}>
         <table className={classes.table}>
           <thead>
-            <tr>
-              <th>Page</th>
-              <th>Access</th>
-              <th>View</th>
-              <th>Create</th>
-              <th>Edit</th>
-              <th>Delete</th>
-              <th>Print</th>
-              <th>Export</th>
-            </tr>
+            <th>Page</th>
+            <th>Access</th>
+            {this.renderHeader()}
           </thead>
           <tbody>
             {accessList.map((page) => {

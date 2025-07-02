@@ -24,16 +24,16 @@ export class FunctionTitle extends Component {
         <div className={classes.titleName}>{title}</div>
         <div className={classes.titleActions}>
           {permissions.includes("[users:edit]") && isEditing ? (
-            <button onClick={onSave}>
+            <button onClick={onSave} className={classes.btn}>
               <FaCheck />
             </button>
           ) : (
-            <button onClick={onEditToggle}>
+            <button onClick={onEditToggle} className={classes.btn}>
               <FaPen />
             </button>
           )}
           {permissions.includes("[users:delete]") && (
-            <button onClick={onDelete}>
+            <button onClick={onDelete} className={classes.btn}>
               <FaTrashCan />
             </button>
           )}

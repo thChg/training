@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import classes from "../../../css/modules/components/CreateModal.module.css";
-import { InventoryContext } from "./InventoryProvider";
 import { connect } from "react-redux";
 import {
-  mapDispatchToProps,
+  mapDispatchToProp,
   mapStateToProps,
-} from "../containers/InventoryMap";
+} from "../containers/AccountantMap";
+import { AccountantContext } from "./AccountantProvider";
 
-export class CreateProductModal extends Component {
-  static contextType = InventoryContext;
+export class CreateAccountantModal extends Component {
+  static contextType = AccountantContext;
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
-      category: "",
-      description: "",
-      price: "",
+      fullname: "",
+      password: "",
+      email: "",
+      phone: "",
     };
 
     this.onCreate = this.onCreate.bind(this);
@@ -25,19 +25,21 @@ export class CreateProductModal extends Component {
   }
 
   onCreate() {
-    const { name, category, description, price } = this.state;
+    const { fullname, password, email, address, taxId, phone } = this.state;
     const { currentPage, recordPerPage, toggleCreateModalVisible } =
       this.context;
 
-    if (name === "" || category === "" || price === "") {
+    if (
+      (fullname === "" || password === "",
+      address === "",
+      taxId === "",
+      email === "" || phone === "")
+    ) {
       alert("Fill in all neccessary fields!");
       return;
     }
-    if (isNaN(Number(price))) {
-      alert("Price must be a valid number");
-    }
-    this.props.createProduct(
-      { name, category, description, price },
+    this.props.createRecord(
+      { fullname, password, email, address, taxId, phone },
       currentPage,
       recordPerPage
     );
@@ -49,14 +51,14 @@ export class CreateProductModal extends Component {
     const { value, name } = event.target;
     this.setState(() => {
       switch (name) {
-        case "name":
-          return { name: value };
-        case "category":
-          return { category: value };
-        case "description":
-          return { description: value };
-        case "price":
-          return { price: value };
+        case "fullname":
+          return { fullname: value };
+        case "password":
+          return { password: value };
+        case "email":
+          return { email: value };
+        case "phone":
+          return { phone: value };
       }
     });
   }
@@ -70,7 +72,7 @@ export class CreateProductModal extends Component {
       alert("Specify a .xlsx file");
       return;
     }
-    this.props.importProductFromFile(file, currentPage, recordPerPage);
+    this.props.importRecordFromFile(file, currentPage, recordPerPage);
     toggleCreateModalVisible();
   }
 
@@ -79,7 +81,7 @@ export class CreateProductModal extends Component {
     return (
       <div className={classes.modalBackdrop}>
         <div className={classes.modal}>
-          <div className={classes.title}>Add a new Product</div>
+          <div className={classes.title}>Add a new Accountant</div>
           <div className={classes.body}>
             <div>
               <label>Import from xlsx file:</label>
@@ -91,39 +93,39 @@ export class CreateProductModal extends Component {
               </form>
             </div>
             <label>
-              Name:
+              Full Name:
               <input
                 type="text"
                 onChange={this.handleInputChange}
-                name="name"
+                name="fullname"
+              />
+            </label>
+            <label>
+              Password:
+              <input
+                type="password"
+                onChange={this.handleInputChange}
+                name="password"
               />
             </label>
             <div style={{ display: "flex", gap: "15px" }}>
-              <label style={{ flex: 1 }}>
-                Category:
+              <label style={{ flex: 1.4 }}>
+                Email:
                 <input
-                  type="text"
+                  type="email"
                   onChange={this.handleInputChange}
-                  name="category"
+                  name="email"
                 />
               </label>
               <label style={{ flex: 1 }}>
-                Price:
+                Phone:
                 <input
                   type="text"
                   onChange={this.handleInputChange}
-                  name="price"
+                  name="phone"
                 />
               </label>
             </div>
-            <label>
-              Description:
-              <input
-                type="text"
-                onChange={this.handleInputChange}
-                name="description"
-              />
-            </label>
             <div className={classes.modalButtons}>
               <button
                 className={classes.cancelBtn}
@@ -142,4 +144,7 @@ export class CreateProductModal extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProductModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProp
+)(CreateAccountantModal);

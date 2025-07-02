@@ -100,7 +100,6 @@ export class RoleManagementProvider extends Component {
   }
 
   onSelect(roleId) {
-    console.log(this.props.setSelectedRole);
     this.props.setSelectedRole(roleId);
     this.props.navigate("/role-management/detail");
   }

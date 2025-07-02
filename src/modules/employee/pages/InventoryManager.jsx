@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import { ProductManagementContext } from "../components/ProductManagementProvider";
-import CreateProductModal from "../components/CreateProductModal";
 
-export class ProductManagement extends Component {
-  static contextType = ProductManagementContext;
+import { VendorContext } from "../components/VendorProvider";
+import CreateVendorModal from "../components/CreateVendorModal";
+
+export class Vendor extends Component {
+  static contextType = VendorContext;
   constructor(props) {
     super(props);
 
@@ -68,10 +69,10 @@ export class ProductManagement extends Component {
           onDeselectAll={removeFromSelectedRecords}
           onPrint={printSelectedRecords}
         />
-        {createModalVisible && <CreateProductModal />}
+        {createModalVisible && <CreateVendorModal />}
       </div>
     );
   }
 }
 
-export default ProductManagement;
+export default Vendor;

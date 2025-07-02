@@ -18,8 +18,22 @@ import VendorProvider from "./people/components/VendorProvider";
 import Vendor from "./people/pages/Vendor";
 import EmployeeProvider from "./people/components/EmployeeProvider";
 import Employee from "./people/pages/Employee";
-import ProductManagementProvider from "./product/components/ProductManagementProvider";
-import ProductManagement from "./product/pages/ProductManagement";
+import PurchaseOrder from "./product/pages/PurchaseOrder";
+import InventoryProvider from "./product/components/InventoryProvider";
+import Inventory from "./product/pages/Inventory";
+import PurchaseOrderProvider from "./product/components/PurchaseOrderProvider";
+import BillOfLadingProvider from "./product/components/BillOfLadingProvider";
+import BillOfLading from "./product/pages/BillOfLading";
+import POAppoveProvider from "./accounting/components/POAppoveProvider";
+import POApprove from "./accounting/pages/POApprove";
+import POAppoveDetailProvider from "./accounting/components/POAppoveDetailProvider";
+import POApproveDetail from "./accounting/pages/POApproveDetail";
+import AccountantProvider from "./employee/components/AccountantProvider";
+import Accountant from "./employee/pages/Accountant";
+import BOLDetailProvider from "./product/components/BOLDetailProvider";
+import BOLDetail from "./product/pages/BillOfLadingDetail";
+import PODetailProvider from "./product/components/PODetailProvider";
+import PODetail from "./product/pages/PurchaseOrderDetail";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -55,37 +69,77 @@ export class AppRouter extends Component {
           }
         />
         <Route
-          path="customers"
+          path="inventory"
           element={
-            <CustomerProvider>
-              <Customer />
-            </CustomerProvider>
+            <InventoryProvider>
+              <Inventory />
+            </InventoryProvider>
           }
         />
         <Route
-          path="vendors"
+          path="purchase-orders"
           element={
-            <VendorProvider>
-              <Vendor />
-            </VendorProvider>
+            <PurchaseOrderProvider>
+              <PurchaseOrder />
+            </PurchaseOrderProvider>
           }
         />
         <Route
-          path="employees"
+          path="purchase-orders/details/:id"
           element={
-            <EmployeeProvider>
-              <Employee />
-            </EmployeeProvider>
+            <PODetailProvider>
+              <PODetail />
+            </PODetailProvider>
           }
         />
         <Route
-          path="product-management"
+          path="bill-of-ladings"
           element={
-            <ProductManagementProvider>
-              <ProductManagement />
-            </ProductManagementProvider>
+            <BillOfLadingProvider>
+              <BillOfLading />
+            </BillOfLadingProvider>
           }
         />
+        <Route
+          path="bill-of-ladings/details/:id"
+          element={
+            <BOLDetailProvider>
+              <BOLDetail />
+            </BOLDetailProvider>
+          }
+        />
+        <Route
+          path="po-approve"
+          element={
+            <POAppoveProvider>
+              <POApprove />
+            </POAppoveProvider>
+          }
+        />
+        <Route
+          path="po-approve/details/:id"
+          element={
+            <POAppoveDetailProvider>
+              <POApproveDetail />
+            </POAppoveDetailProvider>
+          }
+        />
+        <Route
+          path="accountant"
+          element={
+            <AccountantProvider>
+              <Accountant />
+            </AccountantProvider>
+          }
+        />
+        {/* <Route
+          path="inventory-manager"
+          element={
+            <POAppoveDetailProvider>
+              <POApproveDetail />
+            </POAppoveDetailProvider>
+          }
+        /> */}
       </Routes>
     );
   }

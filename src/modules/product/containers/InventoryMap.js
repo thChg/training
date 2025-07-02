@@ -5,14 +5,14 @@ import {
   fetchProductList,
   importProductFromFile,
   printRecords,
-} from "../actions/ProductManagementAction";
+} from "../actions/InventoryAction";
 
 export function mapStateToProps(state) {
   return {
     state: state,
-    productList: state.ProductReducer ? state.ProductReducer.productList : [],
-    recordLength: state.ProductReducer ? state.ProductReducer.recordLength : 0,
-    loading: state.ProductReducer ? state.ProductReducer.loading : false,
+    inventory: state.InventoryReducer ? state.InventoryReducer.inventory : [],
+    recordLength: state.InventoryReducer ? state.InventoryReducer.recordLength : 0,
+    loading: state.InventoryReducer ? state.InventoryReducer.loading : false,
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
       : [],

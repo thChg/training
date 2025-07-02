@@ -13,7 +13,7 @@ export class ListSearchResult extends Component {
     this.isHeaderChecked = this.isHeaderChecked.bind(this);
   }
 
-  handleClick(event) {
+  handleClick(event) { 
     this.props.onSelect(event.currentTarget.dataset.id);
   }
 

@@ -56,7 +56,7 @@ export function fetchProductList(page, limit) {
     try {
       dispatch(fetchProductListStart());
       const response = await axios.get(
-        `/product/vendor/product-list?page=${page}&limit=${limit}`
+        `/product/inventory/inventory-list?page=${page}&limit=${limit}`
       );
       dispatch(fetchProductListSuccess(response.data));
     } catch (error) {

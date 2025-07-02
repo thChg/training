@@ -6,10 +6,11 @@ import UserManagementReducer from "./user/reducers/UserManagementReducer";
 import RoleManagementReducer from "./user/reducers/RoleManagementReducer";
 import AccessManagementReducer from "./user/reducers/AccessManagementReducer";
 import { RoleInfoReducer } from "./user/reducers/RoleInfoReducer";
-import CustomerReducer from "./people/reducers/CustomerReducer";
-import VendorReducer from "./people/reducers/VendorReducer";
-import EmployeeReducer from "./people/reducers/EmployeeReducer";
-import ProductReducer from "./product/reducers/ProductManagementReducer";
+import InventoryReducer from "./product/reducers/InventoryReducer";
+import PurchaseOrderReducer from "./product/reducers/PurchaseOrderReducer";
+import POApproveReducer from "./accounting/reducers/POApproveReducer";
+import AccountantReducer from "./employee/reducers/AccountantReducer";
+import BillOfLadingReducer from "./product/reducers/BillOfLadingReducer";
 
 const rootReducer = combineReducers({
   AuthenticationReducer,
@@ -18,11 +19,14 @@ const rootReducer = combineReducers({
   RoleManagementReducer,
   AccessManagementReducer,
   RoleInfoReducer,
-  CustomerReducer,
-  VendorReducer,
-  EmployeeReducer,
-  ProductReducer
+  InventoryReducer,
+  PurchaseOrderReducer,
+  POApproveReducer,
+  AccountantReducer,
+  BillOfLadingReducer
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-export const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers( applyMiddleware(thunk) ));
-// export const store = createStore(rootReducer, , applyMiddleware(thunk), );
+export const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);

@@ -29,7 +29,8 @@
 }
 .body input[type="text"],
 .body input[type="email"],
-.body input[type="password"] {
+.body input[type="password"],
+.body select {
   width: 100%;
   padding: 8px;
   margin-top: 5px;

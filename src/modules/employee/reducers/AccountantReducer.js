@@ -1,42 +1,42 @@
 import {
-  CREATE_PRODUCT_FAILURE,
-  DELETE_MANY_PRODUCT_FAILURE,
-  FETCH_PRODUCT_DATA_FAILURE,
-  FETCH_PRODUCT_LIST_FAILURE,
-  FETCH_PRODUCT_LIST_START,
-  FETCH_PRODUCT_LIST_SUCCESS,
-  IMPORT_PRODUCT_FROM_FILE_FAILURE,
+  FETCH_ACCOUNTANT_LIST_START,
+  FETCH_ACCOUNTANT_LIST_FAILURE,
+  FETCH_ACCOUNTANT_LIST_SUCCESS,
+  FETCH_ACCOUNTANT_DATA_FAILURE,
+  CREATE_ACCOUNTANT_FAILURE,
+  IMPORT_ACCOUNTANT_FROM_FILE_FAILURE,
+  DELETE_MANY_ACCOUNTANT_FAILURE,
   PRINT_RECORDS_FAILURE,
-} from "../actions/ProductManagementAction";
+} from "../actions/AccountantAction";
 
 const initialState = {
   loading: false,
   error: null,
-  productList: [],
+  accountantList: [],
   recordLength: 0,
 };
 
-const ProductReducer = (state = initialState, action) => {
+const AccountantReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PRODUCT_LIST_START:
+    case FETCH_ACCOUNTANT_LIST_START:
       return {
         ...state,
         loading: true,
       };
-    case FETCH_PRODUCT_LIST_SUCCESS:
+    case FETCH_ACCOUNTANT_LIST_SUCCESS:
       return {
         ...state,
         loading: false,
-        productList: action.payload.products,
-        recordLength: action.payload.totalProducts,
+        accountantList: action.payload.accountants,
+        recordLength: action.payload.totalAccountants,
       };
-    case FETCH_PRODUCT_LIST_FAILURE:
+    case FETCH_ACCOUNTANT_LIST_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_MANY_PRODUCT_FAILURE:
+    case DELETE_MANY_ACCOUNTANT_FAILURE:
       return {
         ...state,
         loading: false,
@@ -48,19 +48,19 @@ const ProductReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
-    case CREATE_PRODUCT_FAILURE:
+    case CREATE_ACCOUNTANT_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case IMPORT_PRODUCT_FROM_FILE_FAILURE:
+    case IMPORT_ACCOUNTANT_FROM_FILE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case FETCH_PRODUCT_DATA_FAILURE:
+    case FETCH_ACCOUNTANT_DATA_FAILURE:
       return {
         ...state,
         loading: false,
@@ -71,4 +71,4 @@ const ProductReducer = (state = initialState, action) => {
   }
 };
 
-export default ProductReducer;
+export default AccountantReducer;
