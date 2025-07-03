@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import FunctionTitle from "../../../masterPage/components/FunctionTitle";
-import { PODetailContext } from "../components/PODetailProvider";
+import { SOApproveDetailContext } from "../components/SOApproveDetailProvider";
+import OrderApproveTitle from "../../../masterPage/components/OrderApproveTitle";
 
-export class PODetail extends Component {
-  static contextType = PODetailContext;
+export class SOApproveDetail extends Component {
+  static contextType = SOApproveDetailContext;
   constructor(props) {
     super(props);
 
@@ -16,9 +15,10 @@ export class PODetail extends Component {
   render() {
     const {
       title,
-      handleSearch,
       selectedRecords,
+      handleSearch,
       permissions,
+      exportToExcel,
       setRecordPerPage,
       setCurrentPage,
       currentPage,
@@ -31,13 +31,20 @@ export class PODetail extends Component {
       searchResult,
       loading,
       setSelectedRecords,
-      createModalVisible,
-      toggleCreateModalVisible,
       handleSelect,
+      saleOrder,
+      handleApproveSO,
     } = this.context;
+
     return (
       <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
+        <OrderApproveTitle
+          title={title}
+          onSearch={handleSearch}
+          pagePermissions={permissions}
+          order={saleOrder}
+          onApprove={handleApproveSO}
+        />
         <ListSearchResult
           columns={columns}
           data={searchResult}
@@ -65,4 +72,4 @@ export class PODetail extends Component {
   }
 }
 
-export default PODetail;
+export default SOApproveDetail;

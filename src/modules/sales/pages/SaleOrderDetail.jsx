@@ -3,10 +3,10 @@ import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
 import FunctionTitle from "../../../masterPage/components/FunctionTitle";
-import { PODetailContext } from "../components/PODetailProvider";
+import { SODetailContext } from "../components/SODetailProvider";
 
-export class PODetail extends Component {
-  static contextType = PODetailContext;
+export class SODetail extends Component {
+  static contextType = SODetailContext;
   constructor(props) {
     super(props);
 
@@ -65,4 +65,4 @@ export class PODetail extends Component {
   }
 }
 
-export default PODetail;
+export default SODetail;

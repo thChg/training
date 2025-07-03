@@ -9,7 +9,7 @@ import {
 const PERMISSIONS = [
   "view",
   "create",
-  "edit",
+  "update",
   "delete",
   "print",
   "export",

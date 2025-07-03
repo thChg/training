@@ -1,32 +1,20 @@
 import React, { Component } from "react";
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
-import Order from "./sale/pages/Order";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import UserManagement from "./user/pages/UserManagement";
 import RoleManagement from "./user/pages/RoleManagement";
 import UserManagementProvider from "./user/components/UserManagementProvider";
 import RoleManagementProvider from "./user/components/RoleManagementProvider";
 import RoleInfo from "./user/pages/RoleInfo";
 import RoleInfoProvider from "./user/components/RoleInfoProvider";
-import CustomerProvider from "./people/components/CustomerProvider";
-import Customer from "./people/pages/Customer";
-import VendorProvider from "./people/components/VendorProvider";
-import Vendor from "./people/pages/Vendor";
-import EmployeeProvider from "./people/components/EmployeeProvider";
-import Employee from "./people/pages/Employee";
 import PurchaseOrder from "./product/pages/PurchaseOrder";
 import InventoryProvider from "./product/components/InventoryProvider";
 import Inventory from "./product/pages/Inventory";
 import PurchaseOrderProvider from "./product/components/PurchaseOrderProvider";
 import BillOfLadingProvider from "./product/components/BillOfLadingProvider";
 import BillOfLading from "./product/pages/BillOfLading";
-import POAppoveProvider from "./accounting/components/POAppoveProvider";
+import POAppoveProvider from "./accounting/components/POApproveProvider";
 import POApprove from "./accounting/pages/POApprove";
-import POAppoveDetailProvider from "./accounting/components/POAppoveDetailProvider";
+import POAppoveDetailProvider from "./accounting/components/POApproveDetailProvider";
 import POApproveDetail from "./accounting/pages/POApproveDetail";
 import AccountantProvider from "./employee/components/AccountantProvider";
 import Accountant from "./employee/pages/Accountant";
@@ -34,6 +22,20 @@ import BOLDetailProvider from "./product/components/BOLDetailProvider";
 import BOLDetail from "./product/pages/BillOfLadingDetail";
 import PODetailProvider from "./product/components/PODetailProvider";
 import PODetail from "./product/pages/PurchaseOrderDetail";
+import ProductProvider from "./product/components/ProductProvider";
+import Product from "./product/pages/Product";
+import CreatePO from "./product/pages/CreatePurchaseOrder";
+import CreatePOProvider from "./product/components/CreatePOProvider";
+import SaleOrderProvider from "./sales/components/SaleOrderProvider";
+import SaleOrder from "./sales/pages/SaleOrder";
+import CreateSOProvider from "./sales/components/CreateSOProvider";
+import CreateSO from "./sales/pages/CreateSaleOrder";
+import SODetail from "./sales/pages/SaleOrderDetail";
+import SODetailProvider from "./sales/components/SODetailProvider";
+import SOApproveProvider from "./accounting/components/SOApproveProvider";
+import SOApprove from "./accounting/pages/SOApprove";
+import SOApproveDetailProvider from "./accounting/components/SOApproveDetailProvider";
+import SOApproveDetail from "./accounting/pages/SOApproveDetail";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -43,7 +45,14 @@ export class AppRouter extends Component {
   render() {
     return (
       <Routes>
-        <Route path="orders" element={<Order />} />
+        <Route
+          path="products"
+          element={
+            <ProductProvider>
+              <Product />
+            </ProductProvider>
+          }
+        />
         <Route
           path="user-management"
           element={
@@ -93,6 +102,14 @@ export class AppRouter extends Component {
           }
         />
         <Route
+          path="create-purchase-order"
+          element={
+            <CreatePOProvider>
+              <CreatePO />
+            </CreatePOProvider>
+          }
+        />
+        <Route
           path="bill-of-ladings"
           element={
             <BillOfLadingProvider>
@@ -125,6 +142,22 @@ export class AppRouter extends Component {
           }
         />
         <Route
+          path="so-approve"
+          element={
+            <SOApproveProvider>
+              <SOApprove />
+            </SOApproveProvider>
+          }
+        />
+        <Route
+          path="so-approve/details/:id"
+          element={
+            <SOApproveDetailProvider>
+              <SOApproveDetail />
+            </SOApproveDetailProvider>
+          }
+        />
+        <Route
           path="accountant"
           element={
             <AccountantProvider>
@@ -132,6 +165,31 @@ export class AppRouter extends Component {
             </AccountantProvider>
           }
         />
+        <Route
+          path="sale-orders"
+          element={
+            <SaleOrderProvider>
+              <SaleOrder />
+            </SaleOrderProvider>
+          }
+        />
+        <Route
+          path="create-sale-order"
+          element={
+            <CreateSOProvider>
+              <CreateSO />
+            </CreateSOProvider>
+          }
+        />
+        <Route
+          path="sale-orders/details/:id"
+          element={
+            <SODetailProvider>
+              <SODetail />
+            </SODetailProvider>
+          }
+        />
+
         {/* <Route
           path="inventory-manager"
           element={

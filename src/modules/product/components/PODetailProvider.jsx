@@ -14,7 +14,7 @@ class PODetailProvider extends Component {
     super(props);
 
     this.state = {
-      title: "Bill Of Lading Management",
+      title: "",
       columns: ["name", "price", "quantity", "unit", "status"],
       loading: this.props.loading,
       searchResult: [],

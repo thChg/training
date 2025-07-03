@@ -3,7 +3,6 @@ import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
 import { PurchaseOrderContext } from "../components/PurchaseOrderProvider";
-import CreatePurchaseOrderModal from "../components/CreatePurchaseOrderModal";
 
 export class PurchaseOrder extends Component {
   static contextType = PurchaseOrderContext;
@@ -34,13 +33,13 @@ export class PurchaseOrder extends Component {
       setSelectedRecords,
       handleSelect,
       createModalVisible,
-      toggleCreateModalVisible,
+      handleCreate,
     } = this.context;
     return (
       <div>
         <ListTitle
           title={title}
-          onCreate={toggleCreateModalVisible}
+          onCreate={handleCreate}
           onSearch={handleSearch}
           permissions={permissions}
           exportToExcel={exportToExcel}
@@ -68,7 +67,6 @@ export class PurchaseOrder extends Component {
           onDeselectAll={removeFromSelectedRecords}
           onPrint={printSelectedRecords}
         />
-        {createModalVisible && <CreatePurchaseOrderModal />}
       </div>
     );
   }

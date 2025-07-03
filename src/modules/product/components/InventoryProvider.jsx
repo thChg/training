@@ -46,7 +46,7 @@ class InventoryProvider extends Component {
     const { inventory, fetchProductList } = this.props;
     const { currentPage, recordPerPage } = this.state;
 
-    if (inventory.length <= 0) {
+    if (!Array.isArray(inventory) || inventory.length === 0) {
       await fetchProductList(currentPage, recordPerPage);
     }
 

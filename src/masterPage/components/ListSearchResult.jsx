@@ -57,7 +57,7 @@ export class ListSearchResult extends Component {
                   className={classes.checkbox}
                   data-header={true}
                   checked={this.isHeaderChecked()}
-                  onClick={this.handleSelectRecord}
+                  onChange={this.handleSelectRecord}
                 />
               </th>
               {columns.map((column) => (
@@ -84,7 +84,6 @@ export class ListSearchResult extends Component {
                         checked={selectedRecords.includes(element._id)}
                         onChange={this.handleSelectRecord}
                         value={element._id}
-                        data-isHeader={false}
                       />
                     }
                   </td>

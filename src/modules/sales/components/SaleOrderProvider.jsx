@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { exportProductToExcel } from "../functions/exportProductToExcel";
+// import { exportProductToExcel } from "../functions/exportProductToExcel";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "../containers/PurchaseOrderMap";
+} from "../containers/SaleOrderMap";
 import { withNavigation } from "../../user/functions/withNavigation";
 
-export const PurchaseOrderContext = React.createContext();
+export const SaleOrderContext = React.createContext();
 
-class PurchaseOrderProvider extends Component {
+class SaleOrderProvider extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "Purchase Order Management",
+      title: "Sale Order Management",
       columns: ["name", "status"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
-        if (permission.includes("product")) {
+        if (permission.includes("sales")) {
           return [...accumulator, permission.split(":")[1].slice(0, -1)];
         }
         return accumulator;
@@ -43,51 +43,51 @@ class PurchaseOrderProvider extends Component {
   }
 
   async componentDidMount() {
-    const { purchaseOrderList, fetchPurchaseOrderList } = this.props;
+    const { saleOrderList, fetchSaleOrderList } = this.props;
     const { currentPage, recordPerPage } = this.state;
-    if (purchaseOrderList.length <= 0) {
-      await fetchPurchaseOrderList(currentPage, recordPerPage);
+    if (saleOrderList.length <= 0) {
+      await fetchSaleOrderList(currentPage, recordPerPage);
     }
     this.setState({
-      searchResult: this.props.purchaseOrderList.map((purchaseOrder) => ({
-        _id: purchaseOrder._id,
-        name: purchaseOrder.name,
-        status: purchaseOrder.status,
+      searchResult: this.props.saleOrderList.map((saleOrder) => ({
+        _id: saleOrder._id,
+        name: saleOrder.name,
+        status: saleOrder.status,
       })),
     });
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.purchaseOrderList !== this.props.purchaseOrderList) {
+    if (prevProps.saleOrderList !== this.props.saleOrderList) {
       this.setState({
-        searchResult: this.props.purchaseOrderList.map((purchaseOrder) => ({
-          _id: purchaseOrder._id,
-          name: purchaseOrder.name,
-          status: purchaseOrder.status,
+        searchResult: this.props.saleOrderList.map((saleOrder) => ({
+          _id: saleOrder._id,
+          name: saleOrder.name,
+          status: saleOrder.status,
         })),
       });
     }
   }
 
   handleSearch(searchTerm) {
-    const purchaseOrderList = this.props.purchaseOrderList;
+    const saleOrderList = this.props.saleOrderList;
 
     const result = searchTerm
-      ? purchaseOrderList.filter((purchaseOrder) =>
-          purchaseOrder.name.toLowerCase().includes(searchTerm)
+      ? saleOrderList.filter((saleOrder) =>
+          saleOrder.name.toLowerCase().includes(searchTerm)
         )
-      : purchaseOrderList;
+      : saleOrderList;
     this.setState({
-      searchResult: result.map((purchaseOrder) => ({
-        _id: purchaseOrder._id,
-        name: purchaseOrder.name,
-        status: purchaseOrder.status,
+      searchResult: result.map((saleOrder) => ({
+        _id: saleOrder._id,
+        name: saleOrder.name,
+        status: saleOrder.status,
       })),
     });
   }
 
   handleCreate() {
-    this.props.navigate("/create-purchase-order");
+    this.props.navigate("/create-sale-order");
   }
 
   async exportToExcel() {
@@ -95,16 +95,16 @@ class PurchaseOrderProvider extends Component {
     if (selectedRecords.length === 0) return;
     const data = await this.props.fetchProductData(selectedRecords);
 
-    await exportProductToExcel(data);
+    // await exportProductToExcel(data);
   }
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchPurchaseOrderList(1, recordPerPage);
+    this.props.fetchSaleOrderList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchPurchaseOrderList(page, this.state.recordPerPage);
+    this.props.fetchSaleOrderList(page, this.state.recordPerPage);
   }
 
   handleDeleteRecords() {
@@ -165,14 +165,13 @@ class PurchaseOrderProvider extends Component {
     }
   }
 
-  handleSelect(POId) {
-    console.log(this.props)
-    this.props.navigate(`/purchase-orders/details/${POId}`);
+  handleSelect(SOId) {
+    this.props.navigate(`/sale-orders/details/${SOId}`);
   }
 
   render() {
     return (
-      <PurchaseOrderContext.Provider
+      <SaleOrderContext.Provider
         value={{
           ...this.state,
           handleSearch: this.handleSearch,
@@ -188,7 +187,7 @@ class PurchaseOrderProvider extends Component {
         }}
       >
         {this.props.children}
-      </PurchaseOrderContext.Provider>
+      </SaleOrderContext.Provider>
     );
   }
 }
@@ -196,6 +195,6 @@ class PurchaseOrderProvider extends Component {
 const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(PurchaseOrderProvider);
+)(SaleOrderProvider);
 
 export default withNavigation(connectedComponent)

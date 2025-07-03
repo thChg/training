@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import FunctionTitle from "../../../masterPage/components/FunctionTitle";
-import { PODetailContext } from "../components/PODetailProvider";
+import { ProductContext } from "../components/ProductProvider";
+import ProductInfoModal from "../components/ProductInfoModal";
+import CreateProductModal from "../components/CreateProductModal";
 
-export class PODetail extends Component {
-  static contextType = PODetailContext;
+
+export class Product extends Component {
+  static contextType = ProductContext;
   constructor(props) {
     super(props);
 
@@ -16,9 +18,10 @@ export class PODetail extends Component {
   render() {
     const {
       title,
-      handleSearch,
       selectedRecords,
+      handleSearch,
       permissions,
+      exportToExcel,
       setRecordPerPage,
       setCurrentPage,
       currentPage,
@@ -31,17 +34,25 @@ export class PODetail extends Component {
       searchResult,
       loading,
       setSelectedRecords,
+      setSelectedProduct,
       createModalVisible,
       toggleCreateModalVisible,
-      handleSelect,
+      selectedProduct
     } = this.context;
     return (
       <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
+        <ListTitle
+          title={title}
+          onCreate={toggleCreateModalVisible}
+          onSearch={handleSearch}
+          permissions={permissions}
+          exportToExcel={exportToExcel}
+          selectedRecords={selectedRecords}
+        />
         <ListSearchResult
           columns={columns}
           data={searchResult}
-          onSelect={handleSelect}
+          onSelect={setSelectedProduct}
           loading={loading}
           recordPerPage={recordPerPage}
           currentPage={currentPage}
@@ -60,9 +71,11 @@ export class PODetail extends Component {
           onDeselectAll={removeFromSelectedRecords}
           onPrint={printSelectedRecords}
         />
+        {selectedProduct && <ProductInfoModal />}
+        {createModalVisible && <CreateProductModal />}
       </div>
     );
   }
 }
 
-export default PODetail;
+export default Product;

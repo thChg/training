@@ -70,7 +70,6 @@ class BillOfLadingProvider extends Component {
         description: product.description,
       })),
     });
-    console.log(this.props.state);
   }
 
   componentDidUpdate(prevProps) {

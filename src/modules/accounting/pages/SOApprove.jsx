@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import FunctionTitle from "../../../masterPage/components/FunctionTitle";
-import { PODetailContext } from "../components/PODetailProvider";
+import { SOApproveContext } from "../components/SOApproveProvider";
 
-export class PODetail extends Component {
-  static contextType = PODetailContext;
+export class SOApprove extends Component {
+  static contextType = SOApproveContext;
   constructor(props) {
     super(props);
 
@@ -16,9 +15,10 @@ export class PODetail extends Component {
   render() {
     const {
       title,
-      handleSearch,
       selectedRecords,
+      handleSearch,
       permissions,
+      exportToExcel,
       setRecordPerPage,
       setCurrentPage,
       currentPage,
@@ -32,16 +32,23 @@ export class PODetail extends Component {
       loading,
       setSelectedRecords,
       createModalVisible,
+      setSelectedSaleOrderId,
       toggleCreateModalVisible,
-      handleSelect,
     } = this.context;
     return (
       <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
+        <ListTitle
+          title={title}
+          onCreate={toggleCreateModalVisible}
+          onSearch={handleSearch}
+          permissions={permissions}
+          exportToExcel={exportToExcel}
+          selectedRecords={selectedRecords}
+        />
         <ListSearchResult
           columns={columns}
           data={searchResult}
-          onSelect={handleSelect}
+          onSelect={setSelectedSaleOrderId}
           loading={loading}
           recordPerPage={recordPerPage}
           currentPage={currentPage}
@@ -65,4 +72,4 @@ export class PODetail extends Component {
   }
 }
 
-export default PODetail;
+export default SOApprove;

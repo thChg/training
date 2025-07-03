@@ -1,22 +1,18 @@
 import React, { Component } from "react";
 import classes from "../../../css/modules/components/CreateModal.module.css";
-import { InventoryContext } from "./InventoryProvider";
+import { ProductContext } from "./ProductProvider";
 import { connect } from "react-redux";
-import {
-  mapDispatchToProps,
-  mapStateToProps,
-} from "../containers/InventoryMap";
+import { mapDispatchToProps, mapStateToProps } from "../containers/ProductMap";
 
 export class CreateProductModal extends Component {
-  static contextType = InventoryContext;
+  static contextType = ProductContext;
   constructor(props) {
     super(props);
 
     this.state = {
       name: "",
-      category: "",
-      description: "",
       price: "",
+      unit: "",
     };
 
     this.onCreate = this.onCreate.bind(this);
@@ -25,40 +21,26 @@ export class CreateProductModal extends Component {
   }
 
   onCreate() {
-    const { name, category, description, price } = this.state;
+    const { name, price, unit } = this.state;
     const { currentPage, recordPerPage, toggleCreateModalVisible } =
       this.context;
 
-    if (name === "" || category === "" || price === "") {
+    if (name === "" || price === "" || unit === "") {
       alert("Fill in all neccessary fields!");
       return;
     }
     if (isNaN(Number(price))) {
       alert("Price must be a valid number");
+      return;
     }
-    this.props.createProduct(
-      { name, category, description, price },
-      currentPage,
-      recordPerPage
-    );
+    this.props.createProduct({ name, price, unit }, currentPage, recordPerPage);
 
     toggleCreateModalVisible();
   }
 
   handleInputChange(event) {
     const { value, name } = event.target;
-    this.setState(() => {
-      switch (name) {
-        case "name":
-          return { name: value };
-        case "category":
-          return { category: value };
-        case "description":
-          return { description: value };
-        case "price":
-          return { price: value };
-      }
-    });
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event) {
@@ -100,14 +82,6 @@ export class CreateProductModal extends Component {
             </label>
             <div style={{ display: "flex", gap: "15px" }}>
               <label style={{ flex: 1 }}>
-                Category:
-                <input
-                  type="text"
-                  onChange={this.handleInputChange}
-                  name="category"
-                />
-              </label>
-              <label style={{ flex: 1 }}>
                 Price:
                 <input
                   type="text"
@@ -115,15 +89,15 @@ export class CreateProductModal extends Component {
                   name="price"
                 />
               </label>
+              <label style={{ flex: 1 }}>
+                Unit:
+                <input
+                  type="text"
+                  onChange={this.handleInputChange}
+                  name="unit"
+                />
+              </label>
             </div>
-            <label>
-              Description:
-              <input
-                type="text"
-                onChange={this.handleInputChange}
-                name="description"
-              />
-            </label>
             <div className={classes.modalButtons}>
               <button
                 className={classes.cancelBtn}

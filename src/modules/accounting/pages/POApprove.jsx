@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import { POApproveContext } from "../components/POAppoveProvider";
+import { POApproveContext } from "../components/POApproveProvider";
 
 export class POApprove extends Component {
   static contextType = POApproveContext;

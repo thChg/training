@@ -3,7 +3,7 @@ import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
 import CreateBillOfLadingModal from "../components/CreateBillOfLadingModal";
 import { BOLDetailContext } from "../components/BOLDetailProvider";
-import FunctionTitle from "../components/FunctionTitle";
+import FunctionTitle from "../../../masterPage/components/FunctionTitle";
 
 export class BOLDetail extends Component {
   static contextType = BOLDetailContext;

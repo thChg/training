@@ -108,14 +108,13 @@ export function printRecords(records) {
   };
 }
 
-export function createPurchaseOrder(purchaseOrder, page, limit) {
+export function createPurchaseOrder(purchaseOrder) {
   return async function (dispatch) {
     try {
       await axios.post(
         "/product/purchase-order/create-purchase-order",
         purchaseOrder
       );
-      dispatch(fetchPurchaseOrderList(page, limit));
     } catch (error) {
       console.error(error);
       dispatch(createPurchaseOrderFailure(error));

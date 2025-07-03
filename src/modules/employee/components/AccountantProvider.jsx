@@ -15,7 +15,7 @@ export class AccountantProvider extends Component {
 
     this.state = {
       title: "Accountant Management",
-      columns: ["name", "email", "address", "phone", "taxId"],
+      columns: ["fullname", "email", "phone"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -51,13 +51,11 @@ export class AccountantProvider extends Component {
       await fetchRecordList(currentPage, recordPerPage);
     }
     this.setState({
-      searchResult: accountantList.map((record) => ({
+      searchResult: this.props.accountantList.map((record) => ({
         _id: record._id,
-        name: record.name,
+        fullname: record.fullname,
         email: record.email,
-        address: record.address,
         phone: record.phone,
-        taxId: record.taxId,
       })),
     });
   }

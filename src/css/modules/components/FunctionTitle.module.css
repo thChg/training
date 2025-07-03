@@ -31,8 +31,8 @@
   cursor: pointer;
 }
 
-.titleActions button:hover {
-  background-color: #0056b3;
+.titleActions .btn:hover {
+  background-color: hsl(204, 72%, 40%);;
 }
 
 .searchIcon {

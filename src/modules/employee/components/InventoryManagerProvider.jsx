@@ -48,7 +48,7 @@ export class VendorProvider extends Component {
       await fetchRecordList(currentPage, recordPerPage);
     }
     this.setState({
-      searchResult: recordList.map((record) => ({
+      searchResult: this.props.recordList.map((record) => ({
         _id: record._id,
         name: record.name,
         email: record.email,

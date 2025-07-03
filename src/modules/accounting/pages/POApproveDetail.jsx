@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import { POApproveDetailContext } from "../components/POAppoveDetailProvider";
-import FunctionTitle from "../components/FunctionTitle";
+import { POApproveDetailContext } from "../components/POApproveDetailProvider";
+import OrderApproveTitle from "../../../masterPage/components/OrderApproveTitle";
 
 export class POApproveDetail extends Component {
   static contextType = POApproveDetailContext;
@@ -38,13 +38,11 @@ export class POApproveDetail extends Component {
 
     return (
       <div>
-        <FunctionTitle
+        <OrderApproveTitle
           title={title}
           onSearch={handleSearch}
           pagePermissions={permissions}
-          exportToExcel={exportToExcel}
-          selectedRecords={selectedRecords}
-          purchaseOrder={purchaseOrder}
+          order={purchaseOrder}
           onApprove={handleApprovePO}
         />
         <ListSearchResult

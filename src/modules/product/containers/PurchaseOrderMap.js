@@ -1,3 +1,4 @@
+import { fetchProductList } from "../actions/ProductAction";
 import {
   createPurchaseOrder,
   deleteManyPurchaseOrder,
@@ -13,6 +14,7 @@ export function mapStateToProps(state) {
     purchaseOrderList: state.PurchaseOrderReducer
       ? state.PurchaseOrderReducer.purchaseOrderList
       : [],
+    productList: state.ProductReducer ? state.ProductReducer.productList : [],
     recordLength: state.PurchaseOrderReducer
       ? state.PurchaseOrderReducer.recordLength
       : 0,
@@ -32,11 +34,12 @@ export function mapDispatchToProps(dispatch) {
     deleteManyPurchaseOrder: (purchaseOrders, page, limit) =>
       dispatch(deleteManyPurchaseOrder(purchaseOrders, page, limit)),
     printRecords: (records) => dispatch(printRecords(records)),
-    createPurchaseOrder: (purchaseOrder, page, limit) =>
-      dispatch(createPurchaseOrder(purchaseOrder, page, limit)),
+    createPurchaseOrder: (purchaseOrder) =>
+      dispatch(createPurchaseOrder(purchaseOrder)),
     importPurchaseOrderFromFile: (file, page, limit) =>
       dispatch(importPurchaseOrderFromFile(file, page, limit)),
     fetchPurchaseOrderData: (records) =>
       dispatch(fetchPurchaseOrderData(records)),
+    fetchProductList: () => dispatch(fetchProductList()),
   };
 }

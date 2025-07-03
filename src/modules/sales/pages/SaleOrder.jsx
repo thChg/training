@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import ListTitle from "../../../masterPage/components/ListTitle";
 import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import FunctionTitle from "../../../masterPage/components/FunctionTitle";
-import { PODetailContext } from "../components/PODetailProvider";
+import { SaleOrderContext } from "../components/SaleOrderProvider";
 
-export class PODetail extends Component {
-  static contextType = PODetailContext;
+export class SaleOrder extends Component {
+  static contextType = SaleOrderContext;
   constructor(props) {
     super(props);
 
@@ -16,9 +15,10 @@ export class PODetail extends Component {
   render() {
     const {
       title,
-      handleSearch,
       selectedRecords,
+      handleSearch,
       permissions,
+      exportToExcel,
       setRecordPerPage,
       setCurrentPage,
       currentPage,
@@ -31,13 +31,19 @@ export class PODetail extends Component {
       searchResult,
       loading,
       setSelectedRecords,
-      createModalVisible,
-      toggleCreateModalVisible,
       handleSelect,
+      handleCreate,
     } = this.context;
     return (
       <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
+        <ListTitle
+          title={title}
+          onCreate={handleCreate}
+          onSearch={handleSearch}
+          permissions={permissions}
+          exportToExcel={exportToExcel}
+          selectedRecords={selectedRecords}
+        />
         <ListSearchResult
           columns={columns}
           data={searchResult}
@@ -65,4 +71,4 @@ export class PODetail extends Component {
   }
 }
 
-export default PODetail;
+export default SaleOrder;

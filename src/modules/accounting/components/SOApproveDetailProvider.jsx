@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { exportProductToExcel } from "../functions/exportProductToExcel";
 import {
   mapDispatchToProps,
   mapStateToProps,
-} from "../containers/PurchaseOrderMap";
+} from "../containers/SOApproveMap";
 import { withNavigation } from "../../user/functions/withNavigation";
+// import { exportProductToExcel } from "../functions/exportProductToExcel";
 
-export const PurchaseOrderContext = React.createContext();
+export const SOApproveDetailContext = React.createContext();
 
-class PurchaseOrderProvider extends Component {
+class SOApproveDetailProvider extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "Purchase Order Management",
-      columns: ["name", "status"],
+      title: `Sal Order Details`,
+      columns: [
+        "orderName",
+        "productName",
+        "price",
+        "quantity",
+        "unit",
+        "status",
+      ],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
-        if (permission.includes("product")) {
+        if (permission.includes("accounting")) {
           return [...accumulator, permission.split(":")[1].slice(0, -1)];
         }
         return accumulator;
@@ -28,66 +35,63 @@ class PurchaseOrderProvider extends Component {
       recordLength: this.props.recordLength,
       recordPerPage: 10,
       currentPage: 1,
+      saleOrder: {},
     };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.exportToExcel = this.exportToExcel.bind(this);
     this.setRecordPerPage = this.setRecordPerPage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
-    this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
     this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
     this.printSelectedRecords = this.printSelectedRecords.bind(this);
     this.setSelectedRecords = this.setSelectedRecords.bind(this);
+    this.handleApproveSO = this.handleApproveSO.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
   }
 
   async componentDidMount() {
-    const { purchaseOrderList, fetchPurchaseOrderList } = this.props;
+    const { saleOrderList, fetchSalOrderList, params } = this.props;
     const { currentPage, recordPerPage } = this.state;
-    if (purchaseOrderList.length <= 0) {
-      await fetchPurchaseOrderList(currentPage, recordPerPage);
+
+    if (saleOrderList.length <= 0) {
+      await fetchSalOrderList(currentPage, recordPerPage);
     }
+
+    const saleOrder = saleOrderList.find((po) => po._id == params.id);
     this.setState({
-      searchResult: this.props.purchaseOrderList.map((purchaseOrder) => ({
-        _id: purchaseOrder._id,
-        name: purchaseOrder.name,
-        status: purchaseOrder.status,
+      title: `${saleOrder.name} details`,
+      saleOrder: saleOrder,
+      searchResult: saleOrder.products.map((product) => ({
+        _id: product._id,
+        orderName: saleOrder.name,
+        productName: product.name,
+        price: product.price,
+        quantity: product.quantity,
+        unit: product.unit,
+        status: product.status,
       })),
     });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.purchaseOrderList !== this.props.purchaseOrderList) {
-      this.setState({
-        searchResult: this.props.purchaseOrderList.map((purchaseOrder) => ({
-          _id: purchaseOrder._id,
-          name: purchaseOrder.name,
-          status: purchaseOrder.status,
-        })),
-      });
-    }
   }
 
   handleSearch(searchTerm) {
-    const purchaseOrderList = this.props.purchaseOrderList;
+    const { saleOrder } = this.state;
 
     const result = searchTerm
-      ? purchaseOrderList.filter((purchaseOrder) =>
-          purchaseOrder.name.toLowerCase().includes(searchTerm)
+      ? saleOrder.products.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm)
         )
-      : purchaseOrderList;
+      : saleOrder.products;
     this.setState({
-      searchResult: result.map((purchaseOrder) => ({
-        _id: purchaseOrder._id,
-        name: purchaseOrder.name,
-        status: purchaseOrder.status,
+      searchResult: result.map((product) => ({
+        _id: product._id,
+        orderName: saleOrder.name,
+        productName: product.name,
+        price: product.price,
+        quantity: product.quantity,
+        unit: product.unit,
+        status: product.status,
       })),
     });
-  }
-
-  handleCreate() {
-    this.props.navigate("/create-purchase-order");
   }
 
   async exportToExcel() {
@@ -95,22 +99,16 @@ class PurchaseOrderProvider extends Component {
     if (selectedRecords.length === 0) return;
     const data = await this.props.fetchProductData(selectedRecords);
 
-    await exportProductToExcel(data);
+    // await exportProductToExcel(data);
   }
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchPurchaseOrderList(1, recordPerPage);
+    this.props.fetchSalOrderList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchPurchaseOrderList(page, this.state.recordPerPage);
-  }
-
-  handleDeleteRecords() {
-    const { selectedRecords, currentPage, recordPerPage } = this.state;
-    this.props.deleteManyProduct(selectedRecords, currentPage, recordPerPage);
-    this.setState({ selectedRecords: [] });
+    this.props.fetchProductList(page, this.state.recordPerPage);
   }
 
   removeFromSelectedRecords(record, isDeselect) {
@@ -165,30 +163,38 @@ class PurchaseOrderProvider extends Component {
     }
   }
 
-  handleSelect(POId) {
-    console.log(this.props)
-    this.props.navigate(`/purchase-orders/details/${POId}`);
+  handleApproveSO() {
+    const { saleOrder } = this.state;
+    if (saleOrder.status !== "pending") {
+      return;
+    }
+
+    this.props.approveSO({ SOId: saleOrder._id });
+    this.props.navigate("/so-approve");
+  }
+
+  handleSelect() {
+    return;
   }
 
   render() {
     return (
-      <PurchaseOrderContext.Provider
+      <SOApproveDetailContext.Provider
         value={{
           ...this.state,
           handleSearch: this.handleSearch,
           exportToExcel: this.exportToExcel,
           setRecordPerPage: this.setRecordPerPage,
           setCurrentPage: this.setCurrentPage,
-          handleDeleteRecords: this.handleDeleteRecords,
           removeFromSelectedRecords: this.removeFromSelectedRecords,
           printSelectedRecords: this.printSelectedRecords,
-          handleSelect: this.handleSelect,
           setSelectedRecords: this.setSelectedRecords,
-          handleCreate: this.handleCreate,
+          handleApproveSO: this.handleApproveSO,
+          handleSelect: this.handleSelect,
         }}
       >
         {this.props.children}
-      </PurchaseOrderContext.Provider>
+      </SOApproveDetailContext.Provider>
     );
   }
 }
@@ -196,6 +202,5 @@ class PurchaseOrderProvider extends Component {
 const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(PurchaseOrderProvider);
-
-export default withNavigation(connectedComponent)
+)(SOApproveDetailProvider);
+export default withNavigation(connectedComponent);

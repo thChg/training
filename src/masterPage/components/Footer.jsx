@@ -150,7 +150,7 @@ export class Footer extends Component {
     const { recordLength, recordPerPage, selectedRecords, permissions } =
       this.props;
     const userActions = BASE_ACTIONS.map((action) => (
-      <button value={action} onClick={this.handleActionClick}>
+      <button value={action} onClick={this.handleActionClick} key={action}>
         {action}
       </button>
     )).concat(
@@ -204,7 +204,7 @@ export class Footer extends Component {
             className={dropDownVisible ? classes.dropDown : classes.disabled}
           >
             {RECORD_PER_PAGE.map((item) => (
-              <button onClick={this.handleSetRecordPerPage} value={item}>
+              <button onClick={this.handleSetRecordPerPage} value={item} key={item}>
                 {item}
               </button>
             ))}

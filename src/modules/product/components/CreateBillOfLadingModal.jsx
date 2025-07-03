@@ -52,7 +52,7 @@ export class CreateBillOfLadingModal extends Component {
     let html = [];
     for (let i = 0; i < purchaseOrderItems.length; i++) {
       html.push(
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px" }} key={purchaseOrderItems[i]._id}>
           <label style={{ flex: 0.5 }}>
             Purchase Order:
             <select
