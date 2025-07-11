@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CreatePOContext } from "../components/CreatePOProvider";
 import CreateOrderTitle from "../../../masterPage/components/CreateOrderTitle";
-import CreateOrderBody from "../../../masterPage/components/CreateOrderBody";
+import CreatePurchaseOrderBody from "../components/CreatePurchaseOrderBody";
 
 export class CreatePO extends Component {
   static contextType = CreatePOContext;
@@ -12,11 +12,17 @@ export class CreatePO extends Component {
   }
 
   render() {
-    const { title, handleCreate, handleCancel, productList } = this.context;
+    const { title, handleCreate, handleCancel, productList, vendorList } =
+      this.context;
     return (
       <div>
         <CreateOrderTitle title={title} />
-        <CreateOrderBody onCreate={handleCreate} onCancel={handleCancel} productList={productList}/>
+        <CreatePurchaseOrderBody
+          vendorList={vendorList}
+          productList={productList}
+          onCreate={handleCreate}
+          onCancel={handleCancel}
+        />
       </div>
     );
   }

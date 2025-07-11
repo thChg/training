@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Footer from "../../../masterPage/components/Footer";
-import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import CreateBillOfLadingModal from "../components/CreateBillOfLadingModal";
 import { BOLDetailContext } from "../components/BOLDetailProvider";
-import FunctionTitle from "../../../masterPage/components/FunctionTitle";
+import BOLDetailTitle from "../components/BOLDetailTitle";
+import BOLDetailBody from "../components/BOLDetailBody";
 
 export class BOLDetail extends Component {
   static contextType = BOLDetailContext;
@@ -16,51 +14,28 @@ export class BOLDetail extends Component {
   render() {
     const {
       title,
-      handleSearch,
-      selectedRecords,
-      permissions,
-      setRecordPerPage,
-      setCurrentPage,
-      currentPage,
-      recordPerPage,
-      recordLength,
-      handleDeleteRecords,
-      removeFromSelectedRecords,
-      printSelectedRecords,
-      columns,
-      searchResult,
-      loading,
-      setSelectedRecords,
-      createModalVisible,
-      toggleCreateModalVisible,
-      handleSelect,
+      name,
+      vendor,
+      contact,
+      email,
+      address,
+      taxId,
+      purchaseOrders,
+      products,
     } = this.context;
     return (
       <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
-        <ListSearchResult
-          columns={columns}
-          data={searchResult}
-          onSelect={handleSelect}
-          loading={loading}
-          recordPerPage={recordPerPage}
-          currentPage={currentPage}
-          onSelectRecord={setSelectedRecords}
-          selectedRecords={selectedRecords}
+        <BOLDetailTitle title={title} />
+        <BOLDetailBody
+          name={name}
+          vendor={vendor}
+          contact={contact}
+          email={email}
+          address={address}
+          taxId={taxId}
+          purchaseOrders={purchaseOrders}
+          products={products}
         />
-        <Footer
-          onSelectRecordPerPage={setRecordPerPage}
-          onSelectPage={setCurrentPage}
-          currentPage={currentPage}
-          recordPerPage={recordPerPage}
-          recordLength={recordLength}
-          selectedRecords={selectedRecords}
-          permissions={permissions}
-          onDeleteRecords={handleDeleteRecords}
-          onDeselectAll={removeFromSelectedRecords}
-          onPrint={printSelectedRecords}
-        />
-        {createModalVisible && <CreateBillOfLadingModal />}
       </div>
     );
   }

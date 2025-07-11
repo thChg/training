@@ -15,7 +15,7 @@ class SaleOrderProvider extends Component {
 
     this.state = {
       title: "Sale Order Management",
-      columns: ["name", "status"],
+      columns: ["name", "customer", "orderDate", "status"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -53,6 +53,8 @@ class SaleOrderProvider extends Component {
         _id: saleOrder._id,
         name: saleOrder.name,
         status: saleOrder.status,
+        customer: saleOrder.customer.fullname,
+        orderDate: saleOrder.orderDate,
       })),
     });
   }
@@ -64,6 +66,8 @@ class SaleOrderProvider extends Component {
           _id: saleOrder._id,
           name: saleOrder.name,
           status: saleOrder.status,
+          customer: saleOrder.customer.fullname,
+          orderDate: saleOrder.orderDate,
         })),
       });
     }
@@ -82,6 +86,8 @@ class SaleOrderProvider extends Component {
         _id: saleOrder._id,
         name: saleOrder.name,
         status: saleOrder.status,
+        customer: saleOrder.customer.fullname,
+        orderDate: saleOrder.orderDates,
       })),
     });
   }
@@ -197,4 +203,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(SaleOrderProvider);
 
-export default withNavigation(connectedComponent)
+export default withNavigation(connectedComponent);

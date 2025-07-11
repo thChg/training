@@ -12,11 +12,12 @@ export class CreateSO extends Component {
   }
 
   render() {
-    const { title, productList, handleCreate, handleCancel } = this.context;
+    const { title, productList, customerList, handleCreate, handleCancel } = this.context;
     return (
       <div>
         <CreateOrderTitle title={title} />
         <CreateOrderBody
+          customerList={customerList}
           productList={productList}
           onCreate={handleCreate}
           onCancel={handleCancel}

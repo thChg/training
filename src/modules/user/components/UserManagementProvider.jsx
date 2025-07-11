@@ -174,7 +174,6 @@ export class UserManagementProvider extends Component {
     const { selectedRecords } = this.state;
     if (selectedRecords.length === 0) return;
     const data = await this.props.fetchSelectedUserData(selectedRecords);
-    console.log(data);
     const filtered = data.map((user) => ({
       username: user.username,
       role: user.role.role,

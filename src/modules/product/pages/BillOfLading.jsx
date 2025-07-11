@@ -34,13 +34,13 @@ export class BillOfLading extends Component {
       setSelectedRecords,
       setSelectedBOLId,
       createModalVisible,
-      toggleCreateModalVisible,
+      handleCreate,
     } = this.context;
     return (
       <div>
         <ListTitle
           title={title}
-          onCreate={toggleCreateModalVisible}
+          onCreate={handleCreate}
           onSearch={handleSearch}
           permissions={permissions}
           exportToExcel={exportToExcel}

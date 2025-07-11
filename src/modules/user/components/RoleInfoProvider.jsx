@@ -99,7 +99,6 @@ export class RoleInfoProvider extends Component {
   async componentDidMount() {
     const { selectedRoleId, roleList } = this.props;
     const role = roleList.find((role) => role._id === selectedRoleId);
-    console.log(role);
     this.setState({
       role: role ? role.role : "",
       access: role ? role.access.map((acc) => acc._id) : [],

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 import { mapDispatchToProps, mapStateToProps } from "../containers/ProductMap";
 import { withNavigation } from "../../user/functions/withNavigation";
+import { formatDate } from "../../../masterPage/utils/TimeFormat";
 
 export const ProductContext = React.createContext();
 
@@ -12,7 +13,7 @@ class ProductProvider extends Component {
 
     this.state = {
       title: "Product Management",
-      columns: ["name", "price", "unit"],
+      columns: ["name", "unit", "createdAt"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -50,8 +51,8 @@ class ProductProvider extends Component {
       searchResult: this.props.productList.map((product) => ({
         _id: product._id,
         name: product.name,
-        price: product.price,
         unit: product.unit,
+        createdAt: formatDate(product.createdAt),
       })),
     });
   }
@@ -63,8 +64,8 @@ class ProductProvider extends Component {
         searchResult: productList.map((product) => ({
           _id: product._id,
           name: product.name,
-          price: product.price,
           unit: product.unit,
+          createdAt: formatDate(product.createdAt),
         })),
       });
     }
@@ -88,8 +89,8 @@ class ProductProvider extends Component {
       searchResult: result.map((product) => ({
         _id: product._id,
         name: product.name,
-        price: product.price,
         unit: product.unit,
+        createdAt: formatDate(product.createdAt),
       })),
     });
   }

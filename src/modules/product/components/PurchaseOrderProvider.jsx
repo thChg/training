@@ -166,7 +166,6 @@ class PurchaseOrderProvider extends Component {
   }
 
   handleSelect(POId) {
-    console.log(this.props)
     this.props.navigate(`/purchase-orders/details/${POId}`);
   }
 

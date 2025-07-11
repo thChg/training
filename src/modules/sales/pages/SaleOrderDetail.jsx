@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import ListTitle from "../../../masterPage/components/ListTitle";
-import Footer from "../../../masterPage/components/Footer";
-import ListSearchResult from "../../../masterPage/components/ListSearchResult";
-import FunctionTitle from "../../../masterPage/components/FunctionTitle";
 import { SODetailContext } from "../components/SODetailProvider";
+import OrderDetailTitle from "../../../masterPage/components/OrderDetailTitle";
+import OrderDetailBody from "../../../masterPage/components/OrderDetailBody";
 
 export class SODetail extends Component {
   static contextType = SODetailContext;
@@ -15,50 +13,48 @@ export class SODetail extends Component {
 
   render() {
     const {
-      title,
-      handleSearch,
-      selectedRecords,
+      curStatus,
+      name,
+      orderDate,
+      customer,
+      contact,
+      email,
+      deliveryAddress,
+      estimatedDeliveryDate,
+      products,
+      approvedAt,
+      completedAt,
+      isEditing,
+      toggleIsEditing,
       permissions,
-      setRecordPerPage,
-      setCurrentPage,
-      currentPage,
-      recordPerPage,
-      recordLength,
-      handleDeleteRecords,
-      removeFromSelectedRecords,
-      printSelectedRecords,
-      columns,
-      searchResult,
-      loading,
-      setSelectedRecords,
-      createModalVisible,
-      toggleCreateModalVisible,
-      handleSelect,
+      handleSave,
+      handleInputChange,
+      handleDelete
     } = this.context;
     return (
       <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
-        <ListSearchResult
-          columns={columns}
-          data={searchResult}
-          onSelect={handleSelect}
-          loading={loading}
-          recordPerPage={recordPerPage}
-          currentPage={currentPage}
-          onSelectRecord={setSelectedRecords}
-          selectedRecords={selectedRecords}
-        />
-        <Footer
-          onSelectRecordPerPage={setRecordPerPage}
-          onSelectPage={setCurrentPage}
-          currentPage={currentPage}
-          recordPerPage={recordPerPage}
-          recordLength={recordLength}
-          selectedRecords={selectedRecords}
+        <OrderDetailTitle
+          curStatus={curStatus}
+          onEdit={toggleIsEditing}
           permissions={permissions}
-          onDeleteRecords={handleDeleteRecords}
-          onDeselectAll={removeFromSelectedRecords}
-          onPrint={printSelectedRecords}
+          isEditing={isEditing}
+          onSave={handleSave}
+          onDelete={handleDelete}
+        />
+        <OrderDetailBody
+          name={name}
+          orderDate={orderDate}
+          customer={customer}
+          contact={contact}
+          email={email}
+          deliveryAddress={deliveryAddress}
+          estimatedDeliveryDate={estimatedDeliveryDate}
+          products={products}
+          approvedAt={approvedAt}
+          completedAt={completedAt}
+          isEditing={isEditing}
+          onInputChange={handleInputChange}
+          
         />
       </div>
     );

@@ -1,12 +1,14 @@
 import {
   CREATE_SALE_ORDER_FAILURE,
   DELETE_MANY_SALE_ORDER_FAILURE,
+  DELETE_SALE_ORDER_FAILURE,
   FETCH_SALE_ORDER_DATA_FAILURE,
   FETCH_SALE_ORDER_LIST_FAILURE,
   FETCH_SALE_ORDER_LIST_START,
   FETCH_SALE_ORDER_LIST_SUCCESS,
   IMPORT_SALE_ORDER_FROM_FILE_FAILURE,
   PRINT_RECORDS_FAILURE,
+  UPDATE_SALE_ORDER_FAILURE,
 } from "../actions/SaleOrderAction";
 
 const initialState = {
@@ -66,6 +68,18 @@ const SaleOrderReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case UPDATE_SALE_ORDER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+      case DELETE_SALE_ORDER_FAILURE:
+        return {
+          ...state,
+          loading: false,
+        error: action.payload,
+        }
     default:
       return state;
   }

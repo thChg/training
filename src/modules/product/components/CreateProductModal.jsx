@@ -11,7 +11,6 @@ export class CreateProductModal extends Component {
 
     this.state = {
       name: "",
-      price: "",
       unit: "",
     };
 
@@ -21,19 +20,16 @@ export class CreateProductModal extends Component {
   }
 
   onCreate() {
-    const { name, price, unit } = this.state;
+    const { name, unit } = this.state;
     const { currentPage, recordPerPage, toggleCreateModalVisible } =
       this.context;
 
-    if (name === "" || price === "" || unit === "") {
+    if (name === "" || unit === "") {
       alert("Fill in all neccessary fields!");
       return;
     }
-    if (isNaN(Number(price))) {
-      alert("Price must be a valid number");
-      return;
-    }
-    this.props.createProduct({ name, price, unit }, currentPage, recordPerPage);
+
+    this.props.createProduct({ name, unit }, currentPage, recordPerPage);
 
     toggleCreateModalVisible();
   }
@@ -81,14 +77,6 @@ export class CreateProductModal extends Component {
               />
             </label>
             <div style={{ display: "flex", gap: "15px" }}>
-              <label style={{ flex: 1 }}>
-                Price:
-                <input
-                  type="text"
-                  onChange={this.handleInputChange}
-                  name="price"
-                />
-              </label>
               <label style={{ flex: 1 }}>
                 Unit:
                 <input

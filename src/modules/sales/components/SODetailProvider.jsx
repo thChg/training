@@ -14,47 +14,42 @@ class SODetailProvider extends Component {
     super(props);
 
     this.state = {
-      title: "",
-      columns: ["name", "price", "quantity", "unit", "status"],
       loading: this.props.loading,
-      searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
-        if (permission.includes("product")) {
+        if (permission.includes("sales")) {
           return [...accumulator, permission.split(":")[1].slice(0, -1)];
         }
         return accumulator;
       }, []),
-      selectedRecords: [],
-      recordLength: this.props.recordLength,
-      recordPerPage: 10,
-      currentPage: 1,
-      createModalVisible: false,
       selectedSO: null,
+      curStatus: "",
+      name: "",
+      orderDate: "",
+      customer: "",
+      contact: "",
+      email: "",
+      deliveryAddress: "",
+      estimatedDeliveryDate: "",
+      products: [],
+      approvedAt: "",
+      completedAt: "",
+      isEditing: false,
     };
 
-    this.handleSearch = this.handleSearch.bind(this);
-    this.exportToExcel = this.exportToExcel.bind(this);
-    this.setRecordPerPage = this.setRecordPerPage.bind(this);
-    this.setCurrentPage = this.setCurrentPage.bind(this);
-    this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
-    this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
-    this.printSelectedRecords = this.printSelectedRecords.bind(this);
-    this.setSelectedRecords = this.setSelectedRecords.bind(this);
-    this.toggleCreateModalVisible = this.toggleCreateModalVisible.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+    this.toggleIsEditing = this.toggleIsEditing.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   async componentDidMount() {
     const { params, saleOrderList } = this.props;
 
-    const selectedSO = saleOrderList.find(
-      (po) => po._id === params.id
-    );
+    const selectedSO = saleOrderList.find((po) => po._id === params.id);
 
     this.setState({
       selectedSO: selectedSO,
-      title: selectedSO.name,
-      searchResult: selectedSO.products.map((product) => ({
+      products: selectedSO.products.map((product) => ({
         _id: product._id,
         name: product.name,
         price: product.price,
@@ -62,130 +57,56 @@ class SODetailProvider extends Component {
         unit: product.unit,
         status: product.status,
       })),
+      curStatus: selectedSO.status,
+      name: selectedSO.name,
+      orderDate: selectedSO.orderDate,
+      customer: selectedSO.customer.fullname,
+      contact: selectedSO.customer.phone,
+      email: selectedSO.customer.email,
+      deliveryAddress: selectedSO.deliveryAddress,
+      estimatedDeliveryDate: selectedSO.estimatedDeliveryDate,
+      approvedAt: selectedSO.approvedAt,
+      completedAt: selectedSO.completedAt,
     });
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.billOfLadingList !== this.props.billOfLadingList) {
-      this.setState({
-        searchResult: this.state.selectedSO.products.map((product) => ({
-          _id: product._id,
-          name: product.name,
-          price: product.price,
-          quantity: product.quantity,
-          unit: product.unit,
-          status: product.status,
-        })),
-      });
-    }
-  }
-
-  toggleCreateModalVisible() {
+  toggleIsEditing() {
     this.setState((prevState) => ({
-      createModalVisible: !prevState.createModalVisible,
+      isEditing: !prevState.isEditing,
     }));
   }
 
-  handleSearch(searchTerm) {
-    const { selectedSO } = this.state;
+  handleInputChange(name, value) {
+    this.setState({ [name]: value });
+  }
 
-    const result = searchTerm
-      ? selectedSO.products.filter((product) =>
-          product.name.toLowerCase().includes(searchTerm)
-        )
-      : selectedSO.products;
-    this.setState({
-      searchResult: result.map((product) => ({
-        _id: product._id,
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
-        unit: product.unit,
-        status: product.status,
-      })),
+  handleSave() {
+    const {
+      name,
+      orderDate,
+      deliveryAddress,
+      estimatedDeliveryDate,
+      approvedAt,
+      completedAt,
+      selectedSO,
+    } = this.state;
+    this.props.updateSaleOrder({
+      _id: selectedSO._id,
+      name,
+      orderDate,
+      deliveryAddress,
+      estimatedDeliveryDate,
+      approvedAt,
+      completedAt,
     });
+    this.setState({ isEditing: false });
   }
 
-  async exportToExcel() {
-    const { selectedRecords } = this.state;
-    if (selectedRecords.length === 0) return;
-    const data = await this.props.fetchBillOfLadingData(selectedRecords);
-
-    // await exportBillOfLadingToExcel(data);
-  }
-
-  setRecordPerPage(recordPerPage) {
-    this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchBillOfLadingList(1, recordPerPage);
-  }
-  setCurrentPage(page) {
-    this.setState({ currentPage: page });
-    this.props.fetchBillOfLadingList(page, this.state.recordPerPage);
-  }
-
-  handleDeleteRecords() {
-    const { selectedRecords, currentPage, recordPerPage } = this.state;
-    this.props.deleteManyBillOfLading(
-      selectedRecords,
-      currentPage,
-      recordPerPage
-    );
-    this.setState({ selectedRecords: [] });
-  }
-
-  removeFromSelectedRecords(record, isDeselect) {
-    if (isDeselect) {
-      this.setState({ selectedRecords: [] });
-    } else {
-      this.setState((prevState) => {
-        return {
-          selectedRecords: prevState.selectedRecords.filter(
-            (element) => element !== record
-          ),
-        };
-      });
-    }
-  }
-
-  printSelectedRecords() {
-    const { selectedRecords } = this.state;
-    this.props.printRecords(selectedRecords);
-  }
-
-  setSelectedRecords(record, isChecked, isHeader) {
-    const { selectedRecords, searchResult } = this.state;
-    const currentPageIds = searchResult.map((element) => element._id);
-    if (isHeader == "true") {
-      if (isChecked) {
-        const res = selectedRecords.filter(
-          (record) => !currentPageIds.includes(record)
-        );
-
-        this.setState({ selectedRecords: res });
-      } else {
-        const res = selectedRecords.concat(currentPageIds);
-        const set = new Set(res);
-        const uniqueArray = [...set];
-
-        this.setState({ selectedRecords: uniqueArray });
-      }
-    } else {
-      this.setState((prevState) => {
-        if (prevState.selectedRecords.includes(record)) {
-          return {
-            selectedRecords: prevState.selectedRecords.filter(
-              (element) => element !== record
-            ),
-          };
-        }
-        return {
-          selectedRecords: [...prevState.selectedRecords, record],
-        };
-      });
-    }
-  }
-  handleSelect() {
-    return;
+  handleDelete() {
+    const { selectedSO } = this.state;
+    const {deleteSaleOrder, navigate} = this.props;
+    deleteSaleOrder(selectedSO._id);
+    navigate("/sale-orders")
   }
 
   render() {
@@ -193,17 +114,10 @@ class SODetailProvider extends Component {
       <SODetailContext.Provider
         value={{
           ...this.state,
-          handleSearch: this.handleSearch,
-          exportToExcel: this.exportToExcel,
-          setRecordPerPage: this.setRecordPerPage,
-          setCurrentPage: this.setCurrentPage,
-          handleDeleteRecords: this.handleDeleteRecords,
-          removeFromSelectedRecords: this.removeFromSelectedRecords,
-          printSelectedRecords: this.printSelectedRecords,
-          setSelectedRecords: this.setSelectedRecords,
-          toggleCreateModalVisible: this.toggleCreateModalVisible,
-          setSelectedBOLId: this.setSelectedBOLId,
-          handleSelect: this.handleSelect,
+          toggleIsEditing: this.toggleIsEditing,
+          handleSave: this.handleSave,
+          handleInputChange: this.handleInputChange,
+          handleDelete: this.handleDelete,
         }}
       >
         {this.props.children}

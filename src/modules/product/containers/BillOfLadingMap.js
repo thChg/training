@@ -1,3 +1,4 @@
+import { fetchVendorList } from "../../community/actions/VendorAction";
 import {
   createBillOfLading,
   deleteManyBillOfLading,
@@ -26,6 +27,10 @@ export function mapStateToProps(state) {
     purchaseOrderList: state.PurchaseOrderReducer
       ? state.PurchaseOrderReducer.purchaseOrderList
       : [],
+    vendorList: state.VendorReducer ? state.VendorReducer.vendorList : [],
+    purchaseOrderList: state.PurchaseOrderReducer
+      ? state.PurchaseOrderReducer.purchaseOrderList
+      : [],
   };
 }
 
@@ -36,12 +41,13 @@ export function mapDispatchToProps(dispatch) {
     deleteManyBillOfLading: (billOfLadings, page, limit) =>
       dispatch(deleteManyBillOfLading(billOfLadings, page, limit)),
     printRecords: (records) => dispatch(printRecords(records)),
-    createBillOfLading: (billOfLading, page, limit) =>
-      dispatch(createBillOfLading(billOfLading, page, limit)),
+    createBillOfLading: (billOfLading) =>
+      dispatch(createBillOfLading(billOfLading)),
     importBillOfLadingFromFile: (file, page, limit) =>
       dispatch(importBillOfLadingFromFile(file, page, limit)),
     fetchBillOfLadingData: (records) =>
       dispatch(fetchBillOfLadingData(records)),
     fetchPurchaseOrderList: () => dispatch(fetchPurchaseOrderList()),
+    fetchVendorList: () => dispatch(fetchVendorList()),
   };
 }

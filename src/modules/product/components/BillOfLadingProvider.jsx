@@ -40,7 +40,7 @@ class BillOfLadingProvider extends Component {
     this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
     this.printSelectedRecords = this.printSelectedRecords.bind(this);
     this.setSelectedRecords = this.setSelectedRecords.bind(this);
-    this.toggleCreateModalVisible = this.toggleCreateModalVisible.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
     this.setSelectedBOLId = this.setSelectedBOLId.bind(this);
   }
 
@@ -85,10 +85,8 @@ class BillOfLadingProvider extends Component {
     }
   }
 
-  toggleCreateModalVisible() {
-    this.setState((prevState) => ({
-      createModalVisible: !prevState.createModalVisible,
-    }));
+  handleCreate() {
+    this.props.navigate("/bill-of-ladings/create")
   }
 
   handleSearch(searchTerm) {
@@ -205,7 +203,7 @@ class BillOfLadingProvider extends Component {
           removeFromSelectedRecords: this.removeFromSelectedRecords,
           printSelectedRecords: this.printSelectedRecords,
           setSelectedRecords: this.setSelectedRecords,
-          toggleCreateModalVisible: this.toggleCreateModalVisible,
+          handleCreate: this.handleCreate,
           setSelectedBOLId: this.setSelectedBOLId,
         }}
       >

@@ -1,21 +1,18 @@
 import axios from "../../../masterPage/utils/AxiosInstance";
 import { handlePDF } from "../../../masterPage/utils/HandlePDF";
 
-export const FETCH_SALE_ORDER_LIST_START =
-  "FETCH_SALE_ORDER_LIST_START";
-export const FETCH_SALE_ORDER_LIST_SUCCESS =
-  "FETCH_SALE_ORDER_LIST_SUCCESS";
-export const FETCH_SALE_ORDER_LIST_FAILURE =
-  "FETCH_SALE_ORDER_LIST_FAILURE";
-export const DELETE_MANY_SALE_ORDER_FAILURE =
-  "DELETE_MANY_SALE_ORDER_FAILURE";
+export const FETCH_SALE_ORDER_LIST_START = "FETCH_SALE_ORDER_LIST_START";
+export const FETCH_SALE_ORDER_LIST_SUCCESS = "FETCH_SALE_ORDER_LIST_SUCCESS";
+export const FETCH_SALE_ORDER_LIST_FAILURE = "FETCH_SALE_ORDER_LIST_FAILURE";
+export const DELETE_MANY_SALE_ORDER_FAILURE = "DELETE_MANY_SALE_ORDER_FAILURE";
 export const PRINT_RECORDS_FAILURE = "PRINT_RECORDS_FAILURE";
 export const CREATE_SALE_ORDER_FAILURE = "CREATE_SALE_ORDER_FAILURE";
 export const IMPORT_SALE_ORDER_FROM_FILE_FAILURE =
   "IMPORT_SALE_ORDER_FROM_FILE_FAILURE";
-export const FETCH_SALE_ORDER_DATA_FAILURE =
-  "FETCH_SALE_ORDER_DATA_FAILURE";
+export const FETCH_SALE_ORDER_DATA_FAILURE = "FETCH_SALE_ORDER_DATA_FAILURE";
 export const APPROVE_SALE_ORDER_FAILURE = "APPROVE_SALE_ORDER_FAILURE";
+export const UPDATE_SALE_ORDER_FAILURE = "UPDATE_SALE_ORDER_FAILURE";
+export const DELETE_SALE_ORDER_FAILURE = "DELETE_SALE_ORDER_FAILURE"
 
 function fetchSaleOrderListStart() {
   return {
@@ -59,6 +56,18 @@ function fetchSaleOrderDataFailure(error) {
 function approveSaleOrderFailure(error) {
   return {
     type: APPROVE_SALE_ORDER_FAILURE,
+    payload: error,
+  };
+}
+function updateSaleOrderFailure(error) {
+  return {
+    type: UPDATE_SALE_ORDER_FAILURE,
+    payload: error,
+  };
+}
+function deleteSaleOrderFailure(error) {
+  return {
+    type: DELETE_SALE_ORDER_FAILURE,
     payload: error,
   };
 }
@@ -111,10 +120,7 @@ export function printRecords(records) {
 export function createSaleOrder(saleOrder) {
   return async function (dispatch) {
     try {
-      await axios.post(
-        "/product/sale-order/create-sale-order",
-        saleOrder
-      );
+      await axios.post("/product/sale-order/create-sale-order", saleOrder);
     } catch (error) {
       console.error(error);
       dispatch(createSaleOrderFailure(error));
@@ -162,3 +168,27 @@ export function approveSO(SOId, page, limit) {
     }
   };
 }
+
+export function updateSaleOrder(saleOrder) {
+  return async function (dispatch) {
+    try {
+      await axios.delete("/product/sale-order/update", saleOrder);
+      dispatch(fetchSaleOrderList());
+    } catch (error) {
+      console.error(error);
+      dispatch(updateSaleOrderFailure(error))
+    }
+  };
+}
+
+export function deleteSaleOrder(saleOrder) {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`/product/sale-order/delete/${saleOrder}`);
+      dispatch(fetchSaleOrderList());
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteSaleOrderFailure(error))
+    }
+  };
+} 

@@ -30,6 +30,7 @@
 .body input[type="text"],
 .body input[type="email"],
 .body input[type="password"],
+.body input[type="date"],
 .body select {
   width: 100%;
   padding: 8px;

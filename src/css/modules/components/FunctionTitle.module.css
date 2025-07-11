@@ -63,3 +63,11 @@
   border: none;
   border-radius: 5px;
 }
+
+.activeState {
+  color: #08629e;
+}
+
+.inactiveState {
+  background-color: white;
+}

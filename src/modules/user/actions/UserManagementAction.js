@@ -90,7 +90,6 @@ export function fetchUserList(page, limit) {
 export function createUser(userData, page, limit) {
   return async function (dispatch) {
     try {
-      console.log(userData);
       await axios.post("/auth/register", userData);
       dispatch(fetchUserList(page, limit));
     } catch (error) {

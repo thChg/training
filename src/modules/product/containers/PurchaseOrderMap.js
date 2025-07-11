@@ -1,3 +1,4 @@
+import { fetchVendorList } from "../../community/actions/VendorAction";
 import { fetchProductList } from "../actions/ProductAction";
 import {
   createPurchaseOrder,
@@ -24,6 +25,7 @@ export function mapStateToProps(state) {
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
       : [],
+    vendorList: state.VendorReducer ? state.VendorReducer.vendorList : [],
   };
 }
 
@@ -41,5 +43,6 @@ export function mapDispatchToProps(dispatch) {
     fetchPurchaseOrderData: (records) =>
       dispatch(fetchPurchaseOrderData(records)),
     fetchProductList: () => dispatch(fetchProductList()),
+    fetchVendorList: () => dispatch(fetchVendorList()),
   };
 }

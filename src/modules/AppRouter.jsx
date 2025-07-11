@@ -36,6 +36,22 @@ import SOApproveProvider from "./accounting/components/SOApproveProvider";
 import SOApprove from "./accounting/pages/SOApprove";
 import SOApproveDetailProvider from "./accounting/components/SOApproveDetailProvider";
 import SOApproveDetail from "./accounting/pages/SOApproveDetail";
+import CustomerProvider from "./community/components/CustomerProvider";
+import Customer from "./community/pages/Customer";
+import VendorProvider from "./community/components/VendorProvider";
+import Vendor from "./community/pages/Vendor";
+import VendorDetailProvider from "./community/components/VendorDetailProvider";
+import VendorDetail from "./community/pages/VendorDetail";
+import CustomerDetailProvider from "./community/components/CustomerDetailProvider";
+import CustomerDetail from "./community/pages/CustomerDetail";
+import DeliveryNoteProvider from "./warehouse/components/DeliveryNoteProvider";
+import DeliveryNote from "./warehouse/pages/DeliveryNote";
+import DeliveryNoteDetailProvider from "./warehouse/components/DeliveryNoteDetailProvider";
+import DeliveryNoteDetail from "./warehouse/pages/DeliveryNoteDetail";
+import FiscalPeriodProvider from "./accounting/components/FiscalPeriodProvider";
+import FiscalPeriod from "./accounting/pages/FiscalPeriod";
+import CreateBOLProvider from "./product/components/CreateBOLProvider";
+import CreateBillOfLading from "./product/pages/CreateBillOfLading";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -118,6 +134,14 @@ export class AppRouter extends Component {
           }
         />
         <Route
+          path="bill-of-ladings/create"
+          element={
+            <CreateBOLProvider>
+              <CreateBillOfLading />
+            </CreateBOLProvider>
+          }
+        />
+        <Route
           path="bill-of-ladings/details/:id"
           element={
             <BOLDetailProvider>
@@ -189,7 +213,62 @@ export class AppRouter extends Component {
             </SODetailProvider>
           }
         />
-
+        <Route
+          path="customers"
+          element={
+            <CustomerProvider>
+              <Customer />
+            </CustomerProvider>
+          }
+        />
+        <Route
+          path="customers/details/:id"
+          element={
+            <CustomerDetailProvider>
+              <CustomerDetail />
+            </CustomerDetailProvider>
+          }
+        />
+        <Route
+          path="vendors"
+          element={
+            <VendorProvider>
+              <Vendor />
+            </VendorProvider>
+          }
+        />
+        <Route
+          path="vendors/details/:id"
+          element={
+            <VendorDetailProvider>
+              <VendorDetail />
+            </VendorDetailProvider>
+          }
+        />
+        <Route
+          path="delivery-notes"
+          element={
+            <DeliveryNoteProvider>
+              <DeliveryNote />
+            </DeliveryNoteProvider>
+          }
+        />
+        <Route
+          path="delivery-notes/details/:id"
+          element={
+            <DeliveryNoteDetailProvider>
+              <DeliveryNoteDetail />
+            </DeliveryNoteDetailProvider>
+          }
+        />
+        <Route
+          path="fiscal-period"
+          element={
+            <FiscalPeriodProvider>
+              <FiscalPeriod />
+            </FiscalPeriodProvider>
+          }
+        />
         {/* <Route
           path="inventory-manager"
           element={

@@ -1,4 +1,5 @@
-import { fetchProductList } from "../../product/actions/InventoryAction";
+import { fetchCustomerList } from "../../community/actions/CustomerAction";
+import { fetchProductList } from "../../product/actions/ProductAction";
 import {
   createSaleOrder,
   deleteManySaleOrder,
@@ -6,6 +7,8 @@ import {
   fetchSaleOrderList,
   importSaleOrderFromFile,
   printRecords,
+  updateSaleOrder,
+  deleteSaleOrder
 } from "../actions/SaleOrderAction";
 
 export function mapStateToProps(state) {
@@ -18,11 +21,12 @@ export function mapStateToProps(state) {
     recordLength: state.SaleOrderReducer
       ? state.SaleOrderReducer.recordLength
       : 0,
-    loading: state.SaleOrderReducer
-      ? state.SaleOrderReducer.loading
-      : false,
+    loading: state.SaleOrderReducer ? state.SaleOrderReducer.loading : false,
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
+      : [],
+    customerList: state.CustomerReducer
+      ? state.CustomerReducer.customerList
       : [],
   };
 }
@@ -34,12 +38,13 @@ export function mapDispatchToProps(dispatch) {
     deleteManySaleOrder: (saleOrders, page, limit) =>
       dispatch(deleteManySaleOrder(saleOrders, page, limit)),
     printRecords: (records) => dispatch(printRecords(records)),
-    createSaleOrder: (saleOrder) =>
-      dispatch(createSaleOrder(saleOrder)),
+    createSaleOrder: (saleOrder) => dispatch(createSaleOrder(saleOrder)),
     importSaleOrderFromFile: (file, page, limit) =>
       dispatch(importSaleOrderFromFile(file, page, limit)),
-    fetchSaleOrderData: (records) =>
-      dispatch(fetchSaleOrderData(records)),
+    fetchSaleOrderData: (records) => dispatch(fetchSaleOrderData(records)),
     fetchProductList: () => dispatch(fetchProductList()),
+    fetchCustomerList: () => dispatch(fetchCustomerList()),
+    updateSaleOrder: (saleOrder) => dispatch(updateSaleOrder(saleOrder)),
+    deleteSaleOrder: (saleOrder) => dispatch(deleteSaleOrder(saleOrder)),
   };
 }

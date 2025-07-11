@@ -102,14 +102,14 @@ export function printRecords(records) {
   };
 }
 
-export function createBillOfLading(product, page, limit) {
+export function createBillOfLading(billOfLading) {
   return async function (dispatch) {
     try {
       await axios.post(
         "/product/bill-of-lading/create-bill-of-lading",
-        product
+        billOfLading
       );
-      dispatch(fetchBillOfLadingList(page, limit));
+      dispatch(fetchBillOfLadingList(1, 10));
       dispatch(fetchPurchaseOrderList(1, 10));
     } catch (error) {
       console.error(error);

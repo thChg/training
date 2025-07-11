@@ -14,11 +14,11 @@
 
 .title {
   font-weight: 500;
-  color: #444;
   padding-left: 1px;
+  font-weight: bold;
 }
 
-.headInput {
+.headInput, .headSelect {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -63,19 +63,17 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-top: 10px;
+  border: none;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   stroke: 1px;
 }
 
 .deleteBtn {
-  margin-top: 29px;
-  margin-bottom: 16px;
-  padding: 5px 16px;
+  padding: 5px 7px;
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -86,4 +84,66 @@
 }
 .deleteBtn:hover {
   background-color: #c0392b;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+.field {
+  flex: 1;
+}
+.tableContainer {
+  margin-top: 15px;
+  height: 300px;
+  background-color: #f8f8f8;
+  overflow-y: scroll;
+  position: relative;
+}
+.tableContainer thead {
+  position: sticky;
+  top: 0;
+}
+
+.tableContainer thead tr th {
+  z-index: 2;
+  border: 1px solid #ccc;
+  z-index: 2;
+}
+.body table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-y: scroll;
+  
+}
+
+.tableContainer td {
+  background-color: white;
+  padding: 0px 10px;
+}
+
+.addBtn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: hsl(204, 72%, 50%);
+  color: white;
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+
+.stickyFooter {
+  position: sticky;
+  bottom: 0;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ccc;
+  font-weight: bold;
+  z-index: 1;
+  padding: 5px;
+}
+
+.tableContainer .tableData {
+  padding: 10px;
 }

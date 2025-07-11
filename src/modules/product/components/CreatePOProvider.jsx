@@ -16,25 +16,54 @@ class CreatePOProvider extends Component {
     this.state = {
       title: "Create Purchase Order",
       productList: this.props.productList,
+      vendorList: this.props.vendorList,
     };
 
     this.handleCancel = this.handleCancel.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
   }
   componentDidMount() {
-    const { productList, fetchProductList } = this.props;
+    const { productList, fetchProductList, vendorList, fetchVendorList } =
+      this.props;
     if (productList.length <= 0) {
       fetchProductList();
     }
+
+    if (vendorList.length <= 0) {
+      fetchVendorList();
+    }
+    console.log(this.props.state)
+    this.setState({
+      productList: this.props.productList,
+      vendorList: this.props.vendorList,
+    });
   }
 
-  handleCreate(name, productItems) {
-    const { createPurchaseOrder, productList } = this.props;
-    const enrichedProductItems = productItems.map((item) => {
+  componentDidUpdate(prevProps) {
+    if (prevProps.productList !== this.props.productList || prevProps.vendorList !== this.props.vendorList) {
+      this.setState({
+        productList: this.props.productList,
+        vendorList: this.props.vendorList,
+      })
+    }
+  }
+
+  handleCreate(data) {
+    const { createPurchaseOrder, productList, vendorList } = this.props;
+    const enrichedProductItems = data.productItems.map((item) => {
       const prod = productList.find((product) => product._id === item.product);
-      return { ...prod, quantity: item.quantity };
+      return { ...prod, quantity: item.quantity, status: "pending", price: item.price };
     });
-    createPurchaseOrder({ name, products: enrichedProductItems });
+    const enrichedVendor = vendorList.find(
+      (vendor) => vendor._id === data.vendor
+    );
+    createPurchaseOrder({
+      name: data.name,
+      vendor: enrichedVendor,
+      orderDate: data.orderDate,
+      estimatedDeliveryDate: data.estimatedDeliveryDate,
+      products: enrichedProductItems,
+    });
     this.props.navigate("/purchase-orders");
   }
 

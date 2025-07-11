@@ -1,0 +1,218 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid hsl(0, 0%, 70%);
+  background-color: #f8f8f8;.body {
+  padding: 10px;
+  max-height: 650px;
+  overflow-y: scroll;
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-weight: 500;
+  padding-left: 1px;
+  font-weight: bold;
+}
+
+.headInput, .headSelect {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buttonBar {
+  background-color: #f8f8f8;
+  border-top: 1px solid #e0e0e0;
+  position: absolute;
+  bottom: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+.cancelBtn,
+.createBtn,
+.deleteBtn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+
+.createBtn {
+  background-color: hsl(204, 72%, 50%);
+  color: white;
+  border: 1px solid hsl(204, 72%, 50%);
+  cursor: pointer;
+}
+
+.textInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border: none;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  stroke: 1px;
+}
+
+.deleteBtn {
+  padding: 5px 7px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.createBtn:hover {
+  background-color: hsl(204, 72%, 40%);
+}
+.deleteBtn:hover {
+  background-color: #c0392b;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+.field {
+  flex: 1;
+}
+.tableContainer {
+  margin-top: 15px;
+  height: 300px;
+  background-color: #f8f8f8;
+  overflow-y: scroll;
+  position: relative;
+}
+.tableContainer thead {
+  position: sticky;
+  top: 0;
+}
+
+.tableContainer thead tr th {
+  z-index: 2;
+  border: 1px solid #ccc;
+  z-index: 2;
+}
+.body table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-y: scroll;
+  
+}
+
+.tableContainer td {
+  background-color: white;
+  padding: 0px 10px;
+}
+
+.addBtn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: hsl(204, 72%, 50%);
+  color: white;
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+
+.stickyFooter {
+  position: sticky;
+  bottom: 0;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ccc;
+  font-weight: bold;
+  z-index: 1;
+  padding: 5px;
+}
+
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.title {
+  font-weight: 650;
+  font-size: 1.3em;
+  padding: 7px 15px;
+}
+.utilities {
+  padding: 2px 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.searchBarContainer {
+  padding: 5px 0px;
+  position: relative;
+}
+.searchBar {
+  border-radius: 5px;
+  padding: 10px;
+  padding-right: 30px;
+  border: 1px solid #ccc;
+}
+.btnContainer {
+  display: flex;
+  align-items: center;
+}
+.btn {
+  background-color: hsl(204, 72%, 50%);
+  color: white;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: hsl(204, 72%, 40%);
+}
+.icon {
+  width: 17px;
+  height: 17px;
+  font-weight: bolder;
+}
+.searchIcon {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+.disabled {
+  background-color: hsl(203, 56%, 76%);
+  color: white;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.activeState {
+  color: #08629e;
+}
+
+.inactiveState {
+  background-color: white;
+}

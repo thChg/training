@@ -4,6 +4,7 @@ import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
 import FunctionTitle from "../../../masterPage/components/FunctionTitle";
 import { PODetailContext } from "../components/PODetailProvider";
+import OrderDetailTitle from "../../../masterPage/components/OrderDetailTitle";
 
 export class PODetail extends Component {
   static contextType = PODetailContext;
@@ -15,52 +16,22 @@ export class PODetail extends Component {
 
   render() {
     const {
-      title,
-      handleSearch,
-      selectedRecords,
+      curStatus,
       permissions,
-      setRecordPerPage,
-      setCurrentPage,
-      currentPage,
-      recordPerPage,
-      recordLength,
-      handleDeleteRecords,
-      removeFromSelectedRecords,
-      printSelectedRecords,
-      columns,
-      searchResult,
-      loading,
-      setSelectedRecords,
-      createModalVisible,
-      toggleCreateModalVisible,
-      handleSelect,
+      handleDelete,
+      handleEdit,
+      handleSave,
+      isEditing,
     } = this.context;
     return (
-      <div>
-        <FunctionTitle onSearch={handleSearch} title={title} />
-        <ListSearchResult
-          columns={columns}
-          data={searchResult}
-          onSelect={handleSelect}
-          loading={loading}
-          recordPerPage={recordPerPage}
-          currentPage={currentPage}
-          onSelectRecord={setSelectedRecords}
-          selectedRecords={selectedRecords}
-        />
-        <Footer
-          onSelectRecordPerPage={setRecordPerPage}
-          onSelectPage={setCurrentPage}
-          currentPage={currentPage}
-          recordPerPage={recordPerPage}
-          recordLength={recordLength}
-          selectedRecords={selectedRecords}
-          permissions={permissions}
-          onDeleteRecords={handleDeleteRecords}
-          onDeselectAll={removeFromSelectedRecords}
-          onPrint={printSelectedRecords}
-        />
-      </div>
+      <OrderDetailTitle
+        curStatus={curStatus}
+        permissions={permissions}
+        onEdit={handleEdit}
+        isEditing={isEditing}
+        onSave={handleSave}
+        onDelete={handleDelete}
+      />
     );
   }
 }

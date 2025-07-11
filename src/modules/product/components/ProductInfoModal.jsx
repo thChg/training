@@ -11,57 +11,30 @@ class ProductInfoModal extends Component {
     super(props);
 
     this.state = {
-      isEditing: false,
       name: "",
-      price: "",
       unit: "",
     };
 
     this.handleClose = this.handleClose.bind(this);
-    this.handleEditToggle = this.handleEditToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSave = this.handleSave.bind(this);
   }
 
   componentDidMount() {
     const { selectedProduct } = this.context;
-    const { name, price, unit } = this.props.productList.find(
+    const { name, unit } = this.props.productList.find(
       (product) => product._id === selectedProduct
     );
     this.setState({
       name: name,
-      price: price,
       unit: unit,
     });
-  }
-  handleEditToggle() {
-    this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
-  }
-
-  handleInputChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleClose() {
     this.context.setSelectedProduct(null);
   }
 
-  handleSave() {
-    const { name,price,unit } = this.state;
-    const { selectedProduct, currentPage, recordPerPage } = this.context;
-    const { updateProduct } = this.props;
-
-    const updatingProduct = {
-      name,
-      price,
-      unit,
-    };
-    updateProduct(selectedProduct, updatingProduct, currentPage, recordPerPage);
-    this.setState({ isEditing: false });
-}
-
   render() {
-    const { name, price, unit, isEditing } = this.state;
+    const { name, unit, isEditing } = this.state;
 
     return (
       <div className={classes.modalBackdrop}>
@@ -75,17 +48,6 @@ class ProductInfoModal extends Component {
               type="text"
               name="name"
               value={name}
-              disabled={!isEditing}
-              onChange={this.handleInputChange}
-            />
-          </label>
-
-          <label>
-            Price
-            <input
-              className={classes.infoInput}
-              name="price"
-              value={price}
               disabled={!isEditing}
               onChange={this.handleInputChange}
             />
@@ -107,19 +69,6 @@ class ProductInfoModal extends Component {
             <button onClick={this.handleClose} className={classes.cancelBtn}>
               Close
             </button>
-
-            {isEditing ? (
-              <button onClick={this.handleSave} className={classes.saveBtn}>
-                Save
-              </button>
-            ) : (
-              <button
-                onClick={this.handleEditToggle}
-                className={classes.editBtn}
-              >
-                Edit
-              </button>
-            )}
           </div>
         </div>
       </div>

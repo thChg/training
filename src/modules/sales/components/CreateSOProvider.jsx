@@ -15,27 +15,58 @@ class CreateSOProvider extends Component {
     this.state = {
       title: "Create Sale Order",
       productList: this.props.productList,
+      customerList: this.props.customerList,
     };
 
     this.handleCancel = this.handleCancel.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
   }
   componentDidMount() {
-    const { productList, fetchProductList } = this.props;
+    const { productList, fetchProductList, customerList, fetchCustomerList } =
+      this.props;
     if (productList.length <= 0) {
       fetchProductList();
     }
+    if (customerList.length <= 0) {
+      fetchCustomerList();
+    }
 
-    this.setState({productList: this.props.productList})
+    this.setState({
+      productList: this.props.productList,
+      customerList: this.props.customerList,
+    });
   }
 
-  handleCreate(name, productItems) {
-    const { createSaleOrder, productList } = this.props;
-    const enrichedProductItems = productItems.map((item) => {
+  componentDidUpdate(prevProps) {
+    if (prevProps.productList !== this.props.productList) {
+      this.setState({
+        productList: this.props.productList,
+      });
+    }
+    if (prevProps.customerList !== this.props.customerList) {
+      this.setState({
+        customerList: this.props.customerList,
+      });
+    }
+  }
+
+  handleCreate(data) {
+    const { createSaleOrder, productList, customerList } = this.props;
+    const enrichedProductItems = data.productItems.map((item) => {
       const prod = productList.find((product) => product._id === item.product);
-      return { ...prod, quantity: item.quantity };
+      return { ...prod, quantity: item.quantity, price: item.price };
     });
-    createSaleOrder({ name, products: enrichedProductItems });
+    const enrichedCustomer = customerList.find(
+      (customer) => customer._id === data.customer
+    );
+    createSaleOrder({
+      name: data.name,
+      orderDate: data.orderDate,
+      customer: enrichedCustomer,
+      deliveryAddress: data.deliveryAddress,
+      estimatedDeliveryDate: data.estimatedDeliveryDate,
+      products: enrichedProductItems,
+    });
     this.props.navigate("/sale-orders");
   }
 
