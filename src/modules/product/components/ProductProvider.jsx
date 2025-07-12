@@ -54,6 +54,7 @@ class ProductProvider extends Component {
         unit: product.unit,
         createdAt: formatDate(product.createdAt),
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -67,6 +68,7 @@ class ProductProvider extends Component {
           unit: product.unit,
           createdAt: formatDate(product.createdAt),
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

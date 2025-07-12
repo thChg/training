@@ -68,6 +68,7 @@ export class DeliveryNoteProvider extends Component {
         deliveryDate: formatDate(record.estimatedDeliveryDate).split(" ")[0],
         status: record.status,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -83,6 +84,7 @@ export class DeliveryNoteProvider extends Component {
           deliveryDate: formatDate(record.estimatedDeliveryDate).split(" ")[0],
           status: record.status,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

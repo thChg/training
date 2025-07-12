@@ -3,6 +3,8 @@ import Footer from "../../../masterPage/components/Footer";
 import ListSearchResult from "../../../masterPage/components/ListSearchResult";
 import { SOApproveDetailContext } from "../components/SOApproveDetailProvider";
 import OrderApproveTitle from "../../../masterPage/components/OrderApproveTitle";
+import OrderDetailTitle from "../../../masterPage/components/OrderDetailTitle";
+import OrderDetailBody from "../../../masterPage/components/OrderDetailBody";
 
 export class SOApproveDetail extends Component {
   static contextType = SOApproveDetailContext;
@@ -14,58 +16,44 @@ export class SOApproveDetail extends Component {
 
   render() {
     const {
-      title,
-      selectedRecords,
-      handleSearch,
       permissions,
-      exportToExcel,
-      setRecordPerPage,
-      setCurrentPage,
-      currentPage,
-      recordPerPage,
-      recordLength,
-      handleDeleteRecords,
-      removeFromSelectedRecords,
-      printSelectedRecords,
-      columns,
-      searchResult,
-      loading,
-      setSelectedRecords,
-      handleSelect,
-      saleOrder,
-      handleApproveSO,
+      page,
+      handleResolveSO,
+      curStatus,
+      contact,
+      email,
+      estimatedDeliveryDate,
+      name,
+      orderDate,
+      isEditing,
+      customer,
+      products,
+      deliveryAddress,
+      approvedAt,
+    acceptedAt,
     } = this.context;
 
     return (
       <div>
-        <OrderApproveTitle
-          title={title}
-          onSearch={handleSearch}
-          pagePermissions={permissions}
-          order={saleOrder}
-          onApprove={handleApproveSO}
-        />
-        <ListSearchResult
-          columns={columns}
-          data={searchResult}
-          onSelect={handleSelect}
-          loading={loading}
-          recordPerPage={recordPerPage}
-          currentPage={currentPage}
-          onSelectRecord={setSelectedRecords}
-          selectedRecords={selectedRecords}
-        />
-        <Footer
-          onSelectRecordPerPage={setRecordPerPage}
-          onSelectPage={setCurrentPage}
-          currentPage={currentPage}
-          recordPerPage={recordPerPage}
-          recordLength={recordLength}
-          selectedRecords={selectedRecords}
+        <OrderDetailTitle
+          curStatus={curStatus}
           permissions={permissions}
-          onDeleteRecords={handleDeleteRecords}
-          onDeselectAll={removeFromSelectedRecords}
-          onPrint={printSelectedRecords}
+          isEditing={isEditing}
+          page={page}
+          onResolveSO={handleResolveSO}
+        />        
+        <OrderDetailBody
+          name={name}
+          orderDate={orderDate}
+          customer={customer}
+          contact={contact}
+          email={email}
+          deliveryAddress={deliveryAddress}
+          estimatedDeliveryDate={estimatedDeliveryDate}
+          products={products}
+          approvedAt={approvedAt}
+          acceptedAt={acceptedAt}
+          isEditing={isEditing}
         />
       </div>
     );

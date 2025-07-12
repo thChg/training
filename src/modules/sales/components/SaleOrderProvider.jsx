@@ -56,6 +56,7 @@ class SaleOrderProvider extends Component {
         customer: saleOrder.customer.fullname,
         orderDate: saleOrder.orderDate,
       })),
+      recordLength: this.props.recordLength
     });
   }
 
@@ -69,6 +70,7 @@ class SaleOrderProvider extends Component {
           customer: saleOrder.customer.fullname,
           orderDate: saleOrder.orderDate,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

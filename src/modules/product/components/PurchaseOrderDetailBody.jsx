@@ -1,31 +1,16 @@
 import React, { Component } from "react";
-import classes from "../../css/modules/components/CreateOrderBody.module.css";
+import classes from "../../../css/modules/components/CreateOrderBody.module.css";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
+import { max, min } from "lodash";
 
-export class OrderDetailBody extends Component {
+export class PurchaseOrderDetailBody extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
-    this.renderProducts = this.renderProducts.bind(this);
-    this.calculateTotal = this.calculateTotal.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  handleInputChange(event) {
-    const { name, value } = event.target;
-    const { onInputChange } = this.props;
-    onInputChange(name, value);
-  }
-
-  calculateTotal() {
-    const { products } = this.props;
-    return products
-      .reduce((acc, item) => {
-        const qty = parseFloat(item.quantity) || 0;
-        const price = parseFloat(item.price) || 0;
-        return acc + qty * price;
-      }, 0)
-      .toFixed(2);
+    this.calculateTotal = this.calculateTotal.bind(this);
   }
 
   renderProducts() {
@@ -37,33 +22,41 @@ export class OrderDetailBody extends Component {
           <td style={{ fontSize: "small", textAlign: "center" }}>
             {index + 1}
           </td>
-          <td style={{padding: "0px"}}>
-            
+          <td style={{ padding: "0px" }}>
             <input
               className={classes.textInput}
               type="text"
+              onChange={this.handleInputChange}
               name="product"
               data-id={product.id}
               value={product.name}
               disabled
-            />
+            ></input>
           </td>
-          <td style={{padding: "0px"}}>
+          <td style={{ backgroundColor: "#eee", textAlign: "center" }}>
+            {product.unit}
+          </td>
+          <td style={{ padding: "0px" }}>
             <input
               className={classes.textInput}
               type="text"
+              onChange={this.handleInputChange}
               name="quantity"
               data-id={product.id}
               value={product.quantity}
               disabled
-              
             />
           </td>
-          <td style={{ backgroundColor: "#eee", textAlign: "center" }}>
-            {product.price}
-          </td>
-          <td style={{ backgroundColor: "#eee", textAlign: "center" }}>
-            {product.unit}
+          <td style={{ padding: "0px" }}>
+            <input
+              className={classes.textInput}
+              type="text"
+              onChange={this.handleInputChange}
+              name="price"
+              data-id={product.id}
+              value={product.price}
+              disabled
+            />
           </td>
         </tr>
       );
@@ -71,18 +64,29 @@ export class OrderDetailBody extends Component {
     return html;
   }
 
+  handleInputChange(event) {
+    const { name, value } = event.target;
+    this.props.onInputChange(name, value);
+  }
+
+  calculateTotal() {
+    const {products} = this.props;
+
+    return products.reduce((acc, p) => acc += p.price * p.quantity,0).toFixed(2)
+  }
+
   render() {
     const {
-      name,
-      orderDate,
-      customer,
       contact,
       email,
+      address,
+      taxId,
       estimatedDeliveryDate,
-      deliveryAddress,
-      approvedAt,
-      acceptedAt,
+      name,
+      orderDate,
       isEditing,
+      vendor,
+      approvedAt
     } = this.props;
     return (
       <div>
@@ -95,9 +99,9 @@ export class OrderDetailBody extends Component {
                   type="text"
                   className={classes.headInput}
                   name="name"
+                  onChange={this.handleInputChange}
                   value={name}
                   disabled={!isEditing}
-                  onChange={this.handleInputChange}
                 />
               </div>
             </div>
@@ -108,26 +112,38 @@ export class OrderDetailBody extends Component {
                   type="date"
                   className={classes.headInput}
                   name="orderDate"
-                  value={orderDate}
-                  min={new Date().toISOString().split("T")[0]}
-                  disabled={!isEditing}
                   onChange={this.handleInputChange}
+                  min={new Date().toISOString().split("T")[0]}
+                  value={orderDate}
+                  disabled={!isEditing}
+                />
+              </div>
+            </div>
+            <div className={classes.field}>
+              <div className={classes.title}>Aprroved At:</div>
+              <div className={classes.head}>
+                <input
+                  type="date"
+                  className={classes.headInput}
+                  name="approvedAt"
+                  value={approvedAt}
+                  disabled
                 />
               </div>
             </div>
           </div>
           <div className={classes.row}>
             <div className={classes.field}>
-              <div className={classes.title}>Customer:</div>
+              <div className={classes.title}>Vendor:</div>
               <div className={classes.head}>
                 <input
-                  type="text"
-                  className={classes.headInput}
-                  name="customer"
-                  value={customer}
-                  disabled
+                  name="vendor"
                   onChange={this.handleInputChange}
-                />
+                  className={classes.headSelect}
+                  value={vendor}
+                  disabled
+                />                
+
               </div>
             </div>
             <div className={classes.field}>
@@ -137,9 +153,9 @@ export class OrderDetailBody extends Component {
                   type="text"
                   className={classes.headInput}
                   name="contact"
+                  onChange={this.handleInputChange}
                   value={contact}
                   disabled
-                  onChange={this.handleInputChange}
                 />
               </div>
             </div>
@@ -150,27 +166,14 @@ export class OrderDetailBody extends Component {
                   type="email"
                   className={classes.headInput}
                   name="email"
+                  onChange={this.handleInputChange}
                   value={email}
                   disabled
-                  onChange={this.handleInputChange}
                 />
               </div>
             </div>
           </div>
           <div className={classes.row}>
-            <div className={classes.field}>
-              <div className={classes.title}>Delivery address:</div>
-              <div className={classes.head}>
-                <input
-                  type="text"
-                  className={classes.headInput}
-                  name="deliveryAddress"
-                  value={deliveryAddress}
-                  disabled={!isEditing}
-                  onChange={this.handleInputChange}
-                />
-              </div>
-            </div>
             <div className={classes.field}>
               <div className={classes.title}>Estimated Delivery Date:</div>
               <div className={classes.head}>
@@ -178,57 +181,59 @@ export class OrderDetailBody extends Component {
                   type="date"
                   className={classes.headInput}
                   name="estimatedDeliveryDate"
+                  onChange={this.handleInputChange}
+                  min={max([
+                    new Date().toISOString().split("T")[0],
+                    this.props.orderDate,
+                  ])}
                   value={estimatedDeliveryDate}
                   disabled={!isEditing}
-                  onChange={this.handleInputChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={classes.row}>
-            <div className={classes.field}>
-              <div className={classes.title}>Approved at:</div>
-              <div className={classes.head}>
-                <input
-                  type="date"
-                  className={classes.headInput}
-                  name="approvedAt"
-                  value={approvedAt}
-                  disabled={!isEditing}
-                  onChange={this.handleInputChange}
                 />
               </div>
             </div>
             <div className={classes.field}>
-              <div className={classes.title}>Accepted at:</div>
+              <div className={classes.title}>Address:</div>
               <div className={classes.head}>
                 <input
-                  type="date"
+                  type="text"
                   className={classes.headInput}
-                  name="acceptedAt"
-                  value={acceptedAt}
-                  disabled={!isEditing}
+                  name="address"
                   onChange={this.handleInputChange}
+                  value={address}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className={classes.field}>
+              <div className={classes.title}>Tax ID:</div>
+              <div className={classes.head}>
+                <input
+                  type="text"
+                  className={classes.headInput}
+                  name="taxId"
+                  onChange={this.handleInputChange}
+                  value={taxId}
+                  disabled
                 />
               </div>
             </div>
           </div>
-          <div className={classes.tableContainer} style={{ height: "390px" }}>
+          <div className={classes.tableContainer}>
             <table>
               <thead>
                 <tr>
                   <th>OD</th>
                   <th>Product name</th>
+                  <th>Unit</th>
                   <th>Amount</th>
                   <th>Price</th>
-                  <th>Unit</th>
                 </tr>
               </thead>
               <tbody>{this.renderProducts()}</tbody>
               <tfoot>
                 <tr className={classes.stickyFooter}>
                   <td
-                    colSpan="3"
+                    colSpan="4"
                     style={{
                       textAlign: "right",
                       fontWeight: "bold",
@@ -237,7 +242,7 @@ export class OrderDetailBody extends Component {
                   >
                     Total:
                   </td>
-                  <td colSpan="3">{this.calculateTotal()}</td>
+                  <td >{this.calculateTotal()}</td>
                 </tr>
               </tfoot>
             </table>
@@ -248,4 +253,4 @@ export class OrderDetailBody extends Component {
   }
 }
 
-export default OrderDetailBody;
+export default PurchaseOrderDetailBody;

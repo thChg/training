@@ -21,7 +21,21 @@ class PODetailProvider extends Component {
         return accumulator;
       }, []),
       selectedPO: null,
+      name: "",
+      vendor: "",
+      contact: "",
+      email: "",
+      taxId: "",
+      address: "",
+      estimatedDeliveryDate: "",
+      curStatus: "",
+      products: [],
+      orderDate: "",
+      approvedAt: "",
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   async componentDidMount() {
@@ -32,18 +46,44 @@ class PODetailProvider extends Component {
     }
 
     const selectedPO = purchaseOrderList.find((po) => po._id === params.id);
-    console.log(selectedPO)
+
     this.setState({
       selectedPO: selectedPO,
       name: selectedPO.name,
       vendor: selectedPO.vendor.name,
-      contact: selectedPO.vendor.contact,
+      contact: selectedPO.vendor.phone,
       email: selectedPO.vendor.email,
-      taxId: selectedPO.taxId,
-      address: selectedPO.address,
+      taxId: selectedPO.vendor.taxId,
+      address: selectedPO.vendor.address,
       estimatedDeliveryDate: selectedPO.estimatedDeliveryDate,
       curStatus: selectedPO.status,
+      products: selectedPO.products,
+      orderDate: selectedPO.orderDate,
+      approvedAt: selectedPO.approvedAt,
     });
+  }
+
+  handleEdit() {
+    this.setState((prevState) => ({
+      isEditing: !prevState.isEditing,
+    }));
+  }
+
+  handleInputChange(name, value) {
+    this.setState({ [name]: value });
+  }
+
+  handleSave() {
+    const { name, estimatedDeliveryDate, orderDate } = this.state;
+    const { params, updatePurchaseOrder } = this.props;
+    updatePurchaseOrder({
+      _id: params.id,
+      name,
+      estimatedDeliveryDate,
+      orderDate,
+    });
+
+    this.handleEdit();
   }
 
   render() {
@@ -51,6 +91,9 @@ class PODetailProvider extends Component {
       <PODetailContext.Provider
         value={{
           ...this.state,
+          handleInputChange: this.handleInputChange,
+          handleEdit: this.handleEdit,
+          handleSave: this.handleSave,
         }}
       >
         {this.props.children}

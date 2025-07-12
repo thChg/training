@@ -20,6 +20,7 @@
 .title {
   font-weight: 650;
   font-size: 1.3em;
+  padding: 5px 0px;
 }
 .utilities {
   display: flex;
@@ -77,4 +78,9 @@
 
 .inactiveState {
   background-color: white;
+}
+
+.declinedState {
+    background-color: hsl(6, 91%, 60%);
+    color: white;
 }

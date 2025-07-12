@@ -56,6 +56,7 @@ export class RoleManagementProvider extends Component {
         role: element.role,
         createdAt: formatDate(element.createdAt),
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -67,6 +68,7 @@ export class RoleManagementProvider extends Component {
           role: element.role,
           createdAt: formatDate(element.createdAt),
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

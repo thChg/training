@@ -58,6 +58,7 @@ class POApproveProvider extends Component {
         name: purchaseOrder.name,
         status: purchaseOrder.status,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -69,6 +70,7 @@ class POApproveProvider extends Component {
           name: purchaseOrder.name,
           status: purchaseOrder.status,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }
@@ -106,11 +108,11 @@ class POApproveProvider extends Component {
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchProductList(1, recordPerPage);
+    this.props.fetchPurchaseOrderList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchProductList(page, this.state.recordPerPage);
+    this.props.fetchPurchaseOrderList(page, this.state.recordPerPage);
   }
 
   handleDeleteRecords() {
@@ -173,7 +175,7 @@ class POApproveProvider extends Component {
 
   setSelectedPurchaseOrderId(purchaseOrderId) {
     this.setState({ selectedPurchaseOrderId: purchaseOrderId });
-    this.props.navigate(`/po-approve/details/${purchaseOrderId}`)
+    this.props.navigate(`/po-approve/details/${purchaseOrderId}`);
   }
 
   render() {

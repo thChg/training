@@ -58,6 +58,7 @@ class SOApproveProvider extends Component {
         name: saleOrder.name,
         status: saleOrder.status,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -69,6 +70,7 @@ class SOApproveProvider extends Component {
           name: saleOrder.name,
           status: saleOrder.status,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }
@@ -106,11 +108,11 @@ class SOApproveProvider extends Component {
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchProductList(1, recordPerPage);
+    this.props.fetchSaleOrderList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchProductList(page, this.state.recordPerPage);
+    this.props.fetchSaleOrderList(page, this.state.recordPerPage);
   }
 
   handleDeleteRecords() {

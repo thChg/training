@@ -23,7 +23,7 @@ export class SODetail extends Component {
       estimatedDeliveryDate,
       products,
       approvedAt,
-      completedAt,
+      acceptedAt,
       isEditing,
       toggleIsEditing,
       permissions,
@@ -51,7 +51,7 @@ export class SODetail extends Component {
           estimatedDeliveryDate={estimatedDeliveryDate}
           products={products}
           approvedAt={approvedAt}
-          completedAt={completedAt}
+          acceptedAt={acceptedAt}
           isEditing={isEditing}
           onInputChange={handleInputChange}
           

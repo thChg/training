@@ -57,6 +57,7 @@ export class CustomerProvider extends Component {
         phone: customer.phone,
         createdAt: formatDate(customer.createdAt),
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -71,6 +72,7 @@ export class CustomerProvider extends Component {
           phone: customer.phone,
           createdAt: formatDate(customer.createdAt),
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

@@ -1,4 +1,4 @@
-import { approvePO, fetchPurchaseOrderList } from "../../product/actions/PurchaseOrderAction";
+import { resolvePO, fetchPurchaseOrderList } from "../../product/actions/PurchaseOrderAction";
 
 export function mapStateToProps(state) {
   return {
@@ -22,6 +22,6 @@ export function mapDispatchToProps(dispatch) {
   return {
     fetchPurchaseOrderList: (page, limit) =>
       dispatch(fetchPurchaseOrderList(page, limit)),
-    approvePO: (POId) => dispatch(approvePO(POId, 1, 10)),
+    resolvePO: (data) => dispatch(resolvePO(data, 1, 10)),
   };
 }

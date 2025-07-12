@@ -32,7 +32,7 @@ class SODetailProvider extends Component {
       estimatedDeliveryDate: "",
       products: [],
       approvedAt: "",
-      completedAt: "",
+      acceptedAt: "",
       isEditing: false,
     };
 
@@ -66,7 +66,7 @@ class SODetailProvider extends Component {
       deliveryAddress: selectedSO.deliveryAddress,
       estimatedDeliveryDate: selectedSO.estimatedDeliveryDate,
       approvedAt: selectedSO.approvedAt,
-      completedAt: selectedSO.completedAt,
+      acceptedAt: selectedSO.acceptedAt,
     });
   }
 
@@ -87,7 +87,7 @@ class SODetailProvider extends Component {
       deliveryAddress,
       estimatedDeliveryDate,
       approvedAt,
-      completedAt,
+      acceptedAt,
       selectedSO,
     } = this.state;
     this.props.updateSaleOrder({
@@ -97,7 +97,7 @@ class SODetailProvider extends Component {
       deliveryAddress,
       estimatedDeliveryDate,
       approvedAt,
-      completedAt,
+      acceptedAt,
     });
     this.setState({ isEditing: false });
   }

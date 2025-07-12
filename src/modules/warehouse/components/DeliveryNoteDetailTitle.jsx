@@ -11,8 +11,7 @@ export class DeliveryNoteDetailTitle extends Component {
   }
 
   handleResolve(event) {
-    console.log(event.target.value)
-    this.props.onResolve(event.target.value);
+    this.props.onResolve(event.currentTarget.value);
   }
 
   render() {
@@ -24,7 +23,7 @@ export class DeliveryNoteDetailTitle extends Component {
       >
         <div
           className={classes.titleContainer}
-          style={{ borderBottom: "none", padding: "12px" }}
+          style={{ borderBottom: "none" }}
         >
           <div className={classes.title}>Delivery Note Detail</div>
 

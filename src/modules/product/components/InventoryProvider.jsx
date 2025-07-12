@@ -59,6 +59,7 @@ class InventoryProvider extends Component {
         import: product.importQty,
         export: product.exportQty,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -73,6 +74,7 @@ class InventoryProvider extends Component {
           import: product.importQty,
           export: product.exportQty,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

@@ -13,7 +13,7 @@ const PERMISSIONS = [
   "delete",
   "print",
   "export",
-  "approve",
+  "resolve",
 ];
 
 export class RoleFunctionContent extends Component {

@@ -69,6 +69,7 @@ class BillOfLadingProvider extends Component {
         category: product.category,
         description: product.description,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -81,6 +82,7 @@ class BillOfLadingProvider extends Component {
           category: product.category,
           description: product.description,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

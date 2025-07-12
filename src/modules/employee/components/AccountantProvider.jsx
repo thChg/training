@@ -57,6 +57,7 @@ export class AccountantProvider extends Component {
         email: record.email,
         phone: record.phone,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -71,6 +72,7 @@ export class AccountantProvider extends Component {
           phone: record.phone,
           taxId: record.taxId,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

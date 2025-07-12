@@ -1,4 +1,4 @@
-import { approveSO, fetchSaleOrderList } from "../../sales/actions/SaleOrderAction";
+import { resolveSO, fetchSaleOrderList } from "../../sales/actions/SaleOrderAction";
 
 export function mapStateToProps(state) {
   return {
@@ -22,6 +22,6 @@ export function mapDispatchToProps(dispatch) {
   return {
     fetchSaleOrderList: (page, limit) =>
       dispatch(fetchSaleOrderList(page, limit)),
-    approveSO: (SOId) => dispatch(approveSO(SOId, 1, 10)),
+    resolveSO: (data) => dispatch(resolveSO(data, 1, 10)),
   };
 }

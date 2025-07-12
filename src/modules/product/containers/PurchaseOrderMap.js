@@ -7,6 +7,7 @@ import {
   fetchPurchaseOrderList,
   importPurchaseOrderFromFile,
   printRecords,
+  updatePurchaseOrder
 } from "../actions/PurchaseOrderAction";
 
 export function mapStateToProps(state) {
@@ -44,5 +45,6 @@ export function mapDispatchToProps(dispatch) {
       dispatch(fetchPurchaseOrderData(records)),
     fetchProductList: () => dispatch(fetchProductList()),
     fetchVendorList: () => dispatch(fetchVendorList()),
+    updatePurchaseOrder: (po) => dispatch(updatePurchaseOrder(po))
   };
 }

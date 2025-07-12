@@ -70,7 +70,6 @@ class DeliveryNoteDetailProvider extends Component {
   }
 
   resolveDeliveryNote(action) {
-    console.log(action)
     const { selectedDN } = this.state;
     const { resolveDeliveryNote, navigate } = this.props;
     resolveDeliveryNote(selectedDN._id, action);

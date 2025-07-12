@@ -10,7 +10,7 @@ export const CREATE_SALE_ORDER_FAILURE = "CREATE_SALE_ORDER_FAILURE";
 export const IMPORT_SALE_ORDER_FROM_FILE_FAILURE =
   "IMPORT_SALE_ORDER_FROM_FILE_FAILURE";
 export const FETCH_SALE_ORDER_DATA_FAILURE = "FETCH_SALE_ORDER_DATA_FAILURE";
-export const APPROVE_SALE_ORDER_FAILURE = "APPROVE_SALE_ORDER_FAILURE";
+export const RESOLVE_SALE_ORDER_FAILURE = "RESOLVE_SALE_ORDER_FAILURE";
 export const UPDATE_SALE_ORDER_FAILURE = "UPDATE_SALE_ORDER_FAILURE";
 export const DELETE_SALE_ORDER_FAILURE = "DELETE_SALE_ORDER_FAILURE"
 
@@ -53,9 +53,9 @@ function importSaleOrderFromFileFailure(error) {
 function fetchSaleOrderDataFailure(error) {
   return { type: FETCH_SALE_ORDER_DATA_FAILURE, payload: error };
 }
-function approveSaleOrderFailure(error) {
+function resolveSaleOrderFailure(error) {
   return {
-    type: APPROVE_SALE_ORDER_FAILURE,
+    type: RESOLVE_SALE_ORDER_FAILURE,
     payload: error,
   };
 }
@@ -157,14 +157,14 @@ export function fetchSaleOrderData(records) {
   };
 }
 
-export function approveSO(SOId, page, limit) {
+export function resolveSO(data, page, limit) {
   return async function (dispatch) {
     try {
-      await axios.post("/product/sale-order/approve", SOId);
+      await axios.post("/product/sale-order/resolve", data);
       dispatch(fetchSaleOrderList(page, limit));
     } catch (error) {
       console.error(error);
-      dispatch(approveSaleOrderFailure(error));
+      dispatch(resolveSaleOrderFailure(error));
     }
   };
 }

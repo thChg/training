@@ -61,6 +61,7 @@ class FiscalPeriodProvider extends Component {
         closeDate: fiscalPeriod.closeDate,
         status: fiscalPeriod.status,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -73,6 +74,7 @@ class FiscalPeriodProvider extends Component {
           closeDate: fiscalPeriod.closeDate,
           status: fiscalPeriod.status,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }
@@ -105,11 +107,11 @@ class FiscalPeriodProvider extends Component {
 
   setRecordPerPage(recordPerPage) {
     this.setState({ recordPerPage, currentPage: 1 });
-    this.props.fetchProductList(1, recordPerPage);
+    this.props.fetchFiscalPeriodList(1, recordPerPage);
   }
   setCurrentPage(page) {
     this.setState({ currentPage: page });
-    this.props.fetchProductList(page, this.state.recordPerPage);
+    this.props.fetchFiscalPeriodList(page, this.state.recordPerPage);
   }
 
   handleDeleteRecords() {

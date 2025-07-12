@@ -54,6 +54,7 @@ class PurchaseOrderProvider extends Component {
         name: purchaseOrder.name,
         status: purchaseOrder.status,
       })),
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -65,6 +66,7 @@ class PurchaseOrderProvider extends Component {
           name: purchaseOrder.name,
           status: purchaseOrder.status,
         })),
+        recordLength: this.props.recordLength,
       });
     }
   }

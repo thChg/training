@@ -7,6 +7,8 @@ import {
   FETCH_PURCHASE_ORDER_LIST_SUCCESS,
   IMPORT_PURCHASE_ORDER_FROM_FILE_FAILURE,
   PRINT_RECORDS_FAILURE,
+  RESOLVE_PURCHASE_ORDER_FAILURE,
+  UPDATE_PURCHASE_ORDER_FAILURE,
 } from "../actions/PurchaseOrderAction";
 
 const initialState = {
@@ -61,6 +63,18 @@ const PurchaseOrderReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case FETCH_PURCHASE_ORDER_DATA_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_PURCHASE_ORDER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case RESOLVE_PURCHASE_ORDER_FAILURE:
       return {
         ...state,
         loading: false,

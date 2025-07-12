@@ -15,7 +15,8 @@ export const IMPORT_PURCHASE_ORDER_FROM_FILE_FAILURE =
   "IMPORT_PURCHASE_ORDER_FROM_FILE_FAILURE";
 export const FETCH_PURCHASE_ORDER_DATA_FAILURE =
   "FETCH_PURCHASE_ORDER_DATA_FAILURE";
-export const APPROVE_PURCHASE_ORDER_FAILURE = "APPROVE_PURCHASE_ORDER_FAILURE";
+export const RESOLVE_PURCHASE_ORDER_FAILURE = "RESOLVE_PURCHASE_ORDER_FAILURE";
+export const UPDATE_PURCHASE_ORDER_FAILURE = "UPDATE_PURCHASE_ORDER_FAILURE";
 
 function fetchPurchaseOrderListStart() {
   return {
@@ -56,9 +57,15 @@ function importPurchaseOrderFromFileFailure(error) {
 function fetchPurchaseOrderDataFailure(error) {
   return { type: FETCH_PURCHASE_ORDER_DATA_FAILURE, payload: error };
 }
-function approvePerchaseOrderFailure(error) {
+function resolvePurchaseOrderFailure(error) {
   return {
-    type: APPROVE_PURCHASE_ORDER_FAILURE,
+    type: RESOLVE_PURCHASE_ORDER_FAILURE,
+    payload: error,
+  };
+}
+function updatePurchaseOrderFailure(error) {
+  return {
+    type: UPDATE_PURCHASE_ORDER_FAILURE,
     payload: error,
   };
 }
@@ -151,14 +158,26 @@ export function fetchPurchaseOrderData(records) {
   };
 }
 
-export function approvePO(POId, page, limit) {
+export function resolvePO(data, page, limit) {
   return async function (dispatch) {
     try {
-      await axios.post("/product/purchase-order/approve", POId);
+      await axios.post("/product/purchase-order/resolve", data);
       dispatch(fetchPurchaseOrderList(page, limit));
     } catch (error) {
       console.error(error);
-      dispatch(approvePerchaseOrderFailure(error));
+      dispatch(resolvePurchaseOrderFailure(error));
+    }
+  };
+}
+
+export function updatePurchaseOrder(po) {
+  return async function (dispatch) {
+    try {
+      await axios.put("/product/purchase-order/update", po);
+      dispatch(fetchPurchaseOrderList(1, 10));
+    } catch (error) {
+      console.error(error);
+      dispatch(updatePurchaseOrderFailure(error));
     }
   };
 }

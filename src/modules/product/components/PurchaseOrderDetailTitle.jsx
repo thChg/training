@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import classes from "../../css/modules/components/OrderDetailTitle.module.css";
+import classes from "../../../css/modules/components/OrderDetailTitle.module.css";
 import { FaCheck, FaPen, FaTimes } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
 
-export class OrderDetailTitle extends Component {
+export class PurchaseOrderDetailTitle extends Component {
   constructor(props) {
     super(props);
 
@@ -12,9 +12,8 @@ export class OrderDetailTitle extends Component {
   }
 
   handleResolve(event) {
-    const status = event.currentTarget.value;
-
-    this.props.onResolveSO(status);
+    const action = event.currentTarget.value;
+    this.props.onResolve(action);
   }
 
   render() {
@@ -120,7 +119,7 @@ export class OrderDetailTitle extends Component {
             </div>
             <div
               className={
-                curStatus === "accepted"
+                curStatus === "completed"
                   ? classes.activeState
                   : curStatus === "declined"
                   ? classes.declinedState
@@ -133,7 +132,7 @@ export class OrderDetailTitle extends Component {
                 textAlign: "center",
               }}
             >
-              {curStatus === "declined" ? "Declined" : "Accepted"}
+              {curStatus === "declined" ? "Declined" : "Completed"}
             </div>
           </div>
         </div>
@@ -142,4 +141,4 @@ export class OrderDetailTitle extends Component {
   }
 }
 
-export default OrderDetailTitle;
+export default PurchaseOrderDetailTitle;
