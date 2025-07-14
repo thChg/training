@@ -15,7 +15,7 @@ class SaleOrderProvider extends Component {
 
     this.state = {
       title: "Sale Order Management",
-      columns: ["name", "customer", "orderDate", "status"],
+      columns: ["name", "orderDate", "customer", "email", "contact", "status"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -53,10 +53,12 @@ class SaleOrderProvider extends Component {
         _id: saleOrder._id,
         name: saleOrder.name,
         status: saleOrder.status,
-        customer: saleOrder.customer.fullname,
         orderDate: saleOrder.orderDate,
+        customer: saleOrder.customer.fullname,
+        email: saleOrder.customer.email,
+        contact: saleOrder.customer.phone,
       })),
-      recordLength: this.props.recordLength
+      recordLength: this.props.recordLength,
     });
   }
 
@@ -67,8 +69,10 @@ class SaleOrderProvider extends Component {
           _id: saleOrder._id,
           name: saleOrder.name,
           status: saleOrder.status,
-          customer: saleOrder.customer.fullname,
           orderDate: saleOrder.orderDate,
+          customer: saleOrder.customer.fullname,
+          email: saleOrder.customer.email,
+          contact: saleOrder.customer.phone,
         })),
         recordLength: this.props.recordLength,
       });
@@ -88,8 +92,10 @@ class SaleOrderProvider extends Component {
         _id: saleOrder._id,
         name: saleOrder.name,
         status: saleOrder.status,
+        orderDate: saleOrder.orderDate,
         customer: saleOrder.customer.fullname,
-        orderDate: saleOrder.orderDates,
+        email: saleOrder.customer.email,
+        contact: saleOrder.customer.phone,
       })),
     });
   }

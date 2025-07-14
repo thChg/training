@@ -9,10 +9,26 @@ export class CustomerDetailBody extends Component {
     this.renderOrders = this.renderOrders.bind(this);
   }
 
-  renderOrders() {}
+  calculateTotal(products) {
+    return products.reduce((acc, p) => acc += p.price * p.quantity, 0).toFixed(2)
+  }
+
+  renderOrders() {
+    const { saleOrders } = this.props;
+
+    return saleOrders.map((so, index) => (
+      <tr>
+        <td className={classes.tableData}>{index + 1}</td>
+        <td className={classes.tableData}>{so.name}</td>
+        <td className={classes.tableData}>{so.orderDate}</td>
+        <td className={classes.tableData}>{this.calculateTotal(so.products)}</td>
+        <td className={classes.tableData}>{so.status}</td>
+      </tr>
+    ));
+  }
 
   render() {
-    const {email, contact, name} = this.props;
+    const { email, contact, name } = this.props;
     return (
       <div>
         <div className={classes.body}>

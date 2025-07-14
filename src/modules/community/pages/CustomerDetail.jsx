@@ -12,11 +12,11 @@ export class CustomerDetail extends Component {
   }
 
   render() {
-    const { title, fullname, contact, email } = this.context;
+    const { title, fullname, contact, email, saleOrders } = this.context;
     return (
       <div>
         <DetailTitle title={title} />
-        <CustomerDetailBody name={fullname} contact={contact} email={email} />
+        <CustomerDetailBody name={fullname} contact={contact} email={email} saleOrders={saleOrders}/>
       </div>
     );
   }

@@ -52,6 +52,8 @@ import FiscalPeriodProvider from "./accounting/components/FiscalPeriodProvider";
 import FiscalPeriod from "./accounting/pages/FiscalPeriod";
 import CreateBOLProvider from "./product/components/CreateBOLProvider";
 import CreateBillOfLading from "./product/pages/CreateBillOfLading";
+import InventorySummaryProvider from "./reports/components/InventorySummaryProvider";
+import InventorySummary from "./reports/pages/InventorySummary";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -267,6 +269,14 @@ export class AppRouter extends Component {
             <FiscalPeriodProvider>
               <FiscalPeriod />
             </FiscalPeriodProvider>
+          }
+        />
+        <Route
+          path="inventory-summary"
+          element={
+            <InventorySummaryProvider>
+              <InventorySummary />
+            </InventorySummaryProvider>
           }
         />
         {/* <Route

@@ -12,7 +12,7 @@ export class VendorDetail extends Component {
   }
 
   render() {
-    const { title, name, email, address, contact, taxId } = this.context;
+    const { title, name, email, address, contact, taxId, purchaseOrders } = this.context;
     return (
       <div>
         <DetailTitle title={title} />
@@ -22,6 +22,7 @@ export class VendorDetail extends Component {
           address={address}
           contact={contact}
           taxId={taxId}
+          purchaseOrders={purchaseOrders}
         />
       </div>
     );

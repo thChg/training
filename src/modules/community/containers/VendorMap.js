@@ -1,4 +1,12 @@
-import { createVendor, deleteManyVendor, fetchVendorData, fetchVendorList, importVendorFromFile, printRecords } from "../actions/VendorAction.js";
+import { fetchPurchaseOrderList } from "../../product/actions/PurchaseOrderAction.js";
+import {
+  createVendor,
+  deleteManyVendor,
+  fetchVendorData,
+  fetchVendorList,
+  importVendorFromFile,
+  printRecords,
+} from "../actions/VendorAction.js";
 
 export function mapStateToProps(state) {
   return {
@@ -8,6 +16,9 @@ export function mapStateToProps(state) {
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
       : undefined,
+    purchaseOrderList: state.PurchaseOrderReducer
+      ? state.PurchaseOrderReducer.purchaseOrderList
+      : [],
   };
 }
 
@@ -22,5 +33,6 @@ export function mapDispatchToProp(dispatch) {
     importRecordFromFile: (file, page, limit) =>
       dispatch(importVendorFromFile(file, page, limit)),
     fetchRecordData: (records) => dispatch(fetchVendorData(records)),
+    fetchPurchaseOrderList: () => dispatch(fetchPurchaseOrderList()),
   };
 }

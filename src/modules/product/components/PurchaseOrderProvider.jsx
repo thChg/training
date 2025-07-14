@@ -15,7 +15,7 @@ class PurchaseOrderProvider extends Component {
 
     this.state = {
       title: "Purchase Order Management",
-      columns: ["name", "status"],
+      columns: ["name", "orderDate", "vendor", "email", "contact", "status"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -52,6 +52,10 @@ class PurchaseOrderProvider extends Component {
       searchResult: this.props.purchaseOrderList.map((purchaseOrder) => ({
         _id: purchaseOrder._id,
         name: purchaseOrder.name,
+        orderDate: purchaseOrder.orderDate,
+        vendor: purchaseOrder.vendor.name,
+        email: purchaseOrder.vendor.email,
+        contact: purchaseOrder.vendor.phone,
         status: purchaseOrder.status,
       })),
       recordLength: this.props.recordLength,
@@ -64,6 +68,10 @@ class PurchaseOrderProvider extends Component {
         searchResult: this.props.purchaseOrderList.map((purchaseOrder) => ({
           _id: purchaseOrder._id,
           name: purchaseOrder.name,
+          orderDate: purchaseOrder.orderDate,
+          vendor: purchaseOrder.vendor.name,
+          email: purchaseOrder.vendor.email,
+          contact: purchaseOrder.vendor.phone,
           status: purchaseOrder.status,
         })),
         recordLength: this.props.recordLength,
@@ -83,6 +91,10 @@ class PurchaseOrderProvider extends Component {
       searchResult: result.map((purchaseOrder) => ({
         _id: purchaseOrder._id,
         name: purchaseOrder.name,
+        orderDate: purchaseOrder.orderDate,
+        vendor: purchaseOrder.vendor.name,
+        email: purchaseOrder.vendor.email,
+        contact: purchaseOrder.vendor.phone,
         status: purchaseOrder.status,
       })),
     });
@@ -199,4 +211,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(PurchaseOrderProvider);
 
-export default withNavigation(connectedComponent)
+export default withNavigation(connectedComponent);

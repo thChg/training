@@ -16,6 +16,7 @@ import CustomerReducer from "./community/reducers/CustomerReducer";
 import VendorReducer from "./community/reducers/VendorReducer";
 import DeliveryNoteReducer from "./warehouse/reducers/DeliveryNoteReducer";
 import FiscalPeriodReducer from "./accounting/reducers/FiscalPeriodReducer";
+import InventorySummaryReducer from "./reports/reducers/InventorySummaryReducer";
 
 const rootReducer = combineReducers({
   AuthenticationReducer,
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   VendorReducer,
   DeliveryNoteReducer,
   FiscalPeriodReducer,
+  InventorySummaryReducer,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 export const store = createStore(

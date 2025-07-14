@@ -1,10 +1,11 @@
+import { fetchSaleOrderList } from "../../sales/actions/SaleOrderAction";
 import {
   createCustomer,
   deleteManyCustomer,
   fetchCustomerList,
   printRecords,
   importCustomerFromFile,
-  fetchCustomerData
+  fetchCustomerData,
 } from "../actions/CustomerAction";
 
 export function mapStateToProps(state) {
@@ -19,6 +20,9 @@ export function mapStateToProps(state) {
     permissions: state.AuthenticationReducer
       ? state.AuthenticationReducer.user.permissions
       : undefined,
+    saleOrderList: state.SaleOrderReducer
+      ? state.SaleOrderReducer.saleOrderList
+      : [],
   };
 }
 
@@ -34,5 +38,6 @@ export function mapDispatchToProp(dispatch) {
     importCustomerFromFile: (file, page, limit) =>
       dispatch(importCustomerFromFile(file, page, limit)),
     fetchCustomerData: (records) => dispatch(fetchCustomerData(records)),
+    fetchSaleOrderList: () => dispatch(fetchSaleOrderList()),
   };
 }

@@ -6,6 +6,7 @@ import {
   mapStateToProps,
 } from "../containers/BillOfLadingMap";
 import { withNavigation } from "../../user/functions/withNavigation";
+import { formatDate } from "../../../masterPage/utils/TimeFormat";
 
 export const BillOfLadingContext = React.createContext();
 
@@ -15,7 +16,7 @@ class BillOfLadingProvider extends Component {
 
     this.state = {
       title: "Bill Of Lading Management",
-      columns: ["name"],
+      columns: ["name", "vendor", "email", "contact", "createdAt"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -63,11 +64,13 @@ class BillOfLadingProvider extends Component {
       pendingPurchaseOrderList: this.props.purchaseOrderList.filter(
         (item) => item.status === "approved"
       ),
-      searchResult: this.props.billOfLadingList.map((product) => ({
-        _id: product._id,
-        name: product.name,
-        category: product.category,
-        description: product.description,
+      searchResult: this.props.billOfLadingList.map((bol) => ({
+        _id: bol._id,
+        name: bol.name,
+        vendor: bol.vendor.name,
+        email: bol.vendor.email,
+        contact: bol.vendor.phone,
+        createdAt: formatDate(bol.createdAt),
       })),
       recordLength: this.props.recordLength,
     });
@@ -76,11 +79,13 @@ class BillOfLadingProvider extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.billOfLadingList !== this.props.billOfLadingList) {
       this.setState({
-        searchResult: this.props.billOfLadingList.map((product) => ({
-          _id: product._id,
-          name: product.name,
-          category: product.category,
-          description: product.description,
+        searchResult: this.props.billOfLadingList.map((bol) => ({
+        _id: bol._id,
+        name: bol.name,
+        vendor: bol.vendor.name,
+        email: bol.vendor.email,
+        contact: bol.vendor.phone,
+        createdAt: formatDate(bol.createdAt),
         })),
         recordLength: this.props.recordLength,
       });
@@ -88,7 +93,7 @@ class BillOfLadingProvider extends Component {
   }
 
   handleCreate() {
-    this.props.navigate("/bill-of-ladings/create")
+    this.props.navigate("/bill-of-ladings/create");
   }
 
   handleSearch(searchTerm) {
@@ -100,11 +105,13 @@ class BillOfLadingProvider extends Component {
         )
       : billOfLadingList;
     this.setState({
-      searchResult: result.map((product) => ({
-        _id: product._id,
-        name: product.name,
-        category: product.category,
-        description: product.description,
+      searchResult: result.map((bol) => ({
+        _id: bol._id,
+        name: bol.name,
+        vendor: bol.vendor.name,
+        email: bol.vendor.email,
+        contact: bol.vendor.phone,
+        createdAt: formatDate(bol.createdAt),
       })),
     });
   }

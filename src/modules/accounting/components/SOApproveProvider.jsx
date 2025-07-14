@@ -15,7 +15,7 @@ class SOApproveProvider extends Component {
 
     this.state = {
       title: "Sale Order Management",
-      columns: ["name", "status"],
+      columns: ["name", "orderDate", "customer", "email", "contact", "status"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -39,8 +39,7 @@ class SOApproveProvider extends Component {
     this.handleDeleteRecords = this.handleDeleteRecords.bind(this);
     this.removeFromSelectedRecords = this.removeFromSelectedRecords.bind(this);
     this.printSelectedRecords = this.printSelectedRecords.bind(this);
-    this.setSelectedSaleOrderId =
-      this.setSelectedSaleOrderId.bind(this);
+    this.setSelectedSaleOrderId = this.setSelectedSaleOrderId.bind(this);
     this.setSelectedRecords = this.setSelectedRecords.bind(this);
     this.toggleCreateModalVisible = this.toggleCreateModalVisible.bind(this);
   }
@@ -57,6 +56,10 @@ class SOApproveProvider extends Component {
         _id: saleOrder._id,
         name: saleOrder.name,
         status: saleOrder.status,
+        orderDate: saleOrder.orderDate,
+        customer: saleOrder.customer.fullname,
+        email: saleOrder.customer.email,
+        contact: saleOrder.customer.phone,
       })),
       recordLength: this.props.recordLength,
     });
@@ -69,8 +72,13 @@ class SOApproveProvider extends Component {
           _id: saleOrder._id,
           name: saleOrder.name,
           status: saleOrder.status,
+          orderDate: saleOrder.orderDate,
+          customer: saleOrder.customer.fullname,
+          email: saleOrder.customer.email,
+          contact: saleOrder.customer.phone,
         })),
         recordLength: this.props.recordLength,
+
       });
     }
   }
@@ -94,6 +102,10 @@ class SOApproveProvider extends Component {
         _id: saleOrder._id,
         name: saleOrder.name,
         status: saleOrder.status,
+        orderDate: saleOrder.orderDate,
+        customer: saleOrder.customer.fullname,
+        email: saleOrder.customer.email,
+        contact: saleOrder.customer.phone,
       })),
     });
   }
@@ -175,7 +187,7 @@ class SOApproveProvider extends Component {
 
   setSelectedSaleOrderId(saleOrderId) {
     this.setState({ selectedSaleOrderId: saleOrderId });
-    this.props.navigate(`/so-approve/details/${saleOrderId}`)
+    this.props.navigate(`/so-approve/details/${saleOrderId}`);
   }
 
   render() {
