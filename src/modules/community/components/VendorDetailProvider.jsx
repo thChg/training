@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProp } from "../containers/VendorMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const VendorDetailContext = React.createContext();
 
@@ -69,4 +69,4 @@ const connectedComponent = connect(
   mapDispatchToProp
 )(VendorDetailProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

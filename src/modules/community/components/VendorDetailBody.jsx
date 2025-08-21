@@ -17,7 +17,6 @@ export class VendorDetailBody extends Component {
 
   renderOrders() {
     const { purchaseOrders } = this.props;
-    console.log(purchaseOrders)
     return purchaseOrders.map((po, index) => (
       <tr>
         <td className={classes.tableData}>{index + 1}</td>

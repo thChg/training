@@ -4,7 +4,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/InventorySummaryMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const InventorySummaryContext = React.createContext();
 
@@ -24,7 +24,7 @@ class InventorySummaryProvider extends Component {
       recordLength: this.props.recordLength,
       recordPerPage: 10,
       currentPage: 1,
-      searchResult: []
+      searchResult: [],
     };
 
     this.setRecordPerPage = this.setRecordPerPage.bind(this);
@@ -98,4 +98,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(InventorySummaryProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

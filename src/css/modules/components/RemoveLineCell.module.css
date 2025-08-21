@@ -1,0 +1,26 @@
+.container {
+  width: 27px;
+  padding: 5px;
+  background-color: hsl(204, 72%, 50%);
+  border-radius: 3px;
+  cursor: pointer;
+  margin: auto;
+}
+
+.icon {
+  color: white;
+  margin: auto;
+}
+
+.container:hover {
+  background-color: hsl(204, 72%, 40%);
+}
+
+.disabledContainer {
+  width: 27px;
+  height: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: hsla(204, 72%, 40%, 0.5);
+  margin: auto;
+}

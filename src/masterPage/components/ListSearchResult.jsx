@@ -4,16 +4,14 @@ export class ListSearchResult extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      OD: this.props.recordPerPage * (this.props.currentPage - 1) + 1,
-    };
+    this.state = {};
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSelectRecord = this.handleSelectRecord.bind(this);
     this.isHeaderChecked = this.isHeaderChecked.bind(this);
   }
-
-  handleClick(event) { 
+  // co the bo, tuong tac truc tiep voi state
+  handleClick(event) {
     this.props.onSelect(event.currentTarget.dataset.id);
   }
 

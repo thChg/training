@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 import { mapDispatchToProps, mapStateToProps } from "../containers/ProductMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
 
 export const ProductContext = React.createContext();
@@ -205,4 +205,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(ProductProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

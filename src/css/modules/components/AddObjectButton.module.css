@@ -1,0 +1,36 @@
+.container {
+  background-color: hsl(204, 72%, 50%);
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+
+.disabled {
+  background-color: hsl(203, 56%, 76%);
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+
+.container:hover {
+  background-color: hsl(204, 72%, 40%);
+}
+
+.icon {
+  width: 17px;
+  height: 17px;
+  font-weight: bolder;
+}

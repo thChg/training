@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
 } from "../containers/DeliveryNoteMap";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 // import { exportDeliveryNoteToExcel } from "../functions/exportDeliveryNoteToExcel.js";
 
 export const DeliveryNoteContext = React.createContext();
@@ -223,4 +223,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(DeliveryNoteProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

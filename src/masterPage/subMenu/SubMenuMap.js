@@ -1,6 +1,6 @@
 export function mapStateToProps(state) {
   return {
-    access: state.AuthenticationReducer ? state.AuthenticationReducer.user.access : [],
+    userData: state.AuthenticationReducer ? state.AuthenticationReducer.user : [],
   };
 }
 export function mapDispatchToProps(dispatch) {

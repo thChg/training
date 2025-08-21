@@ -4,7 +4,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/POApproveMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 
 export const POApproveDetailContext = React.createContext();
@@ -69,7 +69,7 @@ class POApproveDetailProvider extends Component {
     if (curStatus !== "pending") {
       return;
     }
-    console.log(status);
+
     this.props.resolvePO({ POId: id, status });
     this.props.navigate("/po-approve");
   }
@@ -92,4 +92,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(POApproveDetailProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

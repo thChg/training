@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/BillOfLadingMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const CreateBOLContext = React.createContext();
 
@@ -58,11 +58,11 @@ class CreateBOLProvider extends Component {
 
   createBillOfLading(billOfLading) {
     this.props.createBillOfLading(billOfLading);
-    this.props.navigate("/bill-of-ladings")
+    this.props.navigate("/bill-of-ladings");
   }
 
   handleCancel() {
-    this.props.navigate("/bill-of-ladings")
+    this.props.navigate("/bill-of-ladings");
   }
 
   render() {
@@ -71,7 +71,7 @@ class CreateBOLProvider extends Component {
         value={{
           ...this.state,
           createBillOfLading: this.createBillOfLading,
-          handleCancel: this.handleCancel
+          handleCancel: this.handleCancel,
         }}
       >
         {this.props.children}
@@ -85,4 +85,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(CreateBOLProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

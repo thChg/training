@@ -1,0 +1,31 @@
+
+.field {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding-left: 20px;
+}
+.label {
+  display: block;
+  font-weight: 500;
+  padding-left: 1px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.container {
+  width: 100%;
+  position: relative;
+}
+
+.requiredStar {
+  color: red;
+  margin-left: 2px;
+}
+
+.currency {
+  position: absolute;
+  bottom: 9px;
+  left: 11px;
+  font-size: smaller;
+}

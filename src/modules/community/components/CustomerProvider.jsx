@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { mapDispatchToProp, mapStateToProps } from "../containers/CustomerMap";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
 import { exportCustomerToExcel } from "../functions/exportCustomerToExcel";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const CustomerContext = React.createContext();
 
@@ -178,7 +178,7 @@ export class CustomerProvider extends Component {
   }
 
   handleSelect(id) {
-      this.props.navigate(`/customers/details/${id}`)
+    this.props.navigate(`/customers/details/${id}`);
   }
 
   render() {
@@ -209,4 +209,4 @@ const connectedComponent = connect(
   mapDispatchToProp
 )(CustomerProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

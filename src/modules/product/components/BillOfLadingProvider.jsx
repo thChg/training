@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/BillOfLadingMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
 
 export const BillOfLadingContext = React.createContext();
@@ -80,12 +80,12 @@ class BillOfLadingProvider extends Component {
     if (prevProps.billOfLadingList !== this.props.billOfLadingList) {
       this.setState({
         searchResult: this.props.billOfLadingList.map((bol) => ({
-        _id: bol._id,
-        name: bol.name,
-        vendor: bol.vendor.name,
-        email: bol.vendor.email,
-        contact: bol.vendor.phone,
-        createdAt: formatDate(bol.createdAt),
+          _id: bol._id,
+          name: bol.name,
+          vendor: bol.vendor.name,
+          email: bol.vendor.email,
+          contact: bol.vendor.phone,
+          createdAt: formatDate(bol.createdAt),
         })),
         recordLength: this.props.recordLength,
       });
@@ -226,4 +226,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(BillOfLadingProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

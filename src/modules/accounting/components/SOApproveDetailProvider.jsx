@@ -4,7 +4,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/SOApproveMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 
 export const SOApproveDetailContext = React.createContext();
@@ -60,7 +60,7 @@ class SOApproveDetailProvider extends Component {
       deliveryAddress: saleOrder.deliveryAddress,
       approvedAt: saleOrder.approvedAt,
       acceptedAt: saleOrder.acceptedAt,
-      products: saleOrder.products
+      products: saleOrder.products,
     });
   }
 
@@ -93,4 +93,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SOApproveDetailProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

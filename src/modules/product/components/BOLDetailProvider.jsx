@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/BillOfLadingMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 import { uniqBy } from "lodash";
 
 export const BOLDetailContext = React.createContext();
@@ -23,7 +23,7 @@ class BOLDetailProvider extends Component {
       address: "",
       taxId: "",
       purchaseOrders: [],
-      products: []
+      products: [],
     };
   }
 
@@ -37,7 +37,9 @@ class BOLDetailProvider extends Component {
     const { id } = this.props.params;
     const bol = this.props.billOfLadingList.find((bol) => bol._id === id);
 
-    const uniquePO = uniqBy(bol.products, p => p.purchaseOrder._id).map(p => p.purchaseOrder)
+    const uniquePO = uniqBy(bol.products, (p) => p.purchaseOrder._id).map(
+      (p) => p.purchaseOrder
+    );
     this.setState({
       name: bol.name,
       vendor: bol.vendor.name,
@@ -46,7 +48,7 @@ class BOLDetailProvider extends Component {
       address: bol.vendor.address,
       taxId: bol.vendor.taxId,
       purchaseOrders: uniquePO,
-      products: bol.products
+      products: bol.products,
     });
   }
 
@@ -67,4 +69,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(BOLDetailProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

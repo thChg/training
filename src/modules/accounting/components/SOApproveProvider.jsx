@@ -4,7 +4,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/SOApproveMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 
 export const SOApproveContext = React.createContext();
@@ -78,7 +78,6 @@ class SOApproveProvider extends Component {
           contact: saleOrder.customer.phone,
         })),
         recordLength: this.props.recordLength,
-
       });
     }
   }
@@ -217,4 +216,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SOApproveProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

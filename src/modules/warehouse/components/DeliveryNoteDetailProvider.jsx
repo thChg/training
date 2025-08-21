@@ -4,7 +4,7 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from "../containers/DeliveryNoteMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const DeliveryNoteDetailContext = React.createContext();
 
@@ -93,4 +93,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(DeliveryNoteDetailProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

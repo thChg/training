@@ -2,17 +2,64 @@
   text-align: center;
 }
 
-.accessAndPermissions {
-  width: calc(100% - 20px);
+.container {
+  padding: 10px;
+}
+
+.tableContainer {
+  height: 400px;
+  background-color: #f8f8f8;
+  overflow-y: scroll;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .table {
   width: 100%;
   box-sizing: border-box;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-radius: 5px;
 }
 
 .checkbox {
   transform: scale(1.2);
   cursor: pointer;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+.field {
+  flex: 1;
+}
+.headInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-weight: 500;
+  padding-left: 1px;
+  font-weight: bold;
+}
+.btn {
+  background-color: hsl(204, 72%, 50%);
+  border: none;
+  padding: 7px 9px;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

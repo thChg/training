@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProp } from "../containers/VendorMap";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
 import { exportVendorToExcel } from "../functions/exportVendorToExcel.js";
-import { withNavigation } from "../../user/functions/withNavigation.js";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const VendorContext = React.createContext();
 
@@ -195,7 +195,7 @@ export class VendorProvider extends Component {
           printSelectedRecords: this.printSelectedRecords,
           setSelectedRecords: this.setSelectedRecords,
           toggleCreateModalVisible: this.toggleCreateModalVisible,
-          handleSelect: this.handleSelect
+          handleSelect: this.handleSelect,
         }}
       >
         {this.props.children}
@@ -209,4 +209,4 @@ const connectedComponent = connect(
   mapDispatchToProp
 )(VendorProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

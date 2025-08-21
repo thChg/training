@@ -15,8 +15,7 @@ export class ListTitle extends Component {
   }
 
   render() {
-    const { title, permissions, selectedRecords, onCreate, exportToExcel } =
-      this.props;
+    const { title, selectedRecords, onCreate, exportToExcel } = this.props;
     return (
       <div className={classes.container}>
         <div className={classes.title}>{title}</div>
@@ -31,24 +30,19 @@ export class ListTitle extends Component {
               className={classes.searchIcon}
             ></PiMagnifyingGlass>
           </div>
-          {permissions.includes(`create`) && (
-            <button className={classes.btn} onClick={onCreate}>
-              <FaPlus className={classes.icon}></FaPlus>
-            </button>
-          )}
-          {permissions.includes(`export`) && (
-            <button
-              className={
-                selectedRecords.length === 0 ? classes.disabled : classes.btn
-              }
-              onClick={exportToExcel}
-            >
-              <HiDocument
-                className={classes.icon}
-                strokeWidth={2.5}
-              ></HiDocument>
-            </button>
-          )}
+
+          <button className={classes.btn} onClick={onCreate}>
+            <FaPlus className={classes.icon}></FaPlus>
+          </button>
+
+          <button
+            className={
+              selectedRecords.length === 0 ? classes.disabled : classes.btn
+            }
+            onClick={exportToExcel}
+          >
+            <HiDocument className={classes.icon} strokeWidth={2.5}></HiDocument>
+          </button>
         </div>
       </div>
     );

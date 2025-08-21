@@ -1,18 +1,68 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+thead tr {
+  position: sticky;
+  top: 0px;
+  background-color: #f9f8fc;
+}
+
+table {
+  border-radius: 5px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+tbody {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+table th {
+  /* Apply both top and bottom borders to the <th> */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  background-color: #f9f8fc;
+}
+
+table td {
+  /* For cells, apply the border to one of each side only (right but not left, bottom but not top) */
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+table th:first-child,
+table td:first-child {
+  /* Apply a left border on the first <td> or <th> in a row */
+  border-left: 1px solid #ddd;
 }

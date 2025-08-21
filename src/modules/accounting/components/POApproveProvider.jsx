@@ -4,7 +4,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/POApproveMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 
 export const POApproveContext = React.createContext();
@@ -15,7 +15,7 @@ class POApproveProvider extends Component {
 
     this.state = {
       title: "Purchase Order Management",
-      columns: ["name", "orderDate", "vendor", "email", "contact" , "status"],
+      columns: ["name", "orderDate", "vendor", "email", "contact", "status"],
       loading: this.props.loading,
       searchResult: [],
       permissions: this.props.permissions.reduce((accumulator, permission) => {
@@ -217,4 +217,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(POApproveProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

@@ -1,0 +1,39 @@
+.container {
+  padding: 5px 0px;
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  border-radius: 5px;
+  padding: 10px;
+  padding-right: 30px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.icon {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  pointer-events: none;
+}
+
+.dropdown {
+  position: absolute;
+  top: -15px;
+  font-size: 0.85em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 180px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+
+.dropdownElement {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+}

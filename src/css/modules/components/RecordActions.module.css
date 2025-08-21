@@ -1,0 +1,44 @@
+.actionDropDown {
+  position: absolute;
+  border: 1px solid #dcdcdc;
+  width: 150px;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.actionDropDown > button {
+  padding: 5px 8px;
+  border: none;
+  background-color: #fff;
+  border-bottom: 1px solid #dcdcdc;
+  cursor: pointer;
+}
+
+.actionDropDown > button:hover {
+  background-color: #f0f0f0;
+}
+
+.disabled {
+  display: none;
+}
+
+.actionContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  font-size: 0.8rem;
+}
+
+.actions {
+  border: 1px solid #e1e5e6;
+  background-color: white;
+  width: 150px;
+  padding: 6px 7px;
+  border-radius: 3px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}

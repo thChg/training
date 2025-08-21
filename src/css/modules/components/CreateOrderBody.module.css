@@ -18,7 +18,8 @@
   font-weight: bold;
 }
 
-.headInput, .headSelect {
+.headInput,
+.headSelect {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -48,7 +49,7 @@
   cursor: pointer;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  border-collapse: collapse;
+  border-collapse: separate;
 }
 
 .createBtn {
@@ -112,9 +113,8 @@
 }
 .body table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
   overflow-y: scroll;
-  
 }
 
 .tableContainer td {
@@ -131,7 +131,7 @@
   background-color: hsl(204, 72%, 50%);
   color: white;
   box-sizing: border-box;
-  border-collapse: collapse;
+  border-collapse: separate;
 }
 
 .stickyFooter {

@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/PurchaseOrderMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const PODetailContext = React.createContext();
 
@@ -106,4 +106,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(PODetailProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

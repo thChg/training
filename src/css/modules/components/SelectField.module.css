@@ -1,0 +1,23 @@
+.label {
+  display: block;
+  font-weight: 500;
+  padding-left: 1px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+.select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.container {
+  width: 100%;
+    position: relative;
+}
+
+
+.requiredStar {
+  color: red;
+  margin-left: 2px;
+}

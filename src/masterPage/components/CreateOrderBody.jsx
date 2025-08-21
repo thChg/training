@@ -47,7 +47,7 @@ export class CreateOrderBody extends Component {
     const { name, value } = event.target;
     const id = event.currentTarget.dataset.id;
     const { customerList } = this.props;
-    console.log(name, value);
+
     if (!id) {
       this.setState({ [name]: value });
       if (name === "customer") {
@@ -221,7 +221,7 @@ export class CreateOrderBody extends Component {
   render() {
     const { customerList } = this.props;
     const { contact, email } = this.state;
-    console.log(this.state);
+
     return (
       <div>
         <div className={classes.body}>

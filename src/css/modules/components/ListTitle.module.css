@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid hsl(0, 0%, 70%);
+  border-bottom: 1px solid #b3b3b3;
   background-color: #f8f8f8;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;

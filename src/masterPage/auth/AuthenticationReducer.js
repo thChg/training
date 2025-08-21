@@ -1,4 +1,7 @@
+import { HTTP_METHOD } from "../../constants/httpMethod";
 import axios from "../../masterPage/utils/AxiosInstance";
+import { sendRequest } from "../utils/CommonHelper";
+
 import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
@@ -50,8 +53,8 @@ export function handleLogin(user) {
   return async (dispatch) => {
     dispatch(loginRequest());
     try {
-      await axios.post("http://localhost:5050/auth/login", user);
-      const response = await axios.get("http://localhost:5050/user/me");
+      await sendRequest(HTTP_METHOD.POST, "/system/auth/login", user);
+      const response = await sendRequest(HTTP_METHOD.GET, "/system/user/me");
       dispatch(loginSuccess(response.data));
     } catch (error) {
       dispatch(loginFailure(error.message));
@@ -62,7 +65,7 @@ export function handleLogin(user) {
 export function fetchUser() {
   return async (dispatch) => {
     try {
-      const response = await axios.get("http://localhost:5050/user/me");
+      const response = await sendRequest(HTTP_METHOD.GET, "/system/user/me");
       dispatch(loginSuccess(response.data));
     } catch (error) {
       dispatch(loginFailure(error.message));
@@ -73,7 +76,7 @@ export function fetchUser() {
 export function handleLogout() {
   return async (dispatch) => {
     try {
-      await axios.post("http://localhost:5050/auth/logout");
+      await sendRequest(HTTP_METHOD.POST, "/system/auth/log-out");
       dispatch(logout());
     } catch (error) {
       console.error("Logout failed", error);

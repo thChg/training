@@ -1,4 +1,4 @@
-import { fetchUser, handleLogin, handleLogout } from "./AuthenticationReducer";
+import { handleLogin, handleLogout } from "./AuthenticationReducer";
 
 export function mapStateToProps(state) {
   return {
@@ -12,6 +12,5 @@ export function mapDispatchToProps(dispatch) {
   return {
     handleLogin: (user) => dispatch(handleLogin(user)),
     handleLogout: () => dispatch(handleLogout()),
-    fetchUser: () => dispatch(fetchUser()),
   };
 }

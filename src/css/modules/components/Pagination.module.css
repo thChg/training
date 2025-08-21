@@ -1,0 +1,88 @@
+.pagination {
+  position: relative;
+  display: flex;
+  background-color: #fff;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  margin: 10px 0px;
+}
+
+.pagination > button {
+  padding: 5px 8px;
+  border: none;
+  border-right: 1px solid #dcdcdc;
+  cursor: pointer;
+  height: 100%;
+}
+
+.pagination > button:hover {
+  background-color: #f0f0f0;
+}
+.pagination .inactive {
+  background-color: #fff;
+}
+
+.pagination .dot {
+  padding: 0px;
+  height: 100%;
+  flex: 1;
+  border-right: 1px solid #dcdcdc;
+}
+.pagination input {
+  width: 40px;
+  height: auto;
+  font-size: 0.9rem;
+  border: none;
+  background: transparent;
+  text-align: center;
+  padding: 5px 8px;
+}
+
+.pagination input:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .active {
+  background-color: #f4f4f4;
+}
+
+.pagination .recordPerPage {
+  font-size: 0.8rem;
+  padding: 6px 7px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  height: 100%;
+}
+
+.pagination .recordPerPage:hover {
+  background-color: #f0f0f0;
+}
+
+.dropDown {
+  position: absolute;
+  top: -107px;
+  right: -1px;
+  display: flex;
+  flex-direction: column;
+  width: 155px;
+  border: 1px solid #dcdcdc;
+  border-bottom: none;
+}
+
+.disabled {
+    display: none;
+}
+
+.dropDown > button {
+  padding: 5px 8px;
+  border: none;
+  background-color: #fff;
+  border-bottom: 1px solid #dcdcdc;
+  cursor: pointer;
+}
+
+.dropDown > button:hover {
+  background-color: #f0f0f0;
+}

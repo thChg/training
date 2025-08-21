@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/PurchaseOrderMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const CreatePOContext = React.createContext();
 
@@ -32,7 +32,7 @@ class CreatePOProvider extends Component {
     if (vendorList.length <= 0) {
       fetchVendorList();
     }
-    console.log(this.props.state)
+
     this.setState({
       productList: this.props.productList,
       vendorList: this.props.vendorList,
@@ -40,11 +40,14 @@ class CreatePOProvider extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.productList !== this.props.productList || prevProps.vendorList !== this.props.vendorList) {
+    if (
+      prevProps.productList !== this.props.productList ||
+      prevProps.vendorList !== this.props.vendorList
+    ) {
       this.setState({
         productList: this.props.productList,
         vendorList: this.props.vendorList,
-      })
+      });
     }
   }
 
@@ -52,7 +55,12 @@ class CreatePOProvider extends Component {
     const { createPurchaseOrder, productList, vendorList } = this.props;
     const enrichedProductItems = data.productItems.map((item) => {
       const prod = productList.find((product) => product._id === item.product);
-      return { ...prod, quantity: item.quantity, status: "pending", price: item.price };
+      return {
+        ...prod,
+        quantity: item.quantity,
+        status: "pending",
+        price: item.price,
+      };
     });
     const enrichedVendor = vendorList.find(
       (vendor) => vendor._id === data.vendor
@@ -91,4 +99,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(CreatePOProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

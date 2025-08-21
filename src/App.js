@@ -19,7 +19,6 @@ export class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
-
   render() {
     return this.props.user ? (
       <div className={classes.container}>

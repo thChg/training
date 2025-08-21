@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 import { mapDispatchToProps, mapStateToProps } from "../containers/ProductMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/utils/NavigationWrapper";
 import { formatDate } from "../../../masterPage/utils/TimeFormat";
 
 export const ProductContext = React.createContext();
@@ -14,21 +14,19 @@ class ProductProvider extends Component {
     this.state = {
       title: "Purchase Order Detail",
     };
-    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleInputChange(name, value) {
-    this.setState({[name]: value})
+    this.setState({ [name]: value });
   }
-
-  
 
   render() {
     return (
       <ProductContext.Provider
         value={{
           ...this.state,
-          handleInputChange: this.handleInputChange
+          handleInputChange: this.handleInputChange,
         }}
       >
         {this.props.children}
@@ -42,4 +40,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(ProductProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

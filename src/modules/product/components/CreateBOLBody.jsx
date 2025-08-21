@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classes from "../../../css/modules/components/CreateOrderBody.module.css";
 import { FaPlus } from "react-icons/fa";
 import { flatten, isEqual } from "lodash";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export class CreateBOLBody extends Component {
   constructor(props) {
@@ -447,4 +447,4 @@ export class CreateBOLBody extends Component {
   }
 }
 
-export default withNavigation(CreateBOLBody);
+export default NavigationWrapper(CreateBOLBody);

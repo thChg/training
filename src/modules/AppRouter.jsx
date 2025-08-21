@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import UserManagement from "./user/pages/UserManagement";
-import RoleManagement from "./user/pages/RoleManagement";
-import UserManagementProvider from "./user/components/UserManagementProvider";
-import RoleManagementProvider from "./user/components/RoleManagementProvider";
-import RoleInfo from "./user/pages/RoleInfo";
-import RoleInfoProvider from "./user/components/RoleInfoProvider";
+import RoleList from "./system/containers/RoleListContainer";
+import RoleForm from "./system/containers/RoleFormContainer";
 import PurchaseOrder from "./product/pages/PurchaseOrder";
 import InventoryProvider from "./product/components/InventoryProvider";
 import Inventory from "./product/pages/Inventory";
@@ -54,6 +50,28 @@ import CreateBOLProvider from "./product/components/CreateBOLProvider";
 import CreateBillOfLading from "./product/pages/CreateBillOfLading";
 import InventorySummaryProvider from "./reports/components/InventorySummaryProvider";
 import InventorySummary from "./reports/pages/InventorySummary";
+import ModuleList from "./system/containers/ModuleListContainer";
+import ModuleForm from "./system/containers/ModuleFormContainer";
+import FunctionList from "./system/containers/FunctionListContainer";
+import FunctionForm from "./system/containers/FunctionFormContainer";
+import UserList from "./system/containers/UserListContainer";
+import UserForm from "./system/containers/UserFormContainer";
+import PositionList from "./humanResource/containers/PositionListContainer";
+import PositionForm from "./humanResource/containers/PositionFormContainer";
+import DepartmentList from "./humanResource/containers/DepartmentListContainer";
+import DepartmentForm from "./humanResource/containers/DepartmentFormContainer";
+import TitleList from "./humanResource/containers/TitleListContainer";
+import TitleForm from "./humanResource/containers/TitleFormContainer";
+import CompanyForm from "./humanResource/containers/CompanyFormContainer";
+import CompanyList from "./humanResource/containers/CompanyListContainer";
+import EmployeeList from "./humanResource/containers/EmployeeListContainer";
+import EmployeeForm from "./humanResource/containers/EmployeeFormContainer";
+import ResourceList from "./system/containers/ResourceListContainer";
+import ResourceForm from "./system/containers/ResourceFormContainer";
+import PolicyList from "./system/containers/PolicyListContainer";
+import PolicyForm from "./system/containers/PolicyFormContainer";
+import AccessList from "./system/containers/AccessListContainer";
+import AccessForm from "./system/containers/AccessFormContainer";
 
 export class AppRouter extends Component {
   constructor(props) {
@@ -63,39 +81,45 @@ export class AppRouter extends Component {
   render() {
     return (
       <Routes>
-        <Route
+        {/* <Route
           path="products"
           element={
             <ProductProvider>
               <Product />
             </ProductProvider>
           }
-        />
+        /> */}
+        <Route path="system/user" element={<UserList />} />
+        <Route path="system/role" element={<RoleList />} />
+        <Route path="system/role/:id" element={<RoleForm />} />
+        <Route path="system/module" element={<ModuleList />} />
+        <Route path="system/module/:id" element={<ModuleForm />} />
+        <Route path="system/function" element={<FunctionList />} />
+        <Route path="system/function/:id" element={<FunctionForm />} />
+        <Route path="system/user" element={<UserList />} />
+        <Route path="system/user/:id" element={<UserForm />} />
+        <Route path="system/resource" element={<ResourceList />} />
+        <Route path="system/resource/:id" element={<ResourceForm />} />
+        <Route path="system/policy" element={<PolicyList />} />
+        <Route path="system/policy/:id" element={<PolicyForm />} />
+        <Route path="system/access" element={<AccessList />} />
+        <Route path="system/access/:id" element={<AccessForm />} />
+
+        <Route path="human-resource/position" element={<PositionList />} />
+        <Route path="human-resource/position/:id" element={<PositionForm />} />
+        <Route path="human-resource/department" element={<DepartmentList />} />
         <Route
-          path="user-management"
-          element={
-            <UserManagementProvider>
-              <UserManagement />
-            </UserManagementProvider>
-          }
+          path="human-resource/department/:id"
+          element={<DepartmentForm />}
         />
-        <Route
-          path="role-management"
-          element={
-            <RoleManagementProvider>
-              <RoleManagement />
-            </RoleManagementProvider>
-          }
-        />
-        <Route
-          path="role-management/detail"
-          element={
-            <RoleInfoProvider>
-              <RoleInfo />
-            </RoleInfoProvider>
-          }
-        />
-        <Route
+        <Route path="human-resource/title" element={<TitleList />} />
+        <Route path="human-resource/title/:id" element={<TitleForm />} />
+        <Route path="human-resource/company" element={<CompanyList />} />
+        <Route path="human-resource/company/:id" element={<CompanyForm />} />
+        <Route path="human-resource/employee" element={<EmployeeList />} />
+        <Route path="human-resource/employee/:id" element={<EmployeeForm />} />
+
+        {/* <Route
           path="inventory"
           element={
             <InventoryProvider>
@@ -278,7 +302,7 @@ export class AppRouter extends Component {
               <InventorySummary />
             </InventorySummaryProvider>
           }
-        />
+        /> */}
         {/* <Route
           path="inventory-manager"
           element={

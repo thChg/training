@@ -57,11 +57,7 @@ export class Authentication extends Component {
               onChange={this.handlePasswordChange}
             />
           </div>
-          <button
-            type="submit"
-            className={classes.loginButton}
-            onClick={this.handleSubmit}
-          >
+          <button type="submit" className={classes.loginButton} onClick={this.handleSubmit}>
             Login
           </button>
         </div>

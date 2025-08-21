@@ -12,14 +12,14 @@ export class LeftMenuButton extends Component {
   }
   onClick() {
     const { name } = this.props;
-    this.context.handlePageChange(name);
+    this.context.handleSelectModule(name);
   }
 
   render() {
     const { name } = this.props;
-    const { currentPage } = this.context;
+    const { currentModule } = this.context;
     return (
-      <div className={currentPage === name ? classes.container_active : classes.container} onClick={this.onClick}>
+      <div className={currentModule === name ? classes.container_active : classes.container} onClick={this.onClick}>
         {name}
       </div>
     );

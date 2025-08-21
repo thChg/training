@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/SaleOrderMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const SaleOrderContext = React.createContext();
 
@@ -211,4 +211,4 @@ const connectedComponent = connect(
   mapDispatchToProps
 )(SaleOrderProvider);
 
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

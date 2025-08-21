@@ -1,10 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { thunk } from "redux-thunk";
 import AuthenticationReducer from "../masterPage/auth/AuthenticationReducer";
-import UserManagementReducer from "./user/reducers/UserManagementReducer";
-import RoleManagementReducer from "./user/reducers/RoleManagementReducer";
-import AccessManagementReducer from "./user/reducers/AccessManagementReducer";
-import { RoleInfoReducer } from "./user/reducers/RoleInfoReducer";
+import UserReducer from "./system/reducers/UserReducer";
+import RoleReducer from "./system/reducers/RoleReducer";
+import AccessManagementReducer from "./system/reducers/AccessManagementReducer";
+import { RoleInfoReducer } from "./system/reducers/RoleInfoReducer";
 import InventoryReducer from "./product/reducers/InventoryReducer";
 import PurchaseOrderReducer from "./product/reducers/PurchaseOrderReducer";
 import POApproveReducer from "./accounting/reducers/POApproveReducer";
@@ -17,11 +17,33 @@ import VendorReducer from "./community/reducers/VendorReducer";
 import DeliveryNoteReducer from "./warehouse/reducers/DeliveryNoteReducer";
 import FiscalPeriodReducer from "./accounting/reducers/FiscalPeriodReducer";
 import InventorySummaryReducer from "./reports/reducers/InventorySummaryReducer";
+import FunctionReducer from "./system/reducers/FunctionReducer";
+import ModuleReducer from "./system/reducers/ModuleReducer";
+import PositionReducer from "./humanResource/reducers/PositionReducer";
+import DepartmentReducer from "./humanResource/reducers/DepartmentReducer";
+import TitleReducer from "./humanResource/reducers/TitleReducer";
+import CompanyReducer from "./humanResource/reducers/CompanyReducer";
+import EmployeeReducer from "./humanResource/reducers/EmployeeReducer";
+import ResourceReducer from "./system/reducers/ResourceReducer";
+import PolicyReducer from "./system/reducers/PolicyReducer";
+import AccessReducer from "./system/reducers/AccessReducer";
 
 const rootReducer = combineReducers({
   AuthenticationReducer,
-  UserManagementReducer,
-  RoleManagementReducer,
+  UserReducer,
+  RoleReducer,
+  FunctionReducer,
+  ModuleReducer,
+  ResourceReducer,
+  PolicyReducer,
+  AccessReducer,
+
+  PositionReducer,
+  DepartmentReducer,
+  TitleReducer,
+  CompanyReducer,
+  EmployeeReducer,
+
   AccessManagementReducer,
   RoleInfoReducer,
   InventoryReducer,

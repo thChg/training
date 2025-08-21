@@ -4,7 +4,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/FiscalPeriodMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 // import { exportProductToExcel } from "../functions/exportProductToExcel";
 
 export const FiscalPeriodContext = React.createContext();
@@ -230,4 +230,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(FiscalPeriodProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);

@@ -5,7 +5,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "../containers/SaleOrderMap";
-import { withNavigation } from "../../user/functions/withNavigation";
+import { NavigationWrapper } from "../../../masterPage/components/NavigationWrapper";
 
 export const SODetailContext = React.createContext();
 
@@ -39,7 +39,7 @@ class SODetailProvider extends Component {
     this.toggleIsEditing = this.toggleIsEditing.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleDelete = this.handleDelete.bind(this)
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   async componentDidMount() {
@@ -104,9 +104,9 @@ class SODetailProvider extends Component {
 
   handleDelete() {
     const { selectedSO } = this.state;
-    const {deleteSaleOrder, navigate} = this.props;
+    const { deleteSaleOrder, navigate } = this.props;
     deleteSaleOrder(selectedSO._id);
-    navigate("/sale-orders")
+    navigate("/sale-orders");
   }
 
   render() {
@@ -130,4 +130,4 @@ const connectedComponent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SODetailProvider);
-export default withNavigation(connectedComponent);
+export default NavigationWrapper(connectedComponent);
